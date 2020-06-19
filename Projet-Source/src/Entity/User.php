@@ -28,7 +28,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Regex(
-     *     pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/i",
+     *     pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/",
      *     message="Veuillez respectez le format donné"
      * )
      */
@@ -46,6 +46,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Type(
+     *     type="numeric",
+     *     message="Le Numéro {{ value }} Est Invalide !"
+     * )
      */
     private $telephone;
 

@@ -13,6 +13,7 @@
         <div class="widget">
             <header class="widget-header">
                 <h4 class="widget-title">Default DataTable</h4>
+                <a href="{{ path('createUser') }}"><h4>Ajouter un Utilisateur</h4></a>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
             <div class="widget-body">
@@ -45,38 +46,4 @@
             </div><!-- .widget-body -->
         </div><!-- .widget -->
     </div><!-- END column -->
-    <script>
-        $(document).ready(function(){
-            $("#etat").change(function(e){
-                e.preventDefault();
-                $.post(
-                    'dbConnexion.php',
-                    {
-                        etat : $('#etat').checked(),
-                    },
-                    function(data){
-                        if(data ==false){
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'danger',
-                                title: 'BNJOUR',
-                                showConfirmButton: false,
-                                time:1000
-                            })
-                        }
-                        if(data==true){
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'BNJOUR',
-                                showConfirmButton: false,
-                                time:1000
-                            })
-                        }
-                    },
-                    'text'
-                );
-            });
-        });
-    </script>
 {% endblock %}
