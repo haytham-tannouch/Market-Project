@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,11 +21,14 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8",minMessage="Votre mot de passe doit faire minimum 8 caracteres")
+     * @Assert\
      */
     private $password;
 
@@ -51,6 +56,26 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $poste;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $inscription;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $role;
 
     public function getId(): ?int
     {
@@ -137,6 +162,123 @@ class User
     public function setPoste(string $poste): self
     {
         $this->poste = $poste;
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+
+    public function getRoles() {
+        if (empty($this->roles)) {
+            return ['ROLE_USER'];
+        }
+        return $this->roles;
+    }
+
+    function addRole($role) {
+        $this->roles[] = $role;
+    }
+
+
+
+    /**
+     * @inheritDoc
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->nom,
+            $this->prenom,
+            $this->dateNaissance,
+            $this->telephone,
+            $this->etat,
+
+        ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function unserialize($string)
+    {
+        list(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->nom,
+            $this->prenom,
+            $this->dateNaissance,
+            $this->telephone,
+            $this->etat
+            ) = unserialize($string,['allowed_classes'=>false]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function addUser()
+    {
+
+    }
+
+    public function getInscription(): ?\DateTimeInterface
+    {
+        return $this->inscription;
+    }
+
+    public function setInscription(\DateTimeInterface $inscription): self
+    {
+        $this->inscription = $inscription;
+
+        return $this;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
