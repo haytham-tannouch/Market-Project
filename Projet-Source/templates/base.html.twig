@@ -2,25 +2,181 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Admin, Dashboard, Bootstrap" />
+    <link rel="shortcut icon" sizes="196x196" href="{{ asset('assets/images/logo.png') }}">
 
-    <link type="text/css" rel="stylesheet" href="{{ asset('assets/images/logo.png') }}" >
-    <link type="text/css" rel="stylesheet" href="{{ asset('libs/bower/font-awesome/css/font-awesome.min.css') }}" >
-    <link type="text/css" rel="stylesheet" href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}" >
-    <link type="text/css" rel="stylesheet" href="{{ asset('libs/bower/animate.css/animate.min.css') }}" >
-    <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/core.css') }}" >
-    <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/misc-pages.css') }}" >
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300" >
-    <link type="text/css" rel="stylesheet" href="{{ asset('asset/css/app.css') }}" >
-    <link type="text/css" rel="stylesheet" href="{{ asset('asset/css/bootstrap.css') }}" >
-    <link type="text/css" rel="stylesheet" href="{{ asset('asset/css/landing-pag.css') }}" >
+    <link rel="stylesheet" href="{{ asset('asset/css/app.css') }}" >
+    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.css') }}" >
+    <link rel="stylesheet" href="{{ asset('asset/css/core.css') }}" >
+
+    <link rel="stylesheet" href="{{ asset('libs/bower/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/bower/font-awesome/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css') }}">
+    <!-- build:css ../assets/css/app.min.css -->
+    <link rel="stylesheet" href="{{ asset('libs/bower/animate.css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/bower/fullcalendar/dist/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/bower/perfect-scrollbar/css/perfect-scrollbar.css') }}">
 
     {% block stylesheets %}{% endblock %}
+
+    <!-- endbuild -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
+    <script src="{{ asset('libs/bower/breakpoints.js/dist/breakpoints.min.js') }}"></script>
+    <script>
+        Breakpoints();
+    </script>
+
+    <!-- build:js ../assets/js/core.min.js -->
+    <script src="{{ asset('libs/bower/jquery/dist/jquery.js') }}"></script>
+    <script src="{{ asset('libs/bower/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('libs/bower/jQuery-Storage-API/jquery.storageapi.min.js') }}"></script>
+    <script src="{{ asset('libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js') }}"></script>
+    <script src="{{ asset('libs/bower/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
+    <script src="{{ asset('libs/bower/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script>
+    <script src="{{ asset('libs/bower/PACE/pace.min.js') }}"></script>
+    <!-- endbuild -->
+
+    <!-- build:js ../assets/js/app.min.js -->
+    <script src="{{ asset('assets/js/library.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <!-- endbuild -->
+    <script src="{{ asset('libs/bower/moment/moment.js') }}"></script>
+    <script src="{{ asset('libs/bower/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/fullcalendar.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+
+
 </head>
-<body class="simple-page">
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+<body class="menubar-left menubar-unfold menubar-light theme-primary">
+<nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">
+
+    <!-- navbar header -->
+    <div class="navbar-header">
+        <button type="button" id="menubar-toggle-btn" class="navbar-toggle visible-xs-inline-block navbar-toggle-left hamburger hamburger--collapse js-hamburger">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+        </button>
+
+        <button type="button" class="navbar-toggle navbar-toggle-right collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="zmdi zmdi-hc-lg zmdi-more"></span>
+        </button>
+
+        <button type="button" class="navbar-toggle navbar-toggle-right collapsed" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="zmdi zmdi-hc-lg zmdi-search"></span>
+        </button>
+
+        <a href="../index.html" class="navbar-brand">
+            <span class="brand-icon"><i class="fa fa-gg"></i></span>
+            <span class="brand-name">Infinity</span>
+        </a>
+    </div><!-- .navbar-header -->
+
+    <div class="navbar-container container-fluid">
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <ul class="nav navbar-toolbar navbar-toolbar-left navbar-left">
+                <li class="hidden-float hidden-menubar-top">
+                    <a href="javascript:void(0)" role="button" id="menubar-fold-btn" class="hamburger hamburger--arrowalt is-active js-hamburger">
+                        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+                    </a>
+                </li>
+                <li>
+                    <h5 class="page-title hidden-menubar-top hidden-float">Dashboard</h5>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
+                <li class="nav-item dropdown hidden-float">
+                    <a href="javascript:void(0)" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
+                        <i class="zmdi zmdi-hc-lg zmdi-search"></i>
+                    </a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-hc-lg zmdi-notifications"></i></a>
+                    <div class="media-group dropdown-menu animated flipInY">
+                        <a href="javascript:void(0)" class="media-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="avatar avatar-xs avatar-circle">
+                                        <img src="{{ asset('assets/images/221.jpg') }}" alt="">
+                                        <i class="status status-online"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">John Doe</h5>
+                                    <small class="media-meta">Active now</small>
+                                </div>
+                            </div>
+                        </a><!-- .media-group-item -->
+
+                        <a href="javascript:void(0)" class="media-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="avatar avatar-xs avatar-circle">
+                                        <img src="{{ asset('assets/images/205.jpg') }}" alt="">
+                                        <i class="status status-offline"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">John Doe</h5>
+                                    <small class="media-meta">2 hours ago</small>
+                                </div>
+                            </div>
+                        </a><!-- .media-group-item -->
+
+                        <a href="javascript:void(0)" class="media-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="avatar avatar-xs avatar-circle">
+                                        <img src="{{ asset('assets/images/207.jpg') }}" alt="">
+                                        <i class="status status-away"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">Sara Smith</h5>
+                                    <small class="media-meta">idle 5 min ago</small>
+                                </div>
+                            </div>
+                        </a><!-- .media-group-item -->
+
+                        <a href="javascript:void(0)" class="media-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="avatar avatar-xs avatar-circle">
+                                        <img src="{{ asset('assets/images/221.jpg') }}" alt="">
+                                        <i class="status status-away"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">Donia Dyab</h5>
+                                    <small class="media-meta">idle 5 min ago</small>
+                                </div>
+                            </div>
+                        </a><!-- .media-group-item -->
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-hc-lg zmdi-settings"></i></a>
+                    <ul class="dropdown-menu animated flipInY">
+                        <li><a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-account-box"></i>My Profile</a></li>
+                        <li><a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-balance-wallet"></i>Balance</a></li>
+                        <li><a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-phone-msg"></i>Connection<span class="label label-primary">3</span></a></li>
+                        <li><a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-info"></i>privacy</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="side-panel-toggle" data-toggle="class" data-target="#side-panel" data-class="open" role="button"><i class="zmdi zmdi-hc-lg zmdi-apps"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div><!-- navbar-container -->
+</nav>
 </body>
 </html>
