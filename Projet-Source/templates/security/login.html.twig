@@ -1,41 +1,73 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infinity - Bootstrap Admin Template</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Admin, Dashboard, Bootstrap" />
+    <link rel="shortcut icon" sizes="196x196" href="{{ asset('Infinity/assets/images/logo.png') }}">
 
-{% block title %}Log in!{% endblock %}
+    <link rel="stylesheet" href="{{ asset('Infinity/libs/bower/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Infinity/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Infinity/libs/bower/animate.css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Infinity/assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('Infinity/assets/css/core.css') }}">
+    <link rel="stylesheet" href="{{ asset('Infinity/assets/css/misc-pages.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
+</head>
+<body class="simple-page">
+<div class="simple-page-wrap">
+    <div class="simple-page-logo animated swing">
+        <a href="">
+            <span><i class="fa fa-gg"></i></span>
+            <span>Infinity</span>
+        </a>
+    </div><!-- logo -->
+    <div class="simple-page-form animated flipInY" id="login-form">
+        <h4 class="form-title m-b-xl text-center">Sign In With Your Infinity Account</h4>
+        <form method="post" action="{{ path('app_login') }}">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-{% block body %}
-<form method="post" action="{{ path('app_login') }}">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{app.user.nom }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{app.user.nom }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+            <label for="inputPassword">Password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" required>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+            {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+            #}
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-    #}
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
-    </div>
+            <button class="btn btn-lg btn-primary" type="submit">
+                Sign in
+            </button>
+        </form>
+    </div><!-- #login-form -->
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-{% endblock %}
+    <div class="simple-page-footer">
+        <p><a href="">FORGOT YOUR PASSWORD ?</a></p>
+    </div><!-- .simple-page-footer -->
+
+
+</div><!-- .simple-page-wrap -->
+</body>
+</html>
