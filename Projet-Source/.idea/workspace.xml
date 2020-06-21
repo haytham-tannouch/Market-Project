@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -155,7 +153,7 @@
       <option name="presentableId" value="Default" />
       <updated>1592732987752</updated>
       <workItem from="1592732988927" duration="610000" />
-      <workItem from="1592733622248" duration="27385000" />
+      <workItem from="1592733622248" duration="27798000" />
     </task>
     <task id="LOCAL-00001" summary="update composer">
       <created>1592733723452</created>
@@ -178,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592761519450</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="SESSIONS ET MSGS D'ERREURS without secUrUty">
+      <created>1592767686905</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1592767686905</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,17 +194,18 @@
     <MESSAGE value="update composer" />
     <MESSAGE value="update composer*" />
     <MESSAGE value="SESSIONS ET MSGS D'ERREURS" />
-    <option name="LAST_COMMIT_MESSAGE" value="SESSIONS ET MSGS D'ERREURS" />
+    <MESSAGE value="SESSIONS ET MSGS D'ERREURS without secUrUty" />
+    <option name="LAST_COMMIT_MESSAGE" value="SESSIONS ET MSGS D'ERREURS without secUrUty" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1592737448065">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592737448065" />
-    <state x="585" y="88" key="CommitChangelistDialog2" timestamp="1592761518747">
+    <state x="585" y="88" key="CommitChangelistDialog2" timestamp="1592767686253">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592761518747" />
+    <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767686253" />
     <state x="184" y="85" key="DiffContextDialog" timestamp="1592761459465">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -208,10 +214,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="530" y="387" width="924" height="286" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733944240" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592766145811">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592767817127">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592766145811" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767817127" />
     <state x="644" y="308" key="git4idea.merge.GitPullDialog" timestamp="1592733885662">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
