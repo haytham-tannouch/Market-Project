@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Nouvel utilisateur!{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+
+    {{ form_row(form.email,  {'attr' : {'placeholder' : "Email"}}) }}
+    {{ form_widget(form.password, {'attr' : {'oninput' : "passValidation()"},'id':"psswdId"})}}
+    {{ form_errors(form.password) }}
+    <small style="color: black" id="AE">Aucun espace</small>
+    <small style="color: black" id="Min">1 miniscule</small>
+    <small style="color: black" id="Maj">1 majuscule</small>
+    <small style="color: black" id="Chif">1 chifre</small>
+    <small style="color: black" id="Char">8 caractères</small>
+    {{ form_row(form.role) }}
+    {{ form_row(form.nom, {'attr' : {'placeholder' : "Nom"}}) }}
+    <input type="checkbox" name="message"> Envoyer un  message a L'utilisateur
+    {{ form_row(form.prenom, {'attr' : {'placeholder' : "Prénom"}}) }}
+    {{ form_row(form.telephone, {'attr' : {'placeholder' : "Numéro de téléphone"}}) }}
+    {{ form_row(form.dateNaissance) }}
+    {{ form_row(form.poste, {'attr' : {'placeholder' : "Poste Occupé"}}) }}
+    {{ form_row(form.save,{'attr' : {'onsubmit' : "sendEmail"}}) }}
+    <a href="{{ path('dashboard') }}"><h3>Retour</h3></a>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function sendEmail() {
+            if(document.getElementsByName("message").checked)
+            {
+                alert('bravo');
+            }
+
+        }
+        function passValidation() {
+            var password = document.getElementById("psswdId").value;
+
+            var AE   = document.getElementById("AE").  valueOf();
+            var Min  = document.getElementById("Min"). valueOf();
+            var Maj  = document.getElementById("Maj"). valueOf();
+            var Chif = document.getElementById("Chif").valueOf();
+            var Char = document.getElementById("Char").valueOf();
+
+            if (password.match(/\s/)) { AE.style.color = "red";}
+            else{ AE.style.color = "green";}
+
+            if (password.match(/[A-Z]/)) { Maj.style.color = "green";}
+            else{ Maj.style.color = "red";}
+
+            if (password.match(/[a-z]/)) { Min.style.color = "green";}
+            else{Min.style.color = "red";}
+
+            if (password.match(/[0-9]/)) {Chif.style.color = "green";}
+            else{Chif.style.color = "red";}
+
+            if (password.length<8) {Char.style.color = "red";}
+            else {Char.style.color = "green";}
+
+        }
+    </script>
+{% endblock %}
