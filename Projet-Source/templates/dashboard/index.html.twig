@@ -37,7 +37,10 @@
                                 <td>{{ user.poste }}</td>
                                 <td>{{ user.telephone }}</td>
                                 <td>{{ user.inscription | date('d/m/Y') }}</td>
-                                <td><a href="#">Editer</a> <input type="checkbox" id="etat" {% if  user.etat %} checked {% endif %} ></td>
+                                <td>
+                                    <a href="#">Editer</a>
+                                    <a class="active" id="{{ user.id }}" href="{{ path('isActive', {'id': user.id }) }}">{% if user.etat %}desactiver{% else %}activer{% endif %}</a>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -47,3 +50,31 @@
         </div><!-- .widget -->
     </div><!-- END column -->
 {% endblock %}
+{% block javascripts %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function onchangeIsActive(event) {
+            event.preventDefault();
+            const url=this.href;
+            if(confirm('test')){
+                axios.get(url).then(function (response) {
+                    if (response.data.etat=="true"){
+                        alert('user activated');
+                        document.getElementById(response.data.userid).innerHTML="desactiver" ;
+
+                        //console.log(test);
+                    }
+                    else if(response.data.etat=="false"){
+                        alert('user desactivated');
+                        document.getElementById(response.data.userid).innerHTML="activer" ;
+                    }
+                })
+            }
+        }
+
+        document.querySelectorAll('a.active').forEach(function (link){
+            link.addEventListener('click',onchangeIsActive);
+        })
+    </script>
+{% endblock %}
+
