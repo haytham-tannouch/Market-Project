@@ -30,7 +30,10 @@ class UserCreationType extends AbstractType
             ->add('nom',            TextType::class)
             ->add('prenom',         TextType::class)
             ->add('telephone',      TextType::class)
-            ->add('dateNaissance',  DateType::class)
+            ->add('dateNaissance',  DateType::class ,[
+                        'widget' => 'choice',
+                         'years' => range(date('Y'), date('Y')-100),
+                         ])
             ->add('poste',          TextType::class)
             ->add('save',           SubmitType::class)
         ;

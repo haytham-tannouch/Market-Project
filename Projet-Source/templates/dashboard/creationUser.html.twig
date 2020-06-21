@@ -3,7 +3,6 @@
 {% block title %}Ajouter un Nouvel utilisateur!{% endblock %}
 {% block body %}
     {{ form_start(form) }}
-
     {{ form_row(form.email,  {'attr' : {'placeholder' : "Email"}}) }}
     {{ form_widget(form.password, {'attr' : {'oninput' : "passValidation()"},'id':"psswdId"})}}
     {{ form_errors(form.password) }}
@@ -14,23 +13,18 @@
     <small style="color: black" id="Char">8 caractères</small>
     {{ form_row(form.role) }}
     {{ form_row(form.nom, {'attr' : {'placeholder' : "Nom"}}) }}
-    <input type="checkbox" name="message"> Envoyer un  message a L'utilisateur
+    <input type="text" name="message" value="off" hidden>
+    <input type="checkbox" name="message" > Envoyer un  message a L'utilisateur
     {{ form_row(form.prenom, {'attr' : {'placeholder' : "Prénom"}}) }}
     {{ form_row(form.telephone, {'attr' : {'placeholder' : "Numéro de téléphone"}}) }}
     {{ form_row(form.dateNaissance) }}
     {{ form_row(form.poste, {'attr' : {'placeholder' : "Poste Occupé"}}) }}
     {{ form_row(form.save,{'attr' : {'onsubmit' : "sendEmail"}}) }}
     <a href="{{ path('dashboard') }}"><h3>Retour</h3></a>
+    {{ form_end(form) }}
 {% endblock %}
 {% block javascripts %}
     <script>
-        function sendEmail() {
-            if(document.getElementsByName("message").checked)
-            {
-                alert('bravo');
-            }
-
-        }
         function passValidation() {
             var password = document.getElementById("psswdId").value;
 

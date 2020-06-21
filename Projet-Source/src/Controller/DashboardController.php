@@ -33,18 +33,22 @@ class DashboardController extends Controller
      * @Route("/dashboard/createUser", name="createUser")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
+     * @param \Swift_Mailer $mailer
      * @return Response
      * @throws Exception
      */
-    public function createUser(Request $request,UserPasswordEncoderInterface $encoder)
+    public function createUser(Request $request,UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
     {
         $user = new User();
         $form = $this->createForm(UserCreationType::class, $user);
-
         $form->handleRequest($request);
         $data=$form->getData();
-        if ($form->isSubmitted()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $params = $request->request->all();
+            $message=$params['message'];
+            //dump($message);die();
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setEtat(true);
@@ -57,17 +61,62 @@ class DashboardController extends Controller
             }
 
             $user->setInscription(new \DateTime());
+            if($message=="on"){
+                $msg = (new \Swift_Message('Creation Compte'))
+                    ->setFrom('votre@adresse.fr')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        "Bonjour,<br><br>Bonjour Un compte estcreer pour vous merci de se connecter en cliquant sur le lien suivant : " . "127.0.0.1/login" .'</p>',
+                        'text/html'
+                    )
+                ;
+
+                // On envoie l'e-mail
+                $mailer->send($msg);
+
+            }
+
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('dashboard');
+            //return $this->redirectToRoute('dashboard');
 
         }
 
         return $this->render('dashboard/creationUser.html.twig', [
             'form' => $form->createView()
         ]);
+
+    }
+
+    /**
+     * @Route("/dashboard/user/{id}/isActive", name="isActive")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function isActive(User $user,Request $request,UserRepository $repository)
+    {
+        $data=$request->attributes->all();
+        $user=$data['user'];
+
+        if($user->getEtat()==true){
+            $user->setEtat(false);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            return $this->json(['code'=>200,'etat'=>'false','userid'=>$user->getId()],200);
+        }
+        elseif ($user->getEtat()==false){
+            $user->setEtat(true);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            return $this->json(['code'=>200,'etat'=>'true','userid'=>$user->getId()],200);
+        }
+        else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
 
     }
 }
