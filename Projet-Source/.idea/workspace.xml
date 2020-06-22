@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Form/ForgottenpassType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ValidationCodeType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security/Email.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security/reinitialisationMDP.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security/resetPass.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security/token.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security/validationCode.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +161,7 @@
       <workItem from="1592733622248" duration="39702000" />
       <workItem from="1592781723521" duration="1090000" />
       <workItem from="1592782906752" duration="4755000" />
-      <workItem from="1592818149057" duration="2537000" />
+      <workItem from="1592818149057" duration="7370000" />
     </task>
     <task id="LOCAL-00001" summary="update composer">
       <created>1592733723452</created>
@@ -208,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592767875076</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="70% prob de log">
+      <created>1592821047976</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1592821047977</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,7 +217,8 @@
     <MESSAGE value="update composer*" />
     <MESSAGE value="SESSIONS ET MSGS D'ERREURS" />
     <MESSAGE value="SESSIONS ET MSGS D'ERREURS without secUrUty" />
-    <option name="LAST_COMMIT_MESSAGE" value="SESSIONS ET MSGS D'ERREURS without secUrUty" />
+    <MESSAGE value="70% prob de log" />
+    <option name="LAST_COMMIT_MESSAGE" value="70% prob de log" />
   </component>
   <component name="WindowStateProjectService">
     <state x="695" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1592778418640">
@@ -231,10 +229,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592782327588" />
-    <state x="585" y="88" key="CommitChangelistDialog2" timestamp="1592767874463">
+    <state x="585" y="88" key="CommitChangelistDialog2" timestamp="1592821047006">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767874463" />
+    <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592821047006" />
     <state x="184" y="85" key="DiffContextDialog" timestamp="1592761459465">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -243,10 +241,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="530" y="387" width="924" height="286" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733944240" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592767900125">
+    <state width="519" height="446" key="SwitcherDM" timestamp="1592822681143">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767900125" />
+    <state width="519" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1592822681143" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592821070830">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592821070830" />
     <state x="644" y="308" key="git4idea.merge.GitPullDialog" timestamp="1592733885662">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
