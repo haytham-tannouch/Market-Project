@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:meriem" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -164,7 +188,7 @@
       <workItem from="1592733622248" duration="39702000" />
       <workItem from="1592781723521" duration="1090000" />
       <workItem from="1592782906752" duration="4755000" />
-      <workItem from="1592818149057" duration="32023000" />
+      <workItem from="1592818149057" duration="33028000" />
     </task>
     <task id="LOCAL-00001" summary="update composer">
       <created>1592733723452</created>
@@ -222,11 +246,41 @@
       <option name="project" value="LOCAL" />
       <updated>1592917794946</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="99%  reste format password">
+      <created>1592919178021</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1592919178021</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="meriem" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -237,7 +291,8 @@
     <MESSAGE value="70% prob de log" />
     <MESSAGE value="85% reste contraintes du mdp+ip" />
     <MESSAGE value="99% format mdp" />
-    <option name="LAST_COMMIT_MESSAGE" value="99% format mdp" />
+    <MESSAGE value="99%  reste format password" />
+    <option name="LAST_COMMIT_MESSAGE" value="99%  reste format password" />
   </component>
   <component name="WindowStateProjectService">
     <state x="586" y="198" key="#Inspections" timestamp="1592917182898">
@@ -252,10 +307,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592782327588" />
-    <state x="585" y="88" key="CommitChangelistDialog2" timestamp="1592917794176">
+    <state x="585" y="88" key="CommitChangelistDialog2" timestamp="1592919177320">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592917794176" />
+    <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592919177320" />
     <state x="184" y="85" key="DiffContextDialog" timestamp="1592761459465">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -268,10 +323,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="519" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1592822681143" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592917814997">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592919193295">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592917814997" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592919193295" />
     <state x="644" y="308" key="git4idea.merge.GitPullDialog" timestamp="1592918884364">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
