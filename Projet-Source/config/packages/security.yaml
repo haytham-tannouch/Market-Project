@@ -2,7 +2,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
         App\Entity\User:
-            algorithm: 'bcrypt'
+            algorithm: 'sha1'
     providers:
         connexion_provider:
             entity:
@@ -21,7 +21,7 @@ security:
                 default_target_path: app_afterlogin
            remember_me:
              secret:   '%kernel.secret%'
-             lifetime: 20
+
              path:     app_login
 
 
@@ -46,6 +46,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-       # - { path: ^/dashboard, roles: IS_AUTHENTICATED_FULLY }
-        #- { path: ^/dashboard, roles: ROLE_ADMIN }
-        #- { path: ^/user, roles: ROLE_USER }
+
+      - { path: ^/dashboard, roles: ROLE_ADMIN }
+  #  - { path: ^/user, roles: ROLE_USER }
+
