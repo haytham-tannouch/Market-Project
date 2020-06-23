@@ -45,7 +45,7 @@ class DashboardController extends Controller
         $data=$form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            dump($user);die();
             $params = $request->request->all();
             $message=$params['message'];
             //dump($params['user_creation']['password']);die();
@@ -74,6 +74,7 @@ class DashboardController extends Controller
                 // On envoie l'e-mail
                 $mailer->send($msg);
             }
+
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
@@ -115,5 +116,23 @@ class DashboardController extends Controller
         }
         else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
 
+    }
+    /**
+     * @Route("/dashboard/genegerPass", name="genPass")
+     */
+    public function generatePassword()
+    {
+            $characters = 'abcdefghijklmnopqrstuvwxyz';
+            $num = '0123456789';
+            $charmaj='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $numLength = strlen($num);
+            $charmajLength = strlen($charmaj);
+            $randomString = '';
+            for ($i = 0; $i < 3; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)].$num[rand(0, $numLength - 1)].$charmaj[rand(0, $charmajLength - 1)];
+            }
+            //dump($randomString);die();
+            return $this->json(['code'=>200,'RandPass'=>$randomString],200);
     }
 }

@@ -5,6 +5,7 @@
     <div class="wrap">
         <section class="app-content">
             <div class="row">
+                {{ form_start(form) }}
                 <div class="col-md-6">
                     <div class="widget">
                         <header class="widget-header">
@@ -12,14 +13,15 @@
                         </header><!-- .widget-header -->
                         <hr class="widget-separator">
                         <div class="widget-body">
-                            {{ form_start(form) }}
+
+
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     {{ form_widget(form.email,  {'attr' : {'placeholder' : "Email"},"id":"email"}) }}
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Mot de passe</label>
-                                    {{ form_widget(form.password, {'attr' : {'oninput' : "passValidation()"},'id':"psswdId","class":""})}}
+                                    {{ form_widget(form.password, {'attr' : {'oninput' : "passValidation()"},'id':"psswdId"})}}
                                     {{ form_errors(form.password) }}
                                 </div>
                                 <div class="form-group">
@@ -51,12 +53,11 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <input type="button"  class="btn btn-dark" value="Gerer">
+                                    <input type="button"  class="btn btn-dark" style="margin-left: 11cm"  data-href="{{ path('genPass') }}" onclick="generatePass(this)" value="Générer" >
                                 </div>
                                 <div class="form-group">
                                      {{ form_row(form.role) }}
                                 </div>
-
                                 <div class="form-group">
                                     <div class="checkbox checkbox-primary checkbox-inline">
                                         <input type="checkbox" name="message" id="msg" ><label for="msg">Envoyer un  message a L'utilisateur</label>
@@ -66,7 +67,6 @@
                         </div><!-- .widget-body -->
                     </div><!-- .widget -->
                 </div><!-- END column -->
-
 
                 <div class="col-md-6">
                     <div class="widget">
@@ -102,27 +102,27 @@
                                 {{ form_errors(form.poste) }}
                             </div>
                             <div class="form-group">
-                                {{ form_row(form.Sauvegarder,{'attr' : {'onsubmit' : "sendEmail"}}) }}
+                                {{ form_widget(form.Sauvegarder) }}
                             </div>
-
                             {{ form_end(form) }}
                         </div>
+
                     </div>
                 </div>
+                <div class="form-group col-sm-6">
+                    <a href="{{ path('dashboard') }}"><button type="button" class="btn btn-outline mw-md btn-primary btn-sm">Retour</button></a>
+                </div>
+                {{ form_end(form) }}
             </div><!-- .row -->
         </section><!-- #dash-content -->
     </div>
-
-
-
-
-
-
-
-    <a href="{{ path('dashboard') }}"><h3>Retour</h3></a>
-    {{ form_end(form) }}
 {% endblock %}
 {% block javascripts %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <script>
         function passValidation() {
             var password = document.getElementById("psswdId").value;
@@ -147,6 +147,40 @@
 
             if (password.length<8) {Char.style.color = "#F44336";}
             else {Char.style.color = "#3ae374";}
+
+        }
+        function generatePass(this_) {
+            var url=$(this_).data('href');
+            axios.get(url).then(function (response) {
+                if (response) {
+                    Swal.fire({
+                        title: '<strong>Mot de passe<strong>',
+                        icon: 'info',
+                        html:
+                            '<input type="text" id="randpass" class="form-control" readonly value="' + response.data.RandPass + '" >',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonColor: '#0000',
+                        confirmButtonText:
+                            '<button type="button" onclick="copyToClipboard()" class="btn btn-outline btn-dark"><i class="fa fa-file"></i></button>',
+                        cancelButtonText:
+                            'Retour',
+                    })
+                }
+            })
+        }
+        function copyToClipboard() {
+                var message = document.getElementById("randpass");
+                message.select();
+                document.execCommand('copy');
+                document.getElementById('psswdId').value=message.value;
+
+                AE.style.color =   "#3ae374";
+                Maj.style.color =  "#3ae374";
+                Min.style.color =  "#3ae374";
+                Chif.style.color = "#3ae374";
+                Char.style.color = "#3ae374";
 
         }
     </script>
