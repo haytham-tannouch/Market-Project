@@ -14,8 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class SecurityController extends Controller
 {
@@ -64,7 +66,11 @@ class SecurityController extends Controller
             $user = $users->findOneByEmail($donnees->getEmail());
             // si aucun user a cet email on l e renvoit vers la mm page
             if ($user === null) {
-                return $this->render('security/Email.html.twig');
+                echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur nitre base de données,veuillez la verifier pr réessayer \")
+                   </script>";
+                return $this->render('security/Email.html.twig', [
+                    'emailForm' => $form->createView()
+                ]);
             }
             // sinon on lui genere un f=token a six chiffre
             $forgotten_token=random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9);
@@ -125,14 +131,33 @@ class SecurityController extends Controller
             $data=$params['validation_code'];
             $code=$data['code'];
             $confirmationCode =$user->getForgottenPassToken();
-            if ($user->getForgottenPassExpiration()<new \DateTime())
-            {
-                if($code==$confirmationCode){
+            $CurrentDate=new \DateTime();
+        //    $Period=$CurrentDate->diff($user->getForgottenPassExpiration(),false);
 
-                    return $this->redirectToRoute('app_reset_password',[
-                        'code'=>$confirmationCode
-                    ]);
-                }
+           // dump($Period->i);
+            //dump($Period->s);die();
+
+            $diff = $user->getForgottenPassExpiration()->getTimestamp() - $CurrentDate->getTimestamp();
+            //dump($diff);die();
+          if ($diff>0 && $diff<120)
+          {
+
+
+              if($code==$confirmationCode){
+
+                  return $this->redirectToRoute('app_reset_password',[
+                      'code'=>$confirmationCode
+                  ]);
+
+
+              }
+            }
+            else{
+                echo "<script>alert(\"Durée de ce code de validation a été expirée  \")
+                   </script>";
+
+                return $this->redirectToRoute('app_login'
+                );
             }
 
 
@@ -168,19 +193,24 @@ class SecurityController extends Controller
             // On supprime le token
             $user->setForgottenPassToken(null);
             $user->setForgottenPassExpiration(null);
-
-            // On chiffre le mot de passe
-
             $params=$request->request->all();
             $pass=$params['reset_pass'];
-           // dump($pass['password']);die();
+            // dump($pass['password']);die();
             $user->setPassword($passwordEncoder->encodePassword($user, $pass['password']));
 
             // On stocke
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            // On crée le message flash
+            // On le connecte automatiquement apres la saisie du mdp
+
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+            return $this->redirect($this->generateUrl('dashboard'));
+
             $this->addFlash('message', 'validation changement de mdp');
             $message = (new \Swift_Message('validation changement de mdp'))
                 ->setFrom('votre@adresse.fr')
@@ -190,7 +220,10 @@ class SecurityController extends Controller
                     'text/html'
                 )
             ;
-            $mailer->send($message);
+            $mailer->send($message)
+                ;
+
+
 
 
             // On redirige vers la page de connexion

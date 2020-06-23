@@ -28,7 +28,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Regex(
-     *     pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/",
+     *     pattern="/(?=.\d)(?=.[a-z])(?=.*[A-Z]).{8,}/",
      *     message="Veuillez respectez le format donné"
      * )
      */
@@ -89,9 +89,10 @@ class User implements UserInterface
     private $forgottenPass_token;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $forgottenPass_expiration;
+    private $ForgottenPassExpiration;
+
 
     public function getId(): ?int
     {
@@ -313,13 +314,15 @@ class User implements UserInterface
 
     public function getForgottenPassExpiration(): ?\DateTimeInterface
     {
-        return $this->forgottenPass_expiration;
+        return $this->ForgottenPassExpiration;
     }
 
-    public function setForgottenPassExpiration(?\DateTimeInterface $forgottenPass_expiration): self
+    public function setForgottenPassExpiration(?\DateTimeInterface $ForgottenPassExpiration): self
     {
-        $this->forgottenPass_expiration = $forgottenPass_expiration;
+        $this->ForgottenPassExpiration = $ForgottenPassExpiration;
 
         return $this;
     }
+
+
 }

@@ -2,5 +2,49 @@
 
 {% block title %}Code de confirmation{% endblock %}
 {% block body %}
-    {{ form(ResetForm) }}
+
+    {{ form_widget(ResetForm.password, {'attr' : {'oninput' : "passValidation()"},'id':"psswdId"})}}
+    {{ form_widget(ResetForm.Reinitialiser) }}
+    <br>
+    Votre mot de passe doit repondre aux regles suivantes
+    <br>
+    <small style="color: black" id="AE">Aucun espace</small>
+    <br>
+    <small style="color: black" id="Min">1 miniscule</small>
+    <br>
+    <small style="color: black" id="Maj">1 majuscule</small>
+    <br>
+    <small style="color: black" id="Chif">1 chifre</small>
+    <br>
+    <small style="color: black" id="Char">8 caractères</small>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function passValidation() {
+            var password = document.getElementById("psswdId").value;
+
+            var AE   = document.getElementById("AE").  valueOf();
+            var Min  = document.getElementById("Min"). valueOf();
+            var Maj  = document.getElementById("Maj"). valueOf();
+            var Chif = document.getElementById("Chif").valueOf();
+            var Char = document.getElementById("Char").valueOf();
+
+            if (password.match(/\s/)) { AE.style.color = "red";}
+            else{ AE.style.color = "green";}
+
+            if (password.match(/[A-Z]/)) { Maj.style.color = "green";}
+            else{ Maj.style.color = "red";}
+
+            if (password.match(/[a-z]/)) { Min.style.color = "green";}
+            else{Min.style.color = "red";}
+
+            if (password.match(/[0-9]/)) {Chif.style.color = "green";}
+            else{Chif.style.color = "red";}
+
+            if (password.length<8) {Char.style.color = "red";}
+            else {Char.style.color = "green";}
+
+        }
+    </script>
 {% endblock %}

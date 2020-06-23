@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
@@ -18,6 +19,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -72,7 +74,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Compte introuvable,essayezz avc un autre email ou creez un compte des maintenant.');
-           /* echo "<script>alert(\"cette boite mail nexiste pas dans la base \")
+          /* echo "<script>alert(\"cette boite mail nexiste pas dans la base \")
                    </script>";*/
 
         }
@@ -82,6 +84,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        if(!($this->passwordEncoder->isPasswordValid($user, $credentials['password'])))
+        {
+
+            throw new CustomUserMessageAuthenticationException('Mot de passe incorrect ,Veuillez essayer à nouveau');
+        }
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -96,9 +103,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
-
     protected function getLoginUrl()
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        return $this->urlGenerator->generate('app_login');
     }
 }

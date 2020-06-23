@@ -16,12 +16,12 @@ security:
            provider:  connexion_provider
            anonymous: true
            form_login:
-                login_path: login
-                check_path: login
+                login_path: app_login
+                check_path: app_login
                 default_target_path: app_afterlogin
            remember_me:
              secret:   '%kernel.secret%'
-             lifetime: 20
+
              path:     app_login
 
 
@@ -46,6 +46,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-       # - { path: ^/dashboard, roles: IS_AUTHENTICATED_FULLY }
-      #  - { path: ^/dashboard, roles: ROLE_ADMIN }
+
+      - { path: ^/dashboard, roles: ROLE_ADMIN }
   #  - { path: ^/user, roles: ROLE_USER }
+
