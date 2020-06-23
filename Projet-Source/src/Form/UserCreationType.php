@@ -19,23 +19,51 @@ class UserCreationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email',         EmailType::class)
-            ->add('password',      PasswordType::class)
+            ->add('email',         EmailType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )))
+            ->add('password',      PasswordType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )))
             ->add('role',          ChoiceType::class, array(
                 'choices' => array(
                     'Admin' => 'Administrateur',
                     'Editeur' => 'Editeur',
                 ),
+                'attr'=>array(
+                    'class' => 'form-control'
+                )
             ))
-            ->add('nom',            TextType::class)
-            ->add('prenom',         TextType::class)
-            ->add('telephone',      TextType::class)
+            ->add('nom',            TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )))
+            ->add('prenom',         TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )))
+            ->add('telephone',      TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )))
             ->add('dateNaissance',  DateType::class ,[
-                        'widget' => 'choice',
+                        'widget' => 'single_text',
+                        'attr' => array(
+                            'class' => 'form-control',
+                        ),
                          'years' => range(date('Y'), date('Y')-100),
                          ])
-            ->add('poste',          TextType::class)
-            ->add('save',           SubmitType::class)
+            ->add('poste',          TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )))
+            ->add('Sauvegarder',           SubmitType::class,array(
+                'attr'=>array(
+                    'class'=>'btn btn-primary btn-md',
+                )
+            ))
         ;
     }
 

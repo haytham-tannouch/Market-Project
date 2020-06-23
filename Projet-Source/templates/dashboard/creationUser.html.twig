@@ -2,24 +2,123 @@
 
 {% block title %}Ajouter un Nouvel utilisateur!{% endblock %}
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.email,  {'attr' : {'placeholder' : "Email"}}) }}
-    {{ form_widget(form.password, {'attr' : {'oninput' : "passValidation()"},'id':"psswdId"})}}
-    {{ form_errors(form.password) }}
-    <small style="color: black" id="AE">Aucun espace</small>
-    <small style="color: black" id="Min">1 miniscule</small>
-    <small style="color: black" id="Maj">1 majuscule</small>
-    <small style="color: black" id="Chif">1 chifre</small>
-    <small style="color: black" id="Char">8 caractères</small>
-    {{ form_row(form.role) }}
-    {{ form_row(form.nom, {'attr' : {'placeholder' : "Nom"}}) }}
-    <input type="text" name="message" value="off" hidden>
-    <input type="checkbox" name="message" > Envoyer un  message a L'utilisateur
-    {{ form_row(form.prenom, {'attr' : {'placeholder' : "Prénom"}}) }}
-    {{ form_row(form.telephone, {'attr' : {'placeholder' : "Numéro de téléphone"}}) }}
-    {{ form_row(form.dateNaissance) }}
-    {{ form_row(form.poste, {'attr' : {'placeholder' : "Poste Occupé"}}) }}
-    {{ form_row(form.save,{'attr' : {'onsubmit' : "sendEmail"}}) }}
+    <div class="wrap">
+        <section class="app-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="widget">
+                        <header class="widget-header">
+                            <h4 class="widget-title">Informations de connexion</h4>
+                        </header><!-- .widget-header -->
+                        <hr class="widget-separator">
+                        <div class="widget-body">
+                            {{ form_start(form) }}
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    {{ form_widget(form.email,  {'attr' : {'placeholder' : "Email"},"id":"email"}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Mot de passe</label>
+                                    {{ form_widget(form.password, {'attr' : {'oninput' : "passValidation()"},'id':"psswdId","class":""})}}
+                                    {{ form_errors(form.password) }}
+                                </div>
+                                <div class="form-group">
+                                    <table>
+                                        <tr>
+                                            <td style="margin-left: 2cm">
+
+                                                <small style="color: black"  id="AE"> <i class="fa fa-check-circle-o"  aria-hidden="true"></i>  &nbsp;Aucun espace</small>
+                                            </td>
+                                            <td style="margin-left: 2cm;padding-left: 8cm;">
+
+                                                <small style="color: black" id="Min"><i class="fa fa-check-circle-o" aria-hidden="true"></i> &nbsp;1 miniscule</small>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="margin-left: 2cm">
+                                                <small style="color: black" id="Maj"><i class="fa fa-check-circle-o" aria-hidden="true"></i> &nbsp;1 majuscule</small>
+                                            </td>
+                                            <td style="margin-left: 2cm;padding-left: 8cm;">
+                                                <small style="color: black" id="Chif"><i class="fa fa-check-circle-o" aria-hidden="true"></i> &nbsp;1 chifre</small>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="margin-left: 2cm">
+                                                <small style="color: black" id="Char"><i class="fa fa-check-circle-o" aria-hidden="true"></i> &nbsp;8 caractères</small>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="button"  class="btn btn-dark" value="Gerer">
+                                </div>
+                                <div class="form-group">
+                                     {{ form_row(form.role) }}
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-primary checkbox-inline">
+                                        <input type="checkbox" name="message" id="msg" ><label for="msg">Envoyer un  message a L'utilisateur</label>
+                                    </div>
+                                    <input type="text" name="message" value="off" hidden>
+                                </div>
+                        </div><!-- .widget-body -->
+                    </div><!-- .widget -->
+                </div><!-- END column -->
+
+
+                <div class="col-md-6">
+                    <div class="widget">
+                        <header class="widget-header">
+                            <h4 class="widget-title">Contact</h4>
+                        </header><!-- .widget-header -->
+                        <hr class="widget-separator">
+                        <div class="widget-body">
+                            <div class="form-group">
+                                <label for="email">Nom</label>
+                                {{ form_widget(form.nom, {'attr' : {'placeholder' : "Nom"}}) }}
+                                {{ form_errors(form.nom) }}
+                            </div>
+
+                            <div class="form-group"><div class="form-group"></div>
+                                <label for="email">Prénom</label>
+                                {{ form_widget(form.prenom, {'attr' : {'placeholder' : "Prénom"}}) }}
+                                {{ form_errors(form.prenom) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Numéro de téléphone</label>
+                                {{ form_widget(form.telephone, {'attr' : {'placeholder' : "Numéro de téléphone"}}) }}
+                                {{ form_errors(form.telephone) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Date de naissace</label>
+                                    {{ form_widget(form.dateNaissance) }}
+                                    {{ form_errors(form.dateNaissance) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Poste occupé</label>
+                                {{ form_widget(form.poste, {'attr' : {'placeholder' : "Poste Occupé"}}) }}
+                                {{ form_errors(form.poste) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.Sauvegarder,{'attr' : {'onsubmit' : "sendEmail"}}) }}
+                            </div>
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .row -->
+        </section><!-- #dash-content -->
+    </div>
+
+
+
+
+
+
+
     <a href="{{ path('dashboard') }}"><h3>Retour</h3></a>
     {{ form_end(form) }}
 {% endblock %}
@@ -34,20 +133,20 @@
             var Chif = document.getElementById("Chif").valueOf();
             var Char = document.getElementById("Char").valueOf();
 
-            if (password.match(/\s/)) { AE.style.color = "red";}
-            else{ AE.style.color = "green";}
+            if (password.match(/\s/)) { AE.style.color = "#F44336";}
+            else{ AE.style.color = "#3ae374";}
 
-            if (password.match(/[A-Z]/)) { Maj.style.color = "green";}
-            else{ Maj.style.color = "red";}
+            if (password.match(/[A-Z]/)) { Maj.style.color = "#3ae374";}
+            else{ Maj.style.color = "#F44336";}
 
-            if (password.match(/[a-z]/)) { Min.style.color = "green";}
-            else{Min.style.color = "red";}
+            if (password.match(/[a-z]/)) { Min.style.color = "#3ae374";}
+            else{Min.style.color = "#F44336";}
 
-            if (password.match(/[0-9]/)) {Chif.style.color = "green";}
-            else{Chif.style.color = "red";}
+            if (password.match(/[0-9]/)) {Chif.style.color = "#3ae374";}
+            else{Chif.style.color = "#F44336";}
 
-            if (password.length<8) {Char.style.color = "red";}
-            else {Char.style.color = "green";}
+            if (password.length<8) {Char.style.color = "#F44336";}
+            else {Char.style.color = "#3ae374";}
 
         }
     </script>

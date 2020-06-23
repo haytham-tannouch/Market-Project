@@ -47,7 +47,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\Regex(
      *     pattern="/\d/",
-     *     message="veuillez entrer un nom valid"
+     *     message="veuillez entrer un prénom valid"
      * )
      */
     private $prenom;

@@ -48,7 +48,7 @@ class DashboardController extends Controller
 
             $params = $request->request->all();
             $message=$params['message'];
-            //dump($message);die();
+            //dump($params['user_creation']['password']);die();
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setEtat(true);
@@ -66,22 +66,19 @@ class DashboardController extends Controller
                     ->setFrom('votre@adresse.fr')
                     ->setTo($user->getEmail())
                     ->setBody(
-                        "Bonjour,<br><br>Bonjour Un compte estcreer pour vous merci de se connecter en cliquant sur le lien suivant : " . "127.0.0.1/login" .'</p>',
+                        "Bonjour,<br><br>Bonjour Un compte est créé pour vous, merci de se connecter en cliquant sur le lien suivant : <a href='127.0.0.1:8000'>Se Connecter</a> <br>
+                                    Vos Cordonnées D'authentification: <br><label for='email'></label><b id='email'>".$user->getEmail()."</b><br><label for='password'><b>".$params['user_creation']['password']."</b></label>",
                         'text/html'
                     )
                 ;
-
                 // On envoie l'e-mail
                 $mailer->send($msg);
-
             }
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
             $manager->flush();
-
             //return $this->redirectToRoute('dashboard');
-
         }
 
         return $this->render('dashboard/creationUser.html.twig', [

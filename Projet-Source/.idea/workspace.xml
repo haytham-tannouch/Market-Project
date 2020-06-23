@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="0550cf73-3c4d-4c77-8733-f4eef6601ad3" name="Default Changelist" comment="Include template  with merierm's task">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Infinity/default/form.layouts.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/Infinity/default/form.layouts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/UserCreationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UserCreationType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/creationUser.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/creationUser.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,13 +159,14 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="" />
+      <changelist id="0550cf73-3c4d-4c77-8733-f4eef6601ad3" name="Default Changelist" comment="Include template  with merierm's task" />
       <created>1592732987752</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1592732987752</updated>
       <workItem from="1592732988927" duration="610000" />
       <workItem from="1592733622248" duration="27798000" />
+      <workItem from="1592900161967" duration="15388000" />
     </task>
     <task id="LOCAL-00001" summary="update composer">
       <created>1592733723452</created>
@@ -201,7 +207,20 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -235,18 +254,20 @@
     </state>
     <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592843074754" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767817127" />
-    <state x="515" y="244" key="git4idea.merge.GitPullDialog" timestamp="1592843051957">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="515" y="247" key="git4idea.merge.GitPullDialog" timestamp="1592918339964">
+      <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="515" y="244" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1592843051957" />
+    <state x="515" y="247" key="git4idea.merge.GitPullDialog/0.0.1536.834@0.0.1536.834" timestamp="1592918339964" />
     <state x="644" y="308" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733885662" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1592755116210">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592755116210" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1592767417083">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="498" y="180" width="672" height="544" key="search.everywhere.popup" timestamp="1592900777197">
+      <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="498" y="180" width="672" height="544" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592900777197" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592767417083" />
   </component>
 </project>
