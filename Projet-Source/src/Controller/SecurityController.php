@@ -223,9 +223,6 @@ class SecurityController extends Controller
             $mailer->send($message)
                 ;
 
-
-
-
             // On redirige vers la page de connexion
             //return $this->redirectToRoute('app_login');
         }else {

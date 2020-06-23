@@ -14,8 +14,14 @@ class ValidationCodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code',TextType::class)
-            ->add('valider',SubmitType::class)
+            ->add('code',TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )))
+            ->add('valider',SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-primary btn-md'
+                )))
         ;
     }
 

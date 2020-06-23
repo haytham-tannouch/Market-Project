@@ -2,21 +2,39 @@
 
 {% block title %}Code de confirmation{% endblock %}
 {% block body %}
-
+    {{ form_start(ResetForm) }}
     {{ form_widget(ResetForm.password, {'attr' : {'oninput' : "passValidation()"},'id':"psswdId"})}}
-    {{ form_widget(ResetForm.Reinitialiser) }}
+    {{ form_row(ResetForm.Reinitialiser) }}
+    {{ form_end(ResetForm) }}
     <br>
-    Votre mot de passe doit repondre aux regles suivantes
-    <br>
-    <small style="color: black" id="AE">Aucun espace</small>
-    <br>
-    <small style="color: black" id="Min">1 miniscule</small>
-    <br>
-    <small style="color: black" id="Maj">1 majuscule</small>
-    <br>
-    <small style="color: black" id="Chif">1 chifre</small>
-    <br>
-    <small style="color: black" id="Char">8 caractères</small>
+    <div class="form-group">
+        <table>
+            <tr>
+                <td style="margin-left: 2cm">
+
+                    <small style="color: black"  id="AE"> <i class="fa fa-check-circle-o"  aria-hidden="true"></i>  &nbsp;Aucun espace</small>
+                </td>
+                <td style="margin-left: 2cm;padding-left: 8cm;">
+
+                    <small style="color: black" id="Min"><i class="fa fa-check-circle-o" aria-hidden="true"></i> &nbsp;1 miniscule</small>
+                </td>
+            </tr>
+            <tr>
+                <td style="margin-left: 2cm">
+                    <small style="color: black" id="Maj"><i class="fa fa-check-circle-o" aria-hidden="true"></i> &nbsp;1 majuscule</small>
+                </td>
+                <td style="margin-left: 2cm;padding-left: 8cm;">
+                    <small style="color: black" id="Chif"><i class="fa fa-check-circle-o" aria-hidden="true"></i> &nbsp;1 chifre</small>
+                </td>
+            </tr>
+            <tr>
+                <td style="margin-left: 2cm">
+                    <small style="color: black" id="Char"><i class="fa fa-check-circle-o" aria-hidden="true"></i> &nbsp;8 caractères</small>
+                </td>
+            </tr>
+        </table>
+
+    </div>
 
 {% endblock %}
 {% block javascripts %}
@@ -30,20 +48,20 @@
             var Chif = document.getElementById("Chif").valueOf();
             var Char = document.getElementById("Char").valueOf();
 
-            if (password.match(/\s/)) { AE.style.color = "red";}
-            else{ AE.style.color = "green";}
+            if (password.match(/\s/)) { AE.style.color = "#F44336";}
+            else{ AE.style.color = "#3ae374";}
 
-            if (password.match(/[A-Z]/)) { Maj.style.color = "green";}
-            else{ Maj.style.color = "red";}
+            if (password.match(/[A-Z]/)) { Maj.style.color = "#3ae374";}
+            else{ Maj.style.color = "#F44336";}
 
-            if (password.match(/[a-z]/)) { Min.style.color = "green";}
-            else{Min.style.color = "red";}
+            if (password.match(/[a-z]/)) { Min.style.color = "#3ae374";}
+            else{Min.style.color = "#F44336";}
 
-            if (password.match(/[0-9]/)) {Chif.style.color = "green";}
-            else{Chif.style.color = "red";}
+            if (password.match(/[0-9]/)) {Chif.style.color = "#3ae374";}
+            else{Chif.style.color = "#F44336";}
 
-            if (password.length<8) {Char.style.color = "red";}
-            else {Char.style.color = "green";}
+            if (password.length<8) {Char.style.color = "#F44336";}
+            else {Char.style.color = "#3ae374";}
 
         }
     </script>

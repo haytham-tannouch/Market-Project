@@ -13,8 +13,14 @@ class ResetPassType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('password',PasswordType::class)
-            ->add('Reinitialiser',SubmitType::class)
+            ->add('password',PasswordType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )))
+            ->add('Reinitialiser',SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-primary btn-md'
+                )))
         ;
     }
 
