@@ -1,76 +1,61 @@
 {% extends 'base.html.twig' %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Infinity/libs/bower/switchery/dist/switchery.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Infinity/libs/bower/lightbox2/dist/css/lightbox.min.css') }}">
+{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
     <!-- DOM dataTable -->
     <div class="col-md-12">
         <div class="widget">
             <header class="widget-header">
                 <h4 class="widget-title">Liste des Utilisateurs</h4>
-<br>
+                <br>
                 <a href="{{ path('createUser') }}"><button type="button" class="btn btn-outline mw-md btn-primary btn-sm">Ajouter</button></a>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
             <div class="widget-body">
                 <div id="responsive-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="dataTables_length" id="responsive-datatable_length">
-                                <label>Show <select name="responsive-datatable_length" aria-controls="responsive-datatable" class="form-control input-sm">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select> entries</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div id="responsive-datatable_filter" class="dataTables_filter">
-                                <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="responsive-datatable">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                <div class="table-responsive">
-                    <table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
-                        <thead>
-                        <tr style="text-align: left">
-                            <th>Nom</th>
-                            <th>Role</th>
-                            <th>Poste</th>
-                            <th>Telephone</th>
-                            <th>Inscription</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for user in users %}
-                            <tr>
-                                <td>{{ user.nom }} {{ user.prenom }}</td>
-                                <td>{{ user.role}}</td>
-                                <td>{{ user.poste }}</td>
-                                <td>{{ user.telephone }}</td>
-                                <td>{{ user.inscription | date('d/m/Y') }}</td>
-                                <td>
-                                    <a href="#">Editer</a>
-                                    <input  type="checkbox" id="cb{{ user.id }}" onchange="onchangeIsActive(this)" data-href="{{ path('isActive', {'id': user.id }) }}" {% if user.etat %}checked{% endif %} >
-                                    <label for="cb{{ user.id }}">{% if user.etat %}activé{% else %}desactivé{% endif %}</label>
-                                </td>
-                                <td>
-                                    <div class="m-b-lg m-r-xl inline-block">
-                                        <input id="switch-3-3" type="checkbox" data-switchery="true" data-size="small" checked="" style="display: none;"><span class="switchery switchery-small" style="background-color: rgb(24, 138, 226); border-color: rgb(24, 138, 226); box-shadow: rgb(24, 138, 226) 0px 0px 0px 11px inset; transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s, background-color 1.2s ease 0s;"><small style="left: 13px; transition: background-color 0.4s ease 0s, left 0.2s ease 0s; background-color: rgb(255, 255, 255);"></small></span>
-                                    </div>
-                                </td>
+                    <div class="table-responsive">
+
+                        <table id="example" data-plugin="DataTable" class="table table-striped display" cellspacing="0" width="100%">
+
+                            <thead>
+                            <tr style="text-align: left">
+                                <th>Nom</th>
+                                <th>Role</th>
+                                <th>Poste</th>
+                                <th>Telephone</th>
+                                <th>Inscription</th>
+                                <th>Actions</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div><!-- .widget-body -->
-        </div><!-- .widget -->
-    </div><!-- END column -->
+                            </thead>
+
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.nom }} {{ user.prenom }}</td>
+                                    <td>{{ user.role}}</td>
+                                    <td>{{ user.poste }}</td>
+                                    <td>{{ user.telephone }}</td>
+                                    <td>{{ user.inscription | date('d/m/Y') }}</td>
+                                    <td>
+                                        <a href="#">Editer</a>
+                                        <input  type="checkbox" id="cb{{ user.id }}" onchange="onchangeIsActive(this)" data-href="{{ path('isActive', {'id': user.id }) }}" {% if user.etat %}checked{% endif %} >
+                                        <label for="cb{{ user.id }}">{% if user.etat %}activé{% else %}desactivé{% endif %}</label>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        </table>
+                    </div>
+                </div><!-- .widget-body -->
+            </div><!-- .widget -->
+        </div><!-- END column -->
     </div>
 {% endblock %}
 {% block javascripts %}
@@ -99,7 +84,11 @@
             }
         }
     </script>
-
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
     <script src="{{ asset('Infinity/libs/bower/switchery/dist/switchery.min.js"') }}"></script>
     <script src="{{ asset('Infinity/libs/bower/lightbox2/dist/js/lightbox.min.js') }}"></script>
     <script src="{{ asset('Infinity/assets/js/fullcalendar.js') }}"></script>
@@ -108,6 +97,5 @@
     <script src="{{ asset('Infinity/libs/bower/moment/moment.js') }}" ></script>
     <script src="{{ asset('Infinity/libs/misc/datatables/datatables.min.js') }}" ></script>
     <script src="{{ asset('Infinity/libs/misc/datatables/datatables.min.js') }}" ></script>
-
 {% endblock %}
 

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('Infinity/assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('Infinity/assets/css/core.css') }}">
     <link rel="stylesheet" href="{{ asset('Infinity/assets/css/app.css') }}">
+    {% block stylesheet %}{% endblock %}
     <!-- endbuild -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
     <script src="{{ asset('Infinity/libs/bower/breakpoints.js/dist/breakpoints.min.js') }}"></script>
@@ -24,7 +25,6 @@
         Breakpoints();
     </script>
 </head>
-s
 <body class="menubar-left menubar-unfold menubar-light theme-primary">
 <!--============= start main area -->
 
