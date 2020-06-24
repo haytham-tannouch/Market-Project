@@ -13,8 +13,6 @@
                         </header><!-- .widget-header -->
                         <hr class="widget-separator">
                         <div class="widget-body">
-
-
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     {{ form_widget(form.email,  {'attr' : {'placeholder' : "Email"},"id":"email"}) }}
@@ -67,7 +65,7 @@
                                 <div class="form-group">
                                     <div class="checkbox checkbox-primary checkbox-inline">
                                         <input type="text" name="message" value="off" hidden>
-                                        <input type="checkbox" name="message"  ><label>Envoyer un  message a L'utilisateur</label>
+                                        <input type="checkbox" name="message" id="msg" ><label for="msg">Envoyer un  message a L'utilisateur</label>
                                     </div>
 
                                 </div>

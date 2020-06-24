@@ -73,7 +73,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Compte introuvable,essayezz avc un autre email ou creez un compte des maintenant.');
+            throw new CustomUserMessageAuthenticationException('Compte introuvable! essayez avec un autre email ou créez un compte dès maintenant.');
           /* echo "<script>alert(\"cette boite mail nexiste pas dans la base \")
                    </script>";*/
 
