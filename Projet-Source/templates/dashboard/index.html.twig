@@ -8,8 +8,7 @@
     <div class="col-md-12">
         <div class="widget">
             <header class="widget-header">
-                <h4 class="widget-title">Liste des Utilisateurs</h4>
-<br>
+                <h4 class="widget-title">Liste des Utilisateurs</h4><br>
                 <a href="{{ path('createUser') }}"><button type="button" class="btn btn-outline mw-md btn-primary btn-sm">Ajouter</button></a>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
@@ -48,19 +47,18 @@
                         <tbody>
                         {% for user in users %}
                             <tr>
-                                <td>{{ user.nom }} {{ user.prenom }}</td>
+                                <td> {{ user.nom }} {{ user.prenom }}</td>
                                 <td>{{ user.role}}</td>
                                 <td>{{ user.poste }}</td>
                                 <td>{{ user.telephone }}</td>
                                 <td>{{ user.inscription | date('d/m/Y') }}</td>
                                 <td>
                                     <a href="#">Editer</a>
-                                    <input  type="checkbox" id="cb{{ user.id }}" onchange="onchangeIsActive(this)" data-href="{{ path('isActive', {'id': user.id }) }}" {% if user.etat %}checked{% endif %} >
-                                    <label for="cb{{ user.id }}">{% if user.etat %}activé{% else %}desactivé{% endif %}</label>
                                 </td>
                                 <td>
                                     <div class="m-b-lg m-r-xl inline-block">
-                                        <input id="switch-3-3" type="checkbox" data-switchery="true" data-size="small" checked="" style="display: none;"><span class="switchery switchery-small" style="background-color: rgb(24, 138, 226); border-color: rgb(24, 138, 226); box-shadow: rgb(24, 138, 226) 0px 0px 0px 11px inset; transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s, background-color 1.2s ease 0s;"><small style="left: 13px; transition: background-color 0.4s ease 0s, left 0.2s ease 0s; background-color: rgb(255, 255, 255);"></small></span>
+                                        <input type="checkbox" id="cb{{ user.id }}" data-switchery data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('isActive', {'id': user.id }) }}" {% if user.etat %}checked{% endif %} />
+                                        <span class="switchery switchery-small" style="background-color: rgb(255, 255, 255); border-color: rgb(223, 223, 223); box-shadow: rgb(223, 223, 223) 0px 0px 0px 0px inset; transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s;"><small style="left: 0px; transition: background-color 0.4s ease 0s, left 0.2s ease 0s;"></small></span>
                                     </div>
                                 </td>
                             </tr>
@@ -80,24 +78,19 @@
     <script>
         function onchangeIsActive(this_) {
             var url=$(this_).data('href');
-            console.log(url);
-            if(confirm('test')){
                 axios.get(url).then(function (response) {
-                    if (response.data.etat=="true"){
-                        alert('user activated');
+                    if (response.data.etat==="true"){
+                        swal("Utilisateur Activé!","","success");
                         $(this_).prop("checked",true);
-                        $(this_).next().text("activé");
-
                         //console.log(test);
                     }
-                    else if(response.data.etat=="false"){
-                        alert('user desactivated');
+                    else if(response.data.etat==="false"){
+                        swal("Utilisateur Désactivé!","",  "warning");
                         $(this_).prop("checked",false);
-                        $(this_).next().text("desactivé");
                     }
                 })
             }
-        }
+
     </script>
 
     <script src="{{ asset('Infinity/libs/bower/switchery/dist/switchery.min.js"') }}"></script>
