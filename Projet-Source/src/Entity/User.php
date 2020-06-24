@@ -92,7 +92,7 @@ class User implements UserInterface
     private $role;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $forgottenPass_token;
 
@@ -308,12 +308,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getForgottenPassToken(): ?int
+    public function getForgottenPassToken(): ?string
     {
         return $this->forgottenPass_token;
     }
 
-    public function setForgottenPassToken(?int $forgottenPass_token): self
+    public function setForgottenPassToken(?string $forgottenPass_token): self
     {
         $this->forgottenPass_token = $forgottenPass_token;
 

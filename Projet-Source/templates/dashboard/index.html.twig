@@ -38,7 +38,11 @@
                         </div>
                     </div>
                 <div class="table-responsive">
-                    <table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
+                    <table id="responsive-datatable" data-plugin="DataTable" data-options="{
+									ajax: 'Infinity/api/json/dataTable.json',
+									responsive: true,
+									keys: true
+								}" class="table table-striped" cellspacing="0" width="100%">
                         <thead>
                         <tr style="text-align: left">
                             <th>Nom</th>

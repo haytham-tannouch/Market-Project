@@ -118,7 +118,7 @@ class DashboardController extends Controller
 
     }
     /**
-     * @Route("/dashboard/genegerPass", name="genPass")
+     * @Route("/genegerPass", name="genPass")
      */
     public function generatePassword()
     {

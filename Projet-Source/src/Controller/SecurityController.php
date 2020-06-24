@@ -98,8 +98,11 @@ class SecurityController extends Controller
                 ]);
             }
             // sinon on lui genere un f=token a six chiffre
-            $forgotten_token=random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9);
-            $user->setForgottenPassToken($forgotten_token);
+            //$forgotten_token=random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9);
+            $forgotten_token="123456";
+            $encoded =md5($forgotten_token);
+            $user->setForgottenPassToken($encoded);
+
             $date=new \DateTime();
             $user->setForgottenPassExpiration($date);
             $date->modify('+120 seconds');
@@ -120,7 +123,7 @@ class SecurityController extends Controller
                 ->setFrom('votre@adresse.fr')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    "bonjour".$user->getNom()." ".$user->getPrenom()." Vs avez demandé la reinitialisation du mdp  de votre compte sur  WWW.SITE.MA Voici le code de securité pr changer votre mdp : ".$user->getForgottenPassToken()." Cordialement ",
+                    "bonjour".$user->getNom()." ".$user->getPrenom()." Vs avez demandé la reinitialisation du mdp  de votre compte sur  WWW.SITE.MA Voici le code de securité pr changer votre mdp : ".$forgotten_token." Cordialement ",
                     'text/html'
                 )
                 ;
@@ -154,7 +157,7 @@ class SecurityController extends Controller
 
             $params = $request->request->all();
             $data=$params['validation_code'];
-            $code=$data['code'];
+            $code=md5($data['code']);
             $confirmationCode =$user->getForgottenPassToken();
             $CurrentDate=new \DateTime();
         //    $Period=$CurrentDate->diff($user->getForgottenPassExpiration(),false);
@@ -166,8 +169,6 @@ class SecurityController extends Controller
             //dump($diff);die();
           if ($diff>0 && $diff<120)
           {
-
-
               if($code==$confirmationCode){
 
                   return $this->redirectToRoute('app_reset_password',[
@@ -260,9 +261,6 @@ class SecurityController extends Controller
         return $this->render('security/resetPass.html.twig', [
             'ResetForm' => $form->createView()
         ]);
-
-
-
     }
 
     /**
