@@ -53,6 +53,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             'email' => $request->request->get('email'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
+            'etat'=>$request->request->get('etat'),
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
@@ -70,6 +71,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+        //dump($user);die();
 
         if (!$user) {
             // fail authentication with a custom error
@@ -86,8 +88,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         if(!($this->passwordEncoder->isPasswordValid($user, $credentials['password'])))
         {
-
             throw new CustomUserMessageAuthenticationException('Mot de passe incorrect ,Veuillez essayer à nouveau');
+        }
+        if ($user->getEtat()==false){
+            throw new CustomUserMessageAuthenticationException('Votre compte est désactivé pour le moment ! Contactez votre administrateur!');
         }
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }

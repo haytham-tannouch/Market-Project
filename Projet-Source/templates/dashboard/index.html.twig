@@ -61,7 +61,7 @@
                                     <a href="#">Editer</a>
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="js-switch" id="cb{{ user.id }}" data-switchery="true" data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('isActive', {'id': user.id }) }}" {% if user.etat %}checked{% endif %} />
+                                    <input type="checkbox" {% if app.user==user %}disabled{% endif %} class="js-switch" id="cb{{ user.id }}" data-switchery="true" data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('isActive', {'id': user.id }) }}" {% if user.etat %}checked{% endif %} />
                                 </td>
                             </tr>
                         {% endfor %}
@@ -99,6 +99,9 @@
                     }
                 })
             }
+        $(document).ready( function () {
+            $('#default-datatable').DataTable();
+        } );
 
     </script>
 {% endblock %}
