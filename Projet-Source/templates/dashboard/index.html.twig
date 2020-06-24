@@ -5,42 +5,25 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Infinity/libs/bower/lightbox2/dist/css/lightbox.min.css') }}">
 {% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
     <!-- DOM dataTable -->
-    <div class="col-md-12">
-        <div class="widget">
-            <header class="widget-header">
-                <strong class="widget-title">Utilisateurs</strong>&nbsp;&nbsp;
-                <a href="{{ path('createUser') }}"><button type="button" class="btn  mw-md btn-primary btn-sm">Ajouter</button></a>
-            </header><!-- .widget-header -->
-            <hr class="widget-separator">
-            <div class="widget-body">
-                <div id="responsive-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="dataTables_length" id="responsive-datatable_length">
-                                <label>Show <select name="responsive-datatable_length" aria-controls="responsive-datatable" class="form-control input-sm">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select> entries</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div id="responsive-datatable_filter" class="dataTables_filter">
-                                <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="responsive-datatable">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                <div class="table-responsive">
-                    <table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
+
+    <div class="widget">
+        <header class="widget-header ">
+            <h4 class="widget-title">Default DataTable</h4>
+        </header><!-- .widget-header -->
+        <hr class="widget-separator">
+        <div class="widget-body ">
+            <div class="table-responsive">
+                    <table id="responsive-datatable" data-plugin="DataTable" data-options="{
+									responsive: true,
+									keys: true
+								}" class="table table-striped display" >
                         <thead>
-                        <tr style="text-align: left">
+                        <tr >
                             <th>Nom</th>
                             <th>Role</th>
                             <th>Poste</th>
@@ -59,27 +42,19 @@
                                 <td>{{ user.inscription | date('d/m/Y') }}</td>
                                 <td>
                                     <a href="#">Editer</a>
-                                </td>
-                                <td>
                                     <input type="checkbox" {% if app.user==user %}disabled{% endif %} class="js-switch" id="cb{{ user.id }}" data-switchery="true" data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('isActive', {'id': user.id }) }}" {% if user.etat %}checked{% endif %} />
                                 </td>
                             </tr>
                         {% endfor %}
-                        </tbody>
                     </table>
                 </div>
-            </div><!-- .widget-body -->
-        </div><!-- .widget -->
-    </div><!-- END column -->
-    </div>
+            </div>
+        </div><!-- .widget-body -->
+    </div><!-- .widget -->
+
 {% endblock %}
 {% block javascripts %}
 
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         var elems = document.querySelectorAll('.js-switch');
         for (var i = 0; i < elems.length; i++) {
@@ -87,22 +62,23 @@
         }
         function onchangeIsActive(this_) {
             var url=$(this_).data('href');
-                axios.get(url).then(function (response) {
-                    if (response.data.etat==="true"){
-                        swal("Utilisateur Activé!","","success");
-                        $(this_).prop("checked",true);
-                        //console.log(test);
-                    }
-                    else if(response.data.etat==="false"){
-                        swal("Utilisateur Désactivé!","",  "warning");
-                        $(this_).prop("checked",false);
-                    }
-                })
-            }
-        $(document).ready( function () {
-            $('#default-datatable').DataTable();
+            axios.get(url).then(function (response) {
+                if (response.data.etat==="true"){
+                    swal("Utilisateur Activé!","","success");
+                    $(this_).prop("checked",true);
+                    //console.log(test);
+                }
+                else if(response.data.etat==="false"){
+                    swal("Utilisateur Désactivé!","",  "warning");
+                    $(this_).prop("checked",false);
+                }
+            })
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#responsive-datatable').DataTable();
         } );
-
     </script>
 {% endblock %}
 
