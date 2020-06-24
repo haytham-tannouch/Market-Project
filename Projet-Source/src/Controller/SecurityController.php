@@ -66,8 +66,9 @@ class SecurityController extends Controller
             $user = $users->findOneByEmail($donnees->getEmail());
             // si aucun user a cet email on l e renvoit vers la mm page
             if ($user === null) {
-                echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur nitre base de données,veuillez la verifier pr réessayer \")
+                echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur notre base de données,veuillez la verifier pr réessayer \")
                    </script>";
+
                 return $this->render('security/Email.html.twig', [
                     'emailForm' => $form->createView()
                 ]);
@@ -151,13 +152,15 @@ class SecurityController extends Controller
 
 
               }
+              else
+              {
+                  echo "<script>alert(\"Code de validation incorrect  Réssayez à nouveau \")
+                   </script>";
+              }
             }
             else{
-                echo "<script>alert(\"Durée de ce code de validation a été expirée  \")
+                echo "<script>alert(\"Durée de ce code de validation a été expirée  Réssayez à nouveau \")
                    </script>";
-
-                return $this->redirectToRoute('app_login'
-                );
             }
 
 
@@ -184,8 +187,8 @@ class SecurityController extends Controller
         // Si l'utilisateur n'existe pas
         if ($user === null) {
             // On affiche une erreur
-            $this->addFlash('danger', 'Code Inconnu');
-            return $this->redirectToRoute('login');
+
+            return $this->redirectToRoute('app_login');
         }
 
         // Si le formulaire est envoyé en méthode post
