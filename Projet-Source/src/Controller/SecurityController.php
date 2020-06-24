@@ -24,12 +24,22 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(Request $request,AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            $token = new UsernamePasswordToken($this->getUser(), null, 'main', $this->getUser()->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirect($this->generateUrl('dashboard'));
+            }
+            else{
+                return $this->redirect($this->generateUrl('user'));
+            }
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -55,6 +65,20 @@ class SecurityController extends Controller
      */
     public function Remail(Request $request,ObjectManager $manager,UserRepository $users,\Swift_Mailer $mailer): Response
     {
+        if ($this->getUser()) {
+            $token = new UsernamePasswordToken($this->getUser(), null, 'main', $this->getUser()->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirect($this->generateUrl('dashboard'));
+            }
+            else{
+                return $this->redirect($this->generateUrl('user'));
+            }
+        }
         //initialisatoin Emailform du form qui contient une seule input de type email
         $form = $this->createForm(ForgottenpassType::class);
         $form->handleRequest($request);
@@ -66,8 +90,9 @@ class SecurityController extends Controller
             $user = $users->findOneByEmail($donnees->getEmail());
             // si aucun user a cet email on l e renvoit vers la mm page
             if ($user === null) {
-                echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur nitre base de données,veuillez la verifier pr réessayer \")
+                echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur notre base de données,veuillez la verifier puis réessayer \")
                    </script>";
+
                 return $this->render('security/Email.html.twig', [
                     'emailForm' => $form->createView()
                 ]);
@@ -151,13 +176,15 @@ class SecurityController extends Controller
 
 
               }
+              else
+              {
+                  echo "<script>alert(\"Code de validation incorrect  Réssayez à nouveau \")
+                   </script>";
+              }
             }
             else{
-                echo "<script>alert(\"Durée de ce code de validation a été expirée  \")
+                echo "<script>alert(\"Durée de ce code de validation a été expirée  Réssayez à nouveau \")
                    </script>";
-
-                return $this->redirectToRoute('app_login'
-                );
             }
 
 
@@ -184,8 +211,8 @@ class SecurityController extends Controller
         // Si l'utilisateur n'existe pas
         if ($user === null) {
             // On affiche une erreur
-            $this->addFlash('danger', 'Code Inconnu');
-            return $this->redirectToRoute('login');
+
+            return $this->redirectToRoute('app_login');
         }
 
         // Si le formulaire est envoyé en méthode post

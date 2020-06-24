@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0550cf73-3c4d-4c77-8733-f4eef6601ad3" name="Default Changelist" comment="">
+    <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/creationUser.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/creationUser.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,13 +27,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="UPDATE_TYPE" value="REBASE" />
-  </component>
-  <component name="IgnoredFileRootStore">
-    <option name="generatedRoots">
-      <set>
-        <option value="C:\wamp\www\Market-Project\Projet-Source\.idea" />
-      </set>
-    </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -133,6 +128,8 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/webimpress/safe-writer" />
+      <path value="$PROJECT_DIR$/vendor/kriswallsmith/assetic" />
+      <path value="$PROJECT_DIR$/vendor/symfony/assetic-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="1dcmvjzWJnjHzCkREuTz0tAjjTi" />
@@ -169,7 +166,6 @@
       <workItem from="1592732988927" duration="610000" />
       <workItem from="1592733622248" duration="27798000" />
       <workItem from="1592900161967" duration="15388000" />
-      <workItem from="1592989990867" duration="11083000" />
     </task>
     <task id="LOCAL-00001" summary="update composer">
       <created>1592733723452</created>
@@ -206,12 +202,12 @@
       <option name="project" value="LOCAL" />
       <updated>1592774054432</updated>
     </task>
-    <task id="LOCAL-00006" summary="90% Template objectif">
-      <created>1592925237723</created>
+    <task id="LOCAL-00006" summary="User listing 100% Front/Back;&#10;Add User     100% Front/Back;&#10;Login        100% Front/Back/Sessions;&#10;Forgotten pass 100% Front/Back;">
+      <created>1593010957079</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1592925237723</updated>
+      <updated>1593010957079</updated>
     </task>
     <option name="localTasksCounter" value="7" />
     <servers />
@@ -239,60 +235,61 @@
     <MESSAGE value="SESSIONS ET MSGS D'ERREURS" />
     <MESSAGE value="SESSIONS ET MSGS D'ERREURS without secUrUty" />
     <MESSAGE value="Include template  with merierm's task" />
-    <MESSAGE value="90% Template objectif" />
-    <option name="LAST_COMMIT_MESSAGE" value="90% Template objectif" />
+    <MESSAGE value="User listing 100% Front/Back;&#10;Add User     100% Front/Back;&#10;Login        100% Front/Back/Sessions;&#10;Forgotten pass 100% Front/Back;" />
+    <option name="LAST_COMMIT_MESSAGE" value="User listing 100% Front/Back;&#10;Add User     100% Front/Back;&#10;Login        100% Front/Back/Sessions;&#10;Forgotten pass 100% Front/Back;" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1592737448065">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592737448065" />
-    <state x="468" y="24" key="CommitChangelistDialog2" timestamp="1592934941678">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="468" y="23" key="CommitChangelistDialog2" timestamp="1593010956045">
+      <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="468" y="24" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1592934941677" />
+    <state x="468" y="24" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1592843112657" />
+    <state x="468" y="23" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1593010956045" />
     <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767686253" />
-    <state x="147" y="67" key="DiffContextDialog" timestamp="1593016446246">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="147" y="68" key="DiffContextDialog" timestamp="1592920272507">
+      <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="147" y="67" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1593016446246" />
     <state x="147" y="68" key="DiffContextDialog/0.0.1536.834@0.0.1536.834" timestamp="1592920272507" />
     <state x="184" y="85" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592761459465" />
     <state x="530" y="387" width="924" height="286" key="MultipleFileMergeDialog" timestamp="1592733944240">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="530" y="387" width="924" height="286" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733944240" />
-    <state x="442" y="200" key="Vcs.Push.Dialog.v2" timestamp="1593016303977">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="442" y="202" key="Vcs.Push.Dialog.v2" timestamp="1593016269720">
+      <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1593016303977" />
+    <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592843074754" />
+    <state x="442" y="202" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1593016269720" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767817127" />
     <state x="475" y="151" key="VcsDiffUtil.ChangesDialog" timestamp="1592919414211">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="475" y="151" key="VcsDiffUtil.ChangesDialog/0.0.1536.834@0.0.1536.834" timestamp="1592919414211" />
-    <state x="477" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1592989991765">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1592996373633">
+      <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="477" y="241" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1592989991765" />
+    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.834@0.0.1536.834" timestamp="1592996373633" />
     <state x="578" y="334" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592919467873">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="578" y="334" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.834@0.0.1536.834" timestamp="1592919467873" />
-    <state x="515" y="244" key="git4idea.merge.GitPullDialog" timestamp="1593016423909">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="515" y="244" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1593016423909" />
-    <state x="515" y="247" key="git4idea.merge.GitPullDialog/0.0.1536.834@0.0.1536.834" timestamp="1592920260618" />
-    <state x="644" y="308" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733885662" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1592755116210">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592755116210" />
-    <state x="498" y="180" width="672" height="544" key="search.everywhere.popup" timestamp="1592900777197">
+    <state x="515" y="247" key="git4idea.merge.GitPullDialog" timestamp="1592920260618">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
+    <state x="515" y="244" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1592843051957" />
+    <state x="515" y="247" key="git4idea.merge.GitPullDialog/0.0.1536.834@0.0.1536.834" timestamp="1592920260618" />
+    <state x="644" y="308" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733885662" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1592932536983">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592932536983" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1592928702739">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
     <state x="498" y="180" width="672" height="544" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1592900777197" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592767417083" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592928702739" />
   </component>
 </project>

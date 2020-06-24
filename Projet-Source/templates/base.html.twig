@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Admin, Dashboard, Bootstrap" />
     <link rel="shortcut icon" sizes="196x196" href="{{ asset('Infinity/assets/images/logo.png') }}">
-    <title>Infinity - Bootstrap Admin Template</title>
+    <title>Travel Agency</title>
 
+    {% block stylesheet %}
+    {% endblock %}
     <link rel="stylesheet" href="{{ asset('Infinity/libs/bower/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Infinity/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css') }}">
     <!-- build:css ../assets/css/app.min.css -->
@@ -50,7 +53,7 @@
 
         <a href="../index.html" class="navbar-brand">
             <span class="brand-icon"><i class="fa fa-gg"></i></span>
-            <span class="brand-name">Infinity</span>
+            <span class="brand-name">Travel Agency</span>
         </a>
     </div><!-- .navbar-header -->
 
@@ -86,7 +89,7 @@
         <div class="media">
             <div class="media-body">
                 <div class="foldable">
-                    <h5><a href="javascript:void(0)" class="username">MR : {{app.user.prenom }} {{ app.user.nom }}</a></h5>
+                    <h5><a href="javascript:void(0)" class="username">{{app.user.prenom }} {{ app.user.nom }}</a></h5>
                     <ul>
                         <li class="dropdown">
                             <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -155,14 +158,6 @@
     <!-- APP FOOTER -->
     <div class="wrap p-t-0">
         <footer class="app-footer">
-            <div class="clearfix">
-                <ul class="footer-menu pull-right">
-                    <li><a href="javascript:void(0)">Careers</a></li>
-                    <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                    <li><a href="javascript:void(0)">Feedback <i class="fa fa-angle-up m-l-md"></i></a></li>
-                </ul>
-                <div class="copyright pull-left">Copyright RaThemes 2016 &copy;</div>
-            </div>
         </footer>
     </div>
     <!-- /#app-footer -->
@@ -170,6 +165,7 @@
 <!--========== END app main -->
 
 <!-- build:js ../assets/js/core.min.js -->
+<script src="{{ asset('Infinity/libs/bower/switchery/dist/switchery.js/switchery.main.js/"') }}"></script>
 <script src="{{ asset('Infinity/libs/bower/jquery/dist/jquery.js') }}"></script>
 <script src="{{ asset('Infinity/libs/bower/jquery-ui/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('Infinity/libs/bower/jQuery-Storage-API/jquery.storageapi.min.js') }}"></script>
@@ -180,13 +176,17 @@
 <!-- endbuild -->
 
 <!-- build:js ../assets/js/app.min.js -->
+<script src="{{ asset('Infinity/libs/bower/switchery/dist/switchery.js/switchery.min.js"') }}"></script>
 <script src="{{ asset('Infinity/assets/js/library.js') }}"></script>
 <script src="{{ asset('Infinity/assets/js/plugins.js') }}"></script>
 <script src="{{ asset('Infinity/assets/js/app.js') }}"></script>
 <!-- endbuild -->
+<script src="{{ asset('Infinity/libs/bower/switchery/dist/switchery.js/switchery.min.js"') }}"></script>
 <script src="{{ asset('Infinity/libs/bower/moment/moment.js') }}"></script>
 <script src="{{ asset('Infinity/libs/bower/fullcalendar/dist/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('Infinity/assets/js/fullcalendar.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
 {% block javascripts %}{% endblock %}
 
 </body>
