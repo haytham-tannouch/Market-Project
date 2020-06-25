@@ -50,10 +50,17 @@ class SecurityController extends Controller
         }
 
     }
+
     /**
      * @Route("/Remail", name="app_remail")
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @param UserRepository $users
+     * @param \Swift_Mailer $mailer
+     * @param $encoder
+     * @return Response
      */
-    public function Remail(Request $request,ObjectManager $manager,UserRepository $users,\Swift_Mailer $mailer): Response
+    public function Remail(Request $request, ObjectManager $manager, UserRepository $users, \Swift_Mailer $mailer,UserPasswordEncoderInterface $encoder): Response
     {
         //initialisatoin Emailform du form qui contient une seule input de type email
         $form = $this->createForm(ForgottenpassType::class);
@@ -75,7 +82,11 @@ class SecurityController extends Controller
             }
             // sinon on lui genere un f=token a six chiffre
             $forgotten_token=random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9);
-            $user->setForgottenPassToken($forgotten_token);
+
+            $encoded = $encoder->encodePassword($user, $forgotten_token);
+
+            $user->setForgottenPassToken($encoded);
+
             $date=new \DateTime();
             $user->setForgottenPassExpiration($date);
             $date->modify('+120 seconds');
@@ -103,12 +114,13 @@ class SecurityController extends Controller
             $mailer->send($message);$mailer->send($message2);
             // si les emails ont ete envoyé je le redirige vers la page validationcode.html.twig pr saisir le token qu'il vient de recevoir passant sont id pr verification
 
-           if ( $mailer->send($message) && $mailer->send($message2)){
+          /* if ( $mailer->send($message) && $mailer->send($message2)){
 
                return $this->redirectToRoute('validationCode',[
                    'id'=>$user->getId()
                ]);
            }
+          */
 
         }
         return $this->render('security/Email.html.twig', [
