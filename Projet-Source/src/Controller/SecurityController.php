@@ -24,12 +24,22 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(Request $request,AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            $token = new UsernamePasswordToken($this->getUser(), null, 'main', $this->getUser()->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirect($this->generateUrl('dashboard'));
+            }
+            else{
+                return $this->redirect($this->generateUrl('user'));
+            }
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -50,18 +60,25 @@ class SecurityController extends Controller
         }
 
     }
-
     /**
      * @Route("/Remail", name="app_remail")
-     * @param Request $request
-     * @param ObjectManager $manager
-     * @param UserRepository $users
-     * @param \Swift_Mailer $mailer
-     * @param $encoder
-     * @return Response
      */
-    public function Remail(Request $request, ObjectManager $manager, UserRepository $users, \Swift_Mailer $mailer,UserPasswordEncoderInterface $encoder): Response
+    public function Remail(Request $request,ObjectManager $manager,UserRepository $users,\Swift_Mailer $mailer): Response
     {
+        if ($this->getUser()) {
+            $token = new UsernamePasswordToken($this->getUser(), null, 'main', $this->getUser()->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirect($this->generateUrl('dashboard'));
+            }
+            else{
+                return $this->redirect($this->generateUrl('user'));
+            }
+        }
         //initialisatoin Emailform du form qui contient une seule input de type email
         $form = $this->createForm(ForgottenpassType::class);
         $form->handleRequest($request);
@@ -73,7 +90,7 @@ class SecurityController extends Controller
             $user = $users->findOneByEmail($donnees->getEmail());
             // si aucun user a cet email on l e renvoit vers la mm page
             if ($user === null) {
-                echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur notre base de données,veuillez la verifier pr réessayer \")
+                echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur notre base de données,veuillez la verifier puis réessayer \")
                    </script>";
 
                 return $this->render('security/Email.html.twig', [
@@ -81,10 +98,9 @@ class SecurityController extends Controller
                 ]);
             }
             // sinon on lui genere un f=token a six chiffre
-            $forgotten_token=random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9);
-
-            $encoded = $encoder->encodePassword($user, $forgotten_token);
-
+            //$forgotten_token=random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9).random_int(0,9);
+            $forgotten_token="123456";
+            $encoded =md5($forgotten_token);
             $user->setForgottenPassToken($encoded);
 
             $date=new \DateTime();
@@ -107,20 +123,19 @@ class SecurityController extends Controller
                 ->setFrom('votre@adresse.fr')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    "bonjour".$user->getNom()." ".$user->getPrenom()." Vs avez demandé la reinitialisation du mdp  de votre compte sur  WWW.SITE.MA Voici le code de securité pr changer votre mdp : ".$user->getForgottenPassToken()." Cordialement ",
+                    "bonjour".$user->getNom()." ".$user->getPrenom()." Vs avez demandé la reinitialisation du mdp  de votre compte sur  WWW.SITE.MA Voici le code de securité pr changer votre mdp : ".$forgotten_token." Cordialement ",
                     'text/html'
                 )
                 ;
             $mailer->send($message);$mailer->send($message2);
             // si les emails ont ete envoyé je le redirige vers la page validationcode.html.twig pr saisir le token qu'il vient de recevoir passant sont id pr verification
 
-          /* if ( $mailer->send($message) && $mailer->send($message2)){
+           if ( $mailer->send($message) && $mailer->send($message2)){
 
                return $this->redirectToRoute('validationCode',[
                    'id'=>$user->getId()
                ]);
            }
-          */
 
         }
         return $this->render('security/Email.html.twig', [
@@ -142,7 +157,7 @@ class SecurityController extends Controller
 
             $params = $request->request->all();
             $data=$params['validation_code'];
-            $code=$data['code'];
+            $code=md5($data['code']);
             $confirmationCode =$user->getForgottenPassToken();
             $CurrentDate=new \DateTime();
         //    $Period=$CurrentDate->diff($user->getForgottenPassExpiration(),false);
@@ -154,8 +169,6 @@ class SecurityController extends Controller
             //dump($diff);die();
           if ($diff>0 && $diff<120)
           {
-
-
               if($code==$confirmationCode){
 
                   return $this->redirectToRoute('app_reset_password',[
@@ -248,9 +261,6 @@ class SecurityController extends Controller
         return $this->render('security/resetPass.html.twig', [
             'ResetForm' => $form->createView()
         ]);
-
-
-
     }
 
     /**

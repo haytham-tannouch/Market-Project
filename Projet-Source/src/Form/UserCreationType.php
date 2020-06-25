@@ -55,11 +55,11 @@ class UserCreationType extends AbstractType
                         ),
                          'years' => range(date('Y'), date('Y')-100),
                          ])
-            ->add('poste',          TextType::class, array(
+            ->add('poste',TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 )))
-            ->add('Sauvegarder',           SubmitType::class,array(
+            ->add('Sauvegarder', SubmitType::class,array(
                 'attr'=>array(
                     'class'=>'btn btn-primary btn-md',
                 )
