@@ -21,11 +21,13 @@ class UserCreationType extends AbstractType
         $builder
             ->add('email',         EmailType::class, array(
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+
                 )))
             ->add('password',      PasswordType::class, array(
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>isset($options['required'])?$options['required']:true
                 )))
             ->add('role',          ChoiceType::class, array(
                 'choices' => array(

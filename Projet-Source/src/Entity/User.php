@@ -101,6 +101,11 @@ class User implements UserInterface
      */
     private $ForgottenPassExpiration;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $activationToken;
+
 
     public function getId(): ?int
     {
@@ -209,6 +214,11 @@ class User implements UserInterface
             return ['ROLE_USER'];
         }
         return $this->roles;
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles=$roles;
     }
 
     function addRole($role) {
@@ -328,6 +338,18 @@ class User implements UserInterface
     public function setForgottenPassExpiration(?\DateTimeInterface $ForgottenPassExpiration): self
     {
         $this->ForgottenPassExpiration = $ForgottenPassExpiration;
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function setActivationToken(?string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
 
         return $this;
     }
