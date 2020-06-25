@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ProfilType;
 use App\Form\UserCreationType;
+use App\Repository\AgencesRepository;
 use App\Repository\UserRepository;
+use App\Repository\VillesRepository;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -28,6 +31,45 @@ class DashboardController extends Controller
             'users' =>$users ,
         ]);
     }
+    /**
+     * @Route("/agences", name="agences")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function agenceListing(UserRepository $repository,AgencesRepository $agencesRepository , VillesRepository $villesRepository)
+    {
+        $users=$repository->findAll();
+        $agences=$agencesRepository->findAll();
+        $villes=$villesRepository->findAll();
+        return $this->render('dashboard/agences.html.twig', [
+            'users' =>$users ,
+            'agences'=>$agences,
+            'villes'=>$villes
+        ]);
+    }
+
+    /**
+     * @Route("/agences/Profil/{id}", name="profil")
+     * @param $request
+     * @param $repository
+     * @return Response
+     */
+    public function Profil(Request $request,UserRepository $repository)
+    {
+        $form = $this->createForm(ProfilType::class);
+        $form->handleRequest($request);
+        $data=$request->attributes->all();
+        $user=$repository->find($data['id']);
+
+        return $this->render('dashboard/Profil.html.twig', [
+            'ProfilForm' => $form->createView(),
+            'user'=>$user
+        ]);
+
+    }
+
+
+
 
     /**
      * @Route("/dashboard/createUser", name="createUser")
