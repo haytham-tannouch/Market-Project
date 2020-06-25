@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Entity/Activites.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Agences.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Pays.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Villes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/ActivitesRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/AgencesRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/PaysRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/VillesRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,6 +293,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="604" y="340" key="NewPhpFileDialog/0.0.1536.834@0.0.1536.834" timestamp="1593021166805" />
+    <state x="572" y="127" key="RollbackChangesDialog" timestamp="1593079571435">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="572" y="127" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1593079571435" />
     <state x="442" y="202" key="Vcs.Push.Dialog.v2" timestamp="1593017568112">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
