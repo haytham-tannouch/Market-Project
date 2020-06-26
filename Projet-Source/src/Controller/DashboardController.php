@@ -17,16 +17,73 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class DashboardController extends Controller
 {
     /**
-     * @Route("/dashboard", name="dashboard")
+     * @Route("/dashboard/admin", name="dashboard_admin")
      * @param UserRepository $repository
      * @return Response
      */
-    public function index(UserRepository $repository)
+    public function indexAdmin(UserRepository $repository)
     {
         $users=$repository->findAll();
         return $this->render('dashboard/index.html.twig', [
             'users' =>$users ,
         ]);
+    }
+    /**
+     * @Route("/dashboard/user", name="dashboard_user")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function indexUser(UserRepository $repository)
+    {
+        $users=$repository->findAll();
+        return $this->render('dashboard/index.html.twig', [
+            'users' =>$users ,
+        ]);
+    }
+    /**
+     * @Route("/dashboard/user/{id}",name="user_profil")
+     */
+    public function userProfil(Request $request, UserPasswordEncoderInterface $encoder,User $user,\Swift_Mailer $mailer)
+    {
+        $users = $this->getDoctrine()->getRepository(User::class);
+        $data=$request->attributes->all();
+        $Olduser = $users->findOneBy(['id' => $data['id']]);
+        $oldPass=$Olduser->getPassword();
+
+        $form = $this->createForm(UserCreationType::class, $user,['required'=>false]);
+        $form->handleRequest($request);
+        $data=$form->getData();
+        $params = $request->request->all();
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump("oldpass".$oldPass);
+            $newpass=$params['user_creation']['password'];
+            if ($newpass!=$oldPass){
+                $hash = $encoder->encodePassword($user,$newpass);
+                $user->setPassword($hash);
+            }
+            else{
+                $user->setPassword($oldPass);
+            }
+            $role=$data->getRole();
+            if($role=="Administrateur"){
+                $user->setRoles('ROLE_ADMIN');
+
+            }
+            elseif ($role=="Editeur"){
+                $user->setRoles('ROLE_USER');
+            }
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            //return $this->redirectToRoute('dashboard');
+            }
+            return $this->render('dashboard/modifier.html.twig', [
+                'form' => $form->createView(),
+                'user'=>$user,
+                'oldpassword'=>$oldPass
+            ]);
+
     }
 
     /**

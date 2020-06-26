@@ -55,8 +55,11 @@ class SecurityController extends Controller
     public function afterlogin(AuthenticationUtils $authenticationUtils): Response
     {
          if ($this->isGranted('ROLE_ADMIN')) {
-           return $this->redirectToRoute('dashboard');
-        }
+           return $this->redirectToRoute('dashboard_admin');
+        } if ($this->isGranted('ROLE_USER')) {
+        return $this->redirectToRoute('dashboard_user');
+    }
+
 
     }
     /**
