@@ -41,6 +41,45 @@ class DashboardController extends Controller
         ]);
     }
     /**
+     * @Route("/agences", name="agences")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function agenceListing(UserRepository $repository,AgencesRepository $agencesRepository , VillesRepository $villesRepository)
+    {
+        $users=$repository->findAll();
+        $agences=$agencesRepository->findAll();
+        $villes=$villesRepository->findAll();
+        return $this->render('dashboard/agences.html.twig', [
+            'users' =>$users ,
+            'agences'=>$agences,
+            'villes'=>$villes
+        ]);
+    }
+
+    /**
+     * @Route("/agences/Profil/{id}", name="profil")
+     * @param $request
+     * @param $repository
+     * @return Response
+     */
+    public function Profil(Request $request,UserRepository $repository)
+    {
+        $form = $this->createForm(ProfilType::class);
+        $form->handleRequest($request);
+        $data=$request->attributes->all();
+        $user=$repository->find($data['id']);
+
+        return $this->render('dashboard/Profil.html.twig', [
+            'ProfilForm' => $form->createView(),
+            'user'=>$user
+        ]);
+
+    }
+
+
+
+    /**
      * @Route("/dashboard/user/{id}",name="user_profil")
      */
     public function userProfil(Request $request, UserPasswordEncoderInterface $encoder,User $user,\Swift_Mailer $mailer)
@@ -209,7 +248,7 @@ class DashboardController extends Controller
      * @param UserRepository $repository
      * @return Response
      */
-    public function isActive(User $user,Request $request,UserRepository $repository)
+    public function isActive(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
     {
         $data=$request->attributes->all();
         $user=$data['user'];
@@ -233,6 +272,36 @@ class DashboardController extends Controller
         else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
 
     }
+    /**
+     * @Route("agences/{id}/isAGactive", name="isAGactive")
+     * @param AgencesRepository $repository
+     * @return Response
+     */
+    public function isAGative(Agences $agence,Request $request,AgencesRepository $agencesRepository)
+    {
+        $data=$request->attributes->all();
+        // dump($data);die();
+        $agence=$data['agence'];
+        if($agence->getEtat()==true){
+            $agence->setEtat(false);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($agence);
+            $manager->flush();
+            return $this->json(['code'=>200,'etat'=>'false','agenceid'=>$agence->getId()],200);
+        }
+        elseif ($agence->getEtat()==false){
+            $agence->setEtat(true);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($agence);
+            $manager->flush();
+            return $this->json(['code'=>200,'etat'=>'true','agenceid'=>$agence->getId()],200);
+        }
+        else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
+
+    }
+
+
     /**
      * @Route("/genegerPass", name="genPass")
      */

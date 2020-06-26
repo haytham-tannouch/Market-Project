@@ -321,6 +321,7 @@ class User implements UserInterface
     public function getForgottenPassToken(): ?string
     {
         return $this->forgottenPass_token;
+
     }
 
     public function setForgottenPassToken(?string $forgottenPass_token): self
