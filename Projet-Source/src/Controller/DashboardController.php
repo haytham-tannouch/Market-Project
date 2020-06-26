@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Agences;
 use App\Entity\User;
 use App\Form\ProfilType;
 use App\Form\UserCreationType;
@@ -135,11 +136,11 @@ class DashboardController extends Controller
      * @param UserRepository $repository
      * @return Response
      */
-    public function isActive(User $user,Request $request,UserRepository $repository)
+    public function isActive(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
     {
         $data=$request->attributes->all();
+       // dump($data);die();
         $user=$data['user'];
-
         if($user->getEtat()==true){
             $user->setEtat(false);
 
@@ -159,6 +160,36 @@ class DashboardController extends Controller
         else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
 
     }
+    /**
+     * @Route("agences/{id}/isAGactive", name="isAGactive")
+     * @param AgencesRepository $repository
+     * @return Response
+     */
+    public function isAGative(Agences $agence,Request $request,AgencesRepository $agencesRepository)
+    {
+        $data=$request->attributes->all();
+        // dump($data);die();
+        $agence=$data['agence'];
+        if($agence->getEtat()==true){
+            $agence->setEtat(false);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($agence);
+            $manager->flush();
+            return $this->json(['code'=>200,'etat'=>'false','agenceid'=>$agence->getId()],200);
+        }
+        elseif ($agence->getEtat()==false){
+            $agence->setEtat(true);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($agence);
+            $manager->flush();
+            return $this->json(['code'=>200,'etat'=>'true','agenceid'=>$agence->getId()],200);
+        }
+        else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
+
+    }
+
+
     /**
      * @Route("/genegerPass", name="genPass")
      */
