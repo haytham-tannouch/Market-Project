@@ -41,7 +41,7 @@
                                 <td>{{ user.telephone }}</td>
                                 <td>{{ user.inscription | date('d/m/Y') }}</td>
                                 <td>
-                                    <a href="#">Editer</a>
+                                    <a href="{{  path('editUser', {'id': user.id }) }}">Editer</a>
                                     <input type="checkbox" {% if app.user==user %}disabled{% endif %} class="js-switch" id="cb{{ user.id }}" data-switchery="true" data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('isActive', {'id': user.id }) }}" {% if user.etat %}checked{% endif %} />
                                 </td>
                             </tr>

@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Utilisateur;
-use App\Form\EmailType;
 use App\Form\ForgottenpassType;
 use App\Form\ResetPassType;
 use App\Form\ValidationCodeType;
@@ -26,6 +24,7 @@ class SecurityController extends Controller
      */
     public function login(Request $request,AuthenticationUtils $authenticationUtils): Response
     {
+        //dump($this->getUser());
         if ($this->getUser()) {
             $token = new UsernamePasswordToken($this->getUser(), null, 'main', $this->getUser()->getRoles());
             $this->get('security.token_storage')->setToken($token);
@@ -37,7 +36,7 @@ class SecurityController extends Controller
                 return $this->redirect($this->generateUrl('dashboard'));
             }
             else{
-                return $this->redirect($this->generateUrl('user'));
+                return $this->redirect($this->generateUrl('dashboard'));
             }
         }
         // get the login error if there is one
@@ -76,7 +75,7 @@ class SecurityController extends Controller
                 return $this->redirect($this->generateUrl('dashboard'));
             }
             else{
-                return $this->redirect($this->generateUrl('user'));
+                return $this->redirect($this->generateUrl('app_login'));
             }
         }
         //initialisatoin Emailform du form qui contient une seule input de type email
@@ -92,7 +91,6 @@ class SecurityController extends Controller
             if ($user === null) {
                 echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur notre base de données,veuillez la verifier puis réessayer \")
                    </script>";
-
                 return $this->render('security/Email.html.twig', [
                     'emailForm' => $form->createView()
                 ]);
@@ -270,4 +268,5 @@ class SecurityController extends Controller
     {
        // return $this->redirectToRoute('app_login');
     }
+
 }
