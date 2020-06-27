@@ -55,16 +55,17 @@ class DashboardController extends Controller
      * @param $repository
      * @return Response
      */
-    public function Profil(Request $request,UserRepository $repository)
+    public function Profil(Request $request,UserRepository $repository,AgencesRepository $agencesRepository  )
     {
         $form = $this->createForm(ProfilType::class);
         $form->handleRequest($request);
         $data=$request->attributes->all();
         $user=$repository->find($data['id']);
-
+        $agences=$agencesRepository->findAll();
         return $this->render('dashboard/Profil.html.twig', [
             'ProfilForm' => $form->createView(),
-            'user'=>$user
+            'user'=>$user,
+            'agences'=>$agences
         ]);
 
     }

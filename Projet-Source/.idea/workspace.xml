@@ -26,9 +26,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Entity/Login.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EventListener/AuthenticationListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/LoginRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/agences.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/agences.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/Profil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/Profil.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +198,8 @@
       <workItem from="1592732988927" duration="610000" />
       <workItem from="1592733622248" duration="27798000" />
       <workItem from="1592900161967" duration="15388000" />
-      <workItem from="1593159806759" duration="3972000" />
+      <workItem from="1593159806759" duration="13276000" />
+      <workItem from="1593180268914" duration="1214000" />
     </task>
     <task id="LOCAL-00001" summary="update composer">
       <created>1592733723452</created>
@@ -273,7 +278,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593110704593</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Listing agences+ la fiche de l utilisateur+Activat°/Désactivat° des agences">
+      <created>1593165344017</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1593165344017</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,19 +314,20 @@
     <MESSAGE value="Dashboard Done &#10;Needs Search" />
     <MESSAGE value="W" />
     <MESSAGE value="Listing agences+ la fiche de l utilisateur(centrée)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Listing agences+ la fiche de l utilisateur(centrée)" />
+    <MESSAGE value="Listing agences+ la fiche de l utilisateur+Activat°/Désactivat° des agences" />
+    <option name="LAST_COMMIT_MESSAGE" value="Listing agences+ la fiche de l utilisateur+Activat°/Désactivat° des agences" />
   </component>
   <component name="WindowStateProjectService">
     <state x="659" y="326" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1593107551742">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="659" y="326" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593107551742" />
-    <state x="585" y="88" key="CommitChangelistDialog2" timestamp="1593110703950">
+    <state x="630" y="114" key="CommitChangelistDialog2" timestamp="1593165343261">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="468" y="24" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1592843112657" />
     <state x="468" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1593023246912" />
-    <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1593110703950" />
+    <state x="630" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1593165343261" />
     <state x="147" y="68" key="DiffContextDialog" timestamp="1592920272507">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -333,6 +346,10 @@
     </state>
     <state x="424" y="310" width="740" height="251" key="MultipleFileMergeDialog/0.0.1536.834@0.0.1536.834" timestamp="1593023378635" />
     <state x="530" y="387" width="924" height="286" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733944240" />
+    <state x="688" y="242" key="NewPhpClassDialog" timestamp="1593173301087">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="688" y="242" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593173301087" />
     <state x="604" y="340" key="NewPhpFileDialog" timestamp="1593021166805">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -341,12 +358,12 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="572" y="127" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1593079571435" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593110716790">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593165358907">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592843074754" />
     <state x="442" y="202" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1593017568112" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593110716790" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593165358907" />
     <state x="475" y="151" key="VcsDiffUtil.ChangesDialog" timestamp="1592919414211">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -365,14 +382,18 @@
     <state x="515" y="244" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1592843051957" />
     <state x="515" y="247" key="git4idea.merge.GitPullDialog/0.0.1536.834@0.0.1536.834" timestamp="1592920260618" />
     <state x="644" y="308" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733885662" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1593089809353">
+    <state x="683" y="291" key="refactoring.ChangeSignatureDialog" timestamp="1593177930105">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593089809353" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1593083827778">
+    <state x="683" y="291" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593177930105" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1593174552418">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593174552418" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1593171130084">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="498" y="180" width="672" height="544" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1593019676101" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593083827778" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593171130084" />
   </component>
 </project>

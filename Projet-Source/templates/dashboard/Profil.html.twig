@@ -10,7 +10,11 @@
     <div class="col-md-6">
         <div class="widget">
             <header class="widget-header">
-                <h1 align="center" >Bonjour {{ app.user.nom }} {{app.user.prenom  }} </h1>
+                <h1 align="center" >{% for agence in agences %}
+                        {% if agence.Utilisateur.id == user.id   %}
+                           {{ agence.NomAgence }}
+                        {% endif %}
+                    {% endfor %} </h1>
 
                 <h4 class="widget-title">Voila les informations de cet utilisateur</h4>
             </header><!-- .widget-header -->
