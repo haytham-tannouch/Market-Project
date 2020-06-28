@@ -39,6 +39,7 @@ class User implements UserInterface
      * @Assert\Regex(
      *     pattern="/^[a-z\D\.]{3,}$/i",
      *     message="Le Prénom {{ value }} est invalid veuillez entrer un nom valid",
+     *
      * )
      */
     private $nom;
@@ -105,6 +106,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $activationToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $logedAt;
 
 
     public function getId(): ?int
@@ -216,12 +222,18 @@ class User implements UserInterface
         return $this->roles;
     }
 
+    public function getRooles()
+    {
+        return $this->roles;
+    }
+
     public function setRoles($roles)
     {
         $this->roles=$roles;
     }
 
     function addRole($role) {
+        $this->roles=null;
         $this->roles[] = $role;
     }
 
@@ -351,6 +363,18 @@ class User implements UserInterface
     public function setActivationToken(?string $activationToken): self
     {
         $this->activationToken = $activationToken;
+
+        return $this;
+    }
+
+    public function getLogedAt(): ?\DateTimeInterface
+    {
+        return $this->logedAt;
+    }
+
+    public function setLogedAt(?\DateTimeInterface $logedAt): self
+    {
+        $this->logedAt = $logedAt;
 
         return $this;
     }

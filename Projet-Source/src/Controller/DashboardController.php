@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Agences;
 use App\Entity\User;
+use App\Form\ProfilType;
 use App\Form\UserCreationType;
+use App\Repository\AgencesRepository;
 use App\Repository\UserRepository;
+use App\Repository\VillesRepository;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -26,6 +30,7 @@ class DashboardController extends Controller
         $users=$repository->findAll();
         return $this->render('dashboard/index.html.twig', [
             'users' =>$users ,
+            'admin'=>true
         ]);
     }
     /**
@@ -36,8 +41,13 @@ class DashboardController extends Controller
     public function indexUser(UserRepository $repository)
     {
         $users=$repository->findAll();
+        $this->getUser()->setLogedAt(new \DateTime());
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($this->getUser());
+        $manager->flush();
         return $this->render('dashboard/index.html.twig', [
             'users' =>$users ,
+            'admin'=>false
         ]);
     }
     /**
@@ -63,21 +73,22 @@ class DashboardController extends Controller
      * @param $repository
      * @return Response
      */
-    public function Profil(Request $request,UserRepository $repository)
+    public function Profil(Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
     {
         $form = $this->createForm(ProfilType::class);
         $form->handleRequest($request);
         $data=$request->attributes->all();
         $user=$repository->find($data['id']);
+        $agence=$agencesRepository->findOneBy(['Utilisateur' => $data['id']]);
 
         return $this->render('dashboard/Profil.html.twig', [
             'ProfilForm' => $form->createView(),
-            'user'=>$user
+            'user'=>$user,
+            'agence'=>$agence
+
         ]);
 
     }
-
-
 
     /**
      * @Route("/dashboard/user/{id}",name="user_profil")
@@ -89,7 +100,11 @@ class DashboardController extends Controller
         $Olduser = $users->findOneBy(['id' => $data['id']]);
         $oldPass=$Olduser->getPassword();
 
-        $form = $this->createForm(UserCreationType::class, $user,['required'=>false]);
+        $modif=true;
+        if ($this->getUser()==$user){
+            $modif=false;
+        }
+        $form = $this->createForm(UserCreationType::class, $user,['disabled'=>$modif]);
         $form->handleRequest($request);
         $data=$form->getData();
         $params = $request->request->all();
@@ -105,11 +120,11 @@ class DashboardController extends Controller
             }
             $role=$data->getRole();
             if($role=="Administrateur"){
-                $user->setRoles('ROLE_ADMIN');
+                $user->addRole('ROLE_ADMIN');
 
             }
             elseif ($role=="Editeur"){
-                $user->setRoles('ROLE_USER');
+                $user->addRole('ROLE_USER');
             }
 
             $manager = $this->getDoctrine()->getManager();
@@ -120,13 +135,15 @@ class DashboardController extends Controller
             return $this->render('dashboard/modifier.html.twig', [
                 'form' => $form->createView(),
                 'user'=>$user,
-                'oldpassword'=>$oldPass
+                'oldpassword'=>$oldPass,
             ]);
+
+
 
     }
 
     /**
-     * @Route("/dashboard/createUser", name="createUser")
+     * @Route("/dashboard/admin/createUser", name="createUser")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @param \Swift_Mailer $mailer
@@ -186,7 +203,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * @Route("/dashboard/user/edit/{id}", name="editUser")
+     * @Route("/dashboard/admin/edit/{id}", name="editUser")
      */
     public function editUser(Request $request, UserPasswordEncoderInterface $encoder,User $user,\Swift_Mailer $mailer)
     {
@@ -200,7 +217,7 @@ class DashboardController extends Controller
         $data=$form->getData();
         $params = $request->request->all();
         if ($form->isSubmitted() && $form->isValid()) {
-            dump("oldpass".$oldPass);
+           // dump("oldpass".$oldPass);
             $newpass=$params['user_creation']['password'];
             if ($newpass!=$oldPass){
                 $hash = $encoder->encodePassword($user,$newpass);
@@ -211,11 +228,11 @@ class DashboardController extends Controller
             }
             $role=$data->getRole();
             if($role=="Administrateur"){
-                $user->setRoles('ROLE_ADMIN');
+                $user->addRole('ROLE_ADMIN');
 
             }
             elseif ($role=="Editeur"){
-                $user->setRoles('ROLE_USER');
+                $user->addRole('ROLE_USER');
             }
             /*if($message=="on"){
                 $msg = (new \Swift_Message('Creation Compte'))
@@ -239,12 +256,13 @@ class DashboardController extends Controller
         return $this->render('dashboard/modifier.html.twig', [
             'form' => $form->createView(),
             'user'=>$user,
-            'oldpassword'=>$oldPass
+            'oldpassword'=>$oldPass,
+            'firstlog'=>false
         ]);
 
     }
     /**
-     * @Route("/dashboard/user/{id}/isActive", name="isActive")
+     * @Route("/dashboard/admin/user/{id}/isActive", name="isActive")
      * @param UserRepository $repository
      * @return Response
      */
@@ -273,7 +291,7 @@ class DashboardController extends Controller
 
     }
     /**
-     * @Route("agences/{id}/isAGactive", name="isAGactive")
+     * @Route("dashboard/admin/agences/{id}/isAGactive", name="isAGactive")
      * @param AgencesRepository $repository
      * @return Response
      */
@@ -320,4 +338,5 @@ class DashboardController extends Controller
             //dump($randomString);die();
             return $this->json(['code'=>200,'RandPass'=>$randomString],200);
     }
+
 }

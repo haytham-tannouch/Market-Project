@@ -10,7 +10,7 @@
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
     <!-- DOM dataTable -->
-
+{% if admin %}
     <div class="widget">
         <header class="widget-header ">
             <strong class="widget-title">Utilisateurs</strong>&nbsp;&nbsp;<a href="{{ path('createUser') }}"><button class="btn btn-primary">Ajouter </button></a>
@@ -51,7 +51,18 @@
             </div>
         </div><!-- .widget-body -->
     </div><!-- .widget -->
-
+{% else %}
+    <div class="widget">
+        <header class="widget-header ">
+            <strong class="widget-title">User Role</strong>&nbsp
+        </header><!-- .widget-header -->
+        <hr class="widget-separator">
+        <div class="widget-body ">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus consequuntur, corporis et ex, facilis illo, maxime nostrum officia officiis perspiciatis quas similique voluptate? Aliquid doloribus iure reprehenderit sit totam, unde?
+        </div>
+    </div><!-- .widget-body -->
+    </div><!-- .widget -->
+    {% endif %}
 {% endblock %}
 {% block javascripts %}
 
