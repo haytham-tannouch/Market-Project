@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Agences;
 use App\Entity\User;
+use App\Form\AgenceCreationType;
 use App\Form\UserCreationType;
+use App\Repository\AgencesRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
@@ -84,6 +87,30 @@ class DashboardController extends Controller
 
         return $this->render('dashboard/creationUser.html.twig', [
             'form' => $form->createView()
+        ]);
+
+    }
+    /**
+     * @Route("/dashboard/createAgence", name="createAgence")
+     */
+    public function createAgence(Request $request)
+    {
+        $agence = new Agences();
+        $form = $this->createForm(AgenceCreationType::class, $agence);
+        $form->handleRequest($request);
+        $data=$form->getData();
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($agence);
+            $manager->flush();
+
+            }
+
+        return $this->render('dashboard/creationAgence.html.twig', [
+            'form' => $form->createView(),
         ]);
 
     }
