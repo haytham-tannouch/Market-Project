@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VillesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +29,16 @@ class Villes
      * @ORM\JoinColumn(nullable=false)
      */
     private $pays;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Agences::class, mappedBy="Ville")
+     */
+    private $Ville;
+
+    public function __construct()
+    {
+        $this->Ville = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -53,6 +65,37 @@ class Villes
     public function setPays(?Pays $pays): self
     {
         $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Agences[]
+     */
+    public function getVille(): Collection
+    {
+        return $this->Ville;
+    }
+
+    public function addVille(Agences $ville): self
+    {
+        if (!$this->Ville->contains($ville)) {
+            $this->Ville[] = $ville;
+            $ville->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVille(Agences $ville): self
+    {
+        if ($this->Ville->contains($ville)) {
+            $this->Ville->removeElement($ville);
+            // set the owning side to null (unless already changed)
+            if ($ville->getVille() === $this) {
+                $ville->setVille(null);
+            }
+        }
 
         return $this;
     }
