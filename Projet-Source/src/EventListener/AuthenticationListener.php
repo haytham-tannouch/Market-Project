@@ -29,12 +29,13 @@ class AuthenticationListener
 
     /**
      * onAuthenticationFailure
-     *
      * @param AuthenticationFailureEvent $event
      */
     public function onAuthenticationFailure(AuthenticationFailureEvent $event)
     {
         $username = $event->getAuthenticationToken()->getUsername();
+
+
         $this->saveLogin($username, false);
 
     }
@@ -47,23 +48,29 @@ class AuthenticationListener
     public function onAuthenticationSuccess(InteractiveLoginEvent $event)
     {
         $username = $event->getAuthenticationToken()->getUsername();
+
         $this->saveLogin($username, true);
     }
 
     /**
      * onAuthenticationSuccess
      *
-     * @param $success
      * @param $username
+     * @param $success
      */
     private function saveLogin($username, $success) {
         $login = new Login();
-       // $login->setUsername($username);
+        $request=$this->request->getCurrentRequest();
+      $login->setUsername($request->request->get('email'));
+        $user=get_current_user();
+
+
         $login->setIp($this->request->getCurrentRequest()->getClientIp());
+       // dump( $request->server->get('REMOTE_ADDR'));
+       // dump( $request); die();
         $login->setSuccess($success);
         $timestamp = new \DateTime('now');
         $login->getTimestamp($timestamp);
-
         $em = $this->doctrine->getManager();
         $em->persist($login);
         $em->flush();

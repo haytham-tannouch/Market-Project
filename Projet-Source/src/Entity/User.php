@@ -44,7 +44,7 @@ class User implements UserInterface
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
      *     pattern="/^[a-z\D\.]{3,}$/i",
      *     message="Le Nom {{ value }} est invalid veuillez entrer un prénom valid",
@@ -53,7 +53,7 @@ class User implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Type(
      *     type="numeric",
      *     message="Le Numéro {{ value }} Est Invalide !",
@@ -62,12 +62,12 @@ class User implements UserInterface
     private $telephone;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $poste;
 
@@ -105,6 +105,15 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $activationToken;
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $LoggedAt;
+
+
+
+
+
 
 
     public function getId(): ?int
@@ -351,6 +360,17 @@ class User implements UserInterface
     public function setActivationToken(?string $activationToken): self
     {
         $this->activationToken = $activationToken;
+
+        return $this;
+    }
+    public function getLoggedAt(): ?\DateTimeInterface
+    {
+        return $this->LoggedAt;
+    }
+
+    public function setLoggedAt(?\DateTimeInterface $LoggedAt): self
+    {
+        $this->LoggedAt = $LoggedAt;
 
         return $this;
     }
