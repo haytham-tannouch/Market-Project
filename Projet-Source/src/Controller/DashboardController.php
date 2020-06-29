@@ -201,6 +201,30 @@ class DashboardController extends Controller
         ]);
 
     }
+    /**
+     * @Route("/dashboard/createAgence", name="createAgence")
+     */
+    public function createAgence(Request $request)
+    {
+        $agence = new Agences();
+        $form = $this->createForm(AgenceCreationType::class, $agence);
+        $form->handleRequest($request);
+        $data=$form->getData();
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($agence);
+            $manager->flush();
+
+            }
+
+        return $this->render('dashboard/creationAgence.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
+    }
 
     /**
      * @Route("/dashboard/admin/edit/{id}", name="editUser")
