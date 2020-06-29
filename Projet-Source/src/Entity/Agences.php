@@ -143,12 +143,6 @@ class Agences
     }
 
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Villes::class, inversedBy="Ville")
-     */
-    private $Ville;
-
     public function __construct()
     {
         $this->Activites = new ArrayCollection();
@@ -219,10 +213,9 @@ class Agences
         return $this->Pays;
     }
 
-    public function setPays(?Pays $Pays): self
+    public function setPays(Pays $Pays): self
     {
         $this->Pays = $Pays;
-
         return $this;
     }
 
@@ -366,7 +359,6 @@ class Agences
     public function setVille(?Villes $Ville): self
     {
         $this->Ville = $Ville;
-
         return $this;
     }
 }

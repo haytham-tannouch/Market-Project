@@ -33,16 +33,6 @@ class Villes
     /**
      * @ORM\OneToMany(targetEntity=Agences::class, mappedBy="Ville")
      */
-    private $Ville;
-
-    public function __construct()
-    {
-        $this->Ville = new ArrayCollection();
-    }
-
-    /**
-     * @ORM\OneToMany(targetEntity=Agences::class, mappedBy="Ville")
-     */
     private $agences;
 
     public function __construct()
@@ -105,37 +95,6 @@ class Villes
             // set the owning side to null (unless already changed)
             if ($agence->getVille() === $this) {
                 $agence->setVille(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Agences[]
-     */
-    public function getVille(): Collection
-    {
-        return $this->Ville;
-    }
-
-    public function addVille(Agences $ville): self
-    {
-        if (!$this->Ville->contains($ville)) {
-            $this->Ville[] = $ville;
-            $ville->setVille($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVille(Agences $ville): self
-    {
-        if ($this->Ville->contains($ville)) {
-            $this->Ville->removeElement($ville);
-            // set the owning side to null (unless already changed)
-            if ($ville->getVille() === $this) {
-                $ville->setVille(null);
             }
         }
 

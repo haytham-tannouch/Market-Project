@@ -4,15 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Agences;
 use App\Entity\User;
+use App\Form\AgenceCreationType;
 use App\Form\ProfilType;
 use App\Form\UserCreationType;
 use App\Repository\AgencesRepository;
+use App\Repository\PaysRepository;
 use App\Repository\UserRepository;
 use App\Repository\VillesRepository;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,20 +53,23 @@ class DashboardController extends Controller
             'admin'=>false
         ]);
     }
+
     /**
      * @Route("/agences", name="agences")
      * @param UserRepository $repository
+     * @param AgencesRepository $agencesRepository
+     * @param VillesRepository $villesRepository
      * @return Response
      */
     public function agenceListing(UserRepository $repository,AgencesRepository $agencesRepository , VillesRepository $villesRepository)
     {
         $users=$repository->findAll();
-        $agences=$agencesRepository->findAll();
         $villes=$villesRepository->findAll();
+        //dump($villes);die();
         return $this->render('dashboard/agences.html.twig', [
             'users' =>$users ,
-            'agences'=>$agences,
-            'villes'=>$villes
+            'agences'=>$agencesRepository->findAll(),
+            'villes'=>$villes,
         ]);
     }
 
@@ -202,28 +208,36 @@ class DashboardController extends Controller
 
     }
     /**
-     * @Route("/dashboard/createAgence", name="createAgence")
+     * @Route("/dashboard/admin/createAgence", name="createAgence")
      */
-    public function createAgence(Request $request)
+    public function createAgence(Request $request,PaysRepository $paysRepository,VillesRepository $villesRepository)
     {
         $agence = new Agences();
         $form = $this->createForm(AgenceCreationType::class, $agence);
         $form->handleRequest($request);
+
         $data=$form->getData();
-
-
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $params = $request->request->all();
+            $ville=$params['Ville'];
+            $pays=$params['Pays'];
+            //dump($params);die();
+            $p=$paysRepository->findOneByName($pays);
+            $v=$villesRepository->findOneByName($ville);
+            //dump($v);die();
+            $agence->setPays($p);
+            $agence->setVille($v);
+            $agence->setEtat(false);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($agence);
             $manager->flush();
-
             }
 
         return $this->render('dashboard/creationAgence.html.twig', [
             'form' => $form->createView(),
+            'pays'=>$paysRepository->findAll(),
+            'villes'=>$villesRepository->findAll()
         ]);
-
     }
 
     /**
@@ -362,5 +376,21 @@ class DashboardController extends Controller
             //dump($randomString);die();
             return $this->json(['code'=>200,'RandPass'=>$randomString],200);
     }
+
+    /**
+     * @Route("/paysDiv/{pays}",name="paysDiv")
+     * @param Request $request
+     * @param VillesRepository $villesRepository
+     * @param PaysRepository $paysRepository
+     */
+    public function paysDiv(Request $request,VillesRepository $villesRepository,PaysRepository $paysRepository)
+    {
+        $country=array();
+        $pays=$paysRepository->findByName($request->attributes->get('pays'));
+        $villes=$villesRepository->findByPays($pays);
+        foreach ($villes as $ville){
+            array_push($country,$ville->getNomVille());
+    }
+        return $this->json(['code'=>200,'villes'=>$country],200);}
 
 }

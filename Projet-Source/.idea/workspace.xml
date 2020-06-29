@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20200626122012.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20200626155421.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20200626160859.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20200628135536.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/AccessDeniedHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="03f2fbd6-054c-4bab-9010-71260e4bb590" name="Default Changelist" comment="add agence /errors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/InscriptionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/InscriptionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/UserCreationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UserCreationType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/Profil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/Profil.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/modifier.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/modifier.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Agences.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Agences.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Ville.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Villes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Villes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/AgenceCreationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/AgenceCreationType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PaysRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PaysRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/VilleRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/VillesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/VillesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/agences.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/agences.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/creationAgence.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/creationAgence.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,6 +180,7 @@
       <workItem from="1593075396329" duration="29228000" />
       <workItem from="1593159844958" duration="4419000" />
       <workItem from="1593348029749" duration="14963000" />
+      <workItem from="1593365528215" duration="1015000" />
     </task>
     <task id="LOCAL-00001" summary="update composer">
       <created>1592733723452</created>
@@ -315,11 +309,11 @@
     </state>
     <state x="552" y="220" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.834@0.0.1536.834" timestamp="1593362404081" />
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592737448065" />
-    <state x="468" y="0" key="CommitChangelistDialog2" timestamp="1593109615211">
+    <state x="468" y="0" key="CommitChangelistDialog2" timestamp="1593446522253">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="468" y="24" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1592843112657" />
-    <state x="468" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1593109615211" />
+    <state x="468" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1593446522253" />
     <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767686253" />
     <state x="147" y="68" key="DiffContextDialog" timestamp="1592920272507">
       <screen x="0" y="0" width="1536" height="834" />
@@ -347,30 +341,34 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="490" y="159" width="540" height="524" key="StructurePopup/0.0.1536.834@0.0.1536.834" timestamp="1593188819644" />
-    <state x="442" y="202" key="Vcs.Push.Dialog.v2" timestamp="1593108655629">
+    <state x="442" y="202" key="Vcs.Push.Dialog.v2" timestamp="1593365070225">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592843074754" />
-    <state x="442" y="202" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1593108655629" />
+    <state x="442" y="202" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1593365070225" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767817127" />
     <state x="475" y="151" key="VcsDiffUtil.ChangesDialog" timestamp="1592919414211">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="475" y="151" key="VcsDiffUtil.ChangesDialog/0.0.1536.834@0.0.1536.834" timestamp="1592919414211" />
-    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1593184524445">
+    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1593425277159">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.834@0.0.1536.834" timestamp="1593184524445" />
-    <state x="578" y="334" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593075515104">
+    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.834@0.0.1536.834" timestamp="1593425277159" />
+    <state x="578" y="334" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593424100911">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="578" y="334" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.834@0.0.1536.834" timestamp="1593075515104" />
+    <state x="578" y="334" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.834@0.0.1536.834" timestamp="1593424100911" />
     <state x="515" y="247" key="git4idea.merge.GitPullDialog" timestamp="1592920260618">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="515" y="244" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1592843051957" />
     <state x="515" y="247" key="git4idea.merge.GitPullDialog/0.0.1536.834@0.0.1536.834" timestamp="1592920260618" />
     <state x="644" y="308" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733885662" />
+    <state x="428" y="265" key="git4idea.ui.GitUnstashDialog" timestamp="1593420004269">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="428" y="265" key="git4idea.ui.GitUnstashDialog/0.0.1536.834@0.0.1536.834" timestamp="1593420004269" />
     <state x="493" y="192" width="672" height="677" key="run.anything.popup" timestamp="1593108169037">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

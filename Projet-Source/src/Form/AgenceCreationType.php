@@ -85,14 +85,6 @@ class AgenceCreationType extends AbstractType
                     'class' => 'form-control'
                 )))
 
-            ->add('Pays',EntityType::class,[
-                'class'=>Pays::class,
-                'choice_label'=>'NomPays'
-            ])
-            ->add('Ville',EntityType::class,[
-                'class'=>Villes::class,
-                'choice_label'=>'NomVille'
-            ])
 
 
             ->add('Utilisateur',EntityType::class,[

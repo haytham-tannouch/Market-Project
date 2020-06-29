@@ -19,14 +19,13 @@ class PaysRepository extends ServiceEntityRepository
         parent::__construct($registry, Pays::class);
     }
 
-    // /**
-    //  * @return Pays[] Returns an array of Pays objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Pays[] Returns an array of Pays objects
+     */
+    public function findByName($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->andWhere('p.NomPays = :val')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
             ->setMaxResults(10)
@@ -34,17 +33,16 @@ class PaysRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Pays
+
+    public function findOneByName($value): ?Pays
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->andWhere('p.NomPays = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }

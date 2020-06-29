@@ -35,12 +35,19 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Pays</label>
-                        {{ form_widget(form.Pays,  {'attr' : {'placeholder' : "Pays",'class' : 'form-control'},"id":"Pays"}) }}
-
+                        <select name="Pays" id="paysid" onchange="paysDiv(this)"  class="form-control">
+                            {% for pay in pays %}
+                                <option name="Pays" value="{{ pay.NomPays }}" >{{ pay.NomPays }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="email">Ville</label>
-                        {{ form_widget(form.Ville,  {'attr' : {'placeholder' : "Vile",'class' : 'form-control'},"id":"ville"}) }}
+                        <label for="villesid" >Ville</label>
+                        <select name="Ville" class="form-control" id="villesid">
+                            {% for ville in villes %}
+                                <option name="Ville" value="{{ ville.NomVille }}" > {{ ville.NomVille }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -175,7 +182,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+        function paysDiv(this_){
+            $(document).ready(function(){
+                var idPays=$(this_).val();
+                //alert(url);
+                $.ajax({
+                    url:        '/paysDiv/'+idPays,
+                    type:       'GET',
+                    dataType:   'json',
+                    async:      true,
 
+                    success: function(data, status) {
+                        document.getElementById("villesid").innerHTML='';
+                        for (var v of data.villes) {
+                            document.getElementById("villesid").innerHTML+="<option value='"+v+"'>"+v+"</option>";
+                        }
+                    },
+                    error : function(xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                });
+        })
+    }
+    </script>
     <script>
         function passValidation() {
             var password = document.getElementById("psswdId").value;
