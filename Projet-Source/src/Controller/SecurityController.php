@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Utilisateur;
-use App\Form\EmailType;
 use App\Form\ForgottenpassType;
 use App\Form\ResetPassType;
 use App\Form\ValidationCodeType;
@@ -26,18 +24,21 @@ class SecurityController extends Controller
      */
     public function login(Request $request,AuthenticationUtils $authenticationUtils): Response
     {
+        //dump($this->getUser());
         if ($this->getUser()) {
-            $token = new UsernamePasswordToken($this->getUser(), null, 'main', $this->getUser()->getRoles());
+            $token = new UsernamePasswordToken($this->getUser(), null, 'main', $this->getUser()->getRooles());
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main', serialize($token));
             $event = new InteractiveLoginEvent($request, $token);
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
             if ($this->isGranted('ROLE_ADMIN')) {
-                return $this->redirect($this->generateUrl('dashboard'));
+                if($this->getUser()->getLogedat())
+                return $this->redirect($this->generateUrl('dashboard_admin'));
             }
-            else{
-                return $this->redirect($this->generateUrl('user'));
+            if ($this->isGranted('ROLE_USER')) {
+                //dump($this->getUser()->getLogedat());die();
+                return $this->redirect($this->generateUrl('dashboard_user'));
             }
         }
         // get the login error if there is one
@@ -49,16 +50,52 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/afterlogin", name="app_afterlogin")
+     * @Route("/dashboard", name="app_afterlogin")
      * @param AuthenticationUtils $authenticationUtils
-     * @return Response
      */
-    public function afterlogin(AuthenticationUtils $authenticationUtils): Response
+    public function afterlogin(AuthenticationUtils $authenticationUtils)
     {
-         if ($this->isGranted('ROLE_ADMIN')) {
-           return $this->redirectToRoute('dashboard');
+        $lasstlog=$this->getUser()->getLogedAt();
+        //dump($this->getUser()->getLogedAt());die();
+        if (isset($lasstlog)) {
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $this->getUser()->setLogedAt(new \DateTime());
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($this->getUser());
+                $manager->flush();
+                return $this->redirectToRoute('dashboard_admin');
+            }
+            if ($this->isGranted('ROLE_USER')) {
+                $this->getUser()->setLogedAt(new \DateTime());
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($this->getUser());
+                $manager->flush();
+                return $this->redirectToRoute('dashboard_user');
+            }
+
+        }
+        else {
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $this->getUser()->setLogedAt(new \DateTime());
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($this->getUser());
+                $manager->flush();
+                return $this->redirectToRoute('dashboard_admin');
+            }
+            if ($this->isGranted('ROLE_USER')) {
+                $this->getUser()->setLogedAt(new \DateTime());
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($this->getUser());
+                $manager->flush();
+
+                return $this->redirectToRoute('user_profil',[
+                    'id'=>$this->getUser()->getId()
+                ]);
+            }
         }
 
+
+        //return $this->redirectToRoute('app_login');
     }
     /**
      * @Route("/Remail", name="app_remail")
@@ -76,7 +113,7 @@ class SecurityController extends Controller
                 return $this->redirect($this->generateUrl('dashboard'));
             }
             else{
-                return $this->redirect($this->generateUrl('user'));
+                return $this->redirect($this->generateUrl('app_login'));
             }
         }
         //initialisatoin Emailform du form qui contient une seule input de type email
@@ -92,7 +129,6 @@ class SecurityController extends Controller
             if ($user === null) {
                 echo "<script>alert(\"l'adresse de courriel saisie n'existe pas sur notre base de données,veuillez la verifier puis réessayer \")
                    </script>";
-
                 return $this->render('security/Email.html.twig', [
                     'emailForm' => $form->createView()
                 ]);
@@ -174,8 +210,6 @@ class SecurityController extends Controller
                   return $this->redirectToRoute('app_reset_password',[
                       'code'=>$confirmationCode
                   ]);
-
-
               }
               else
               {
@@ -187,16 +221,11 @@ class SecurityController extends Controller
                 echo "<script>alert(\"Durée de ce code de validation a été expirée  Réssayez à nouveau \")
                    </script>";
             }
-
-
         }
         return $this->render('security/ValidationCode.html.twig', [
             'ConfirmForm' => $form->createView()
         ]);
-
     }
-
-
     /**
      * @Route("Remail/reset_pass/{code}", name="app_reset_password")
      */
@@ -232,12 +261,12 @@ class SecurityController extends Controller
             $entityManager->flush();
             // On le connecte automatiquement apres la saisie du mdp
 
-            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRooles());
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main', serialize($token));
             $event = new InteractiveLoginEvent($request, $token);
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
-            return $this->redirect($this->generateUrl('dashboard'));
+            return $this->redirect($this->generateUrl('app_afterlogin'));
 
             $this->addFlash('message', 'validation changement de mdp');
             $message = (new \Swift_Message('validation changement de mdp'))
@@ -264,10 +293,51 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Route("/activation", name="activation")
+     */
+    public function activation(Request $request):Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        // On recherche si un utilisateur avec ce token existe dans la base de données
+        $users = $this->getDoctrine()->getRepository(User::class);
+        $user = $users->findOneBy(['activationToken' => $request->query->get('token')]);
+        //dump($user);die();
+
+        // Si aucun utilisateur n'est associé à ce token
+        if(!$user){
+            // On renvoie une erreur 404
+            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+        }
+
+        // On supprime le token
+        $user->setActivationToken(null);
+        $user->setEtat(true);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // On génère un message
+        $this->addFlash('message', 'Utilisateur activé avec succès');
+
+        // On le connecte automatiquement apres la saisie du mdp
+
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $this->get('security.token_storage')->setToken($token);
+        $this->get('session')->set('_security_main', serialize($token));
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+        return $this->redirect($this->generateUrl('app_afterlogin'));
+
+        // On retourne à l'accueil
+        //return $this->redirectToRoute('app_login');
+    }
+
+
+    /**
      * @Route("/logout", name="app_logout")
      */
     public function logout()
     {
        // return $this->redirectToRoute('app_login');
     }
+
 }

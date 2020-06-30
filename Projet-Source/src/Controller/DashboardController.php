@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Agences;
+use App\Entity\Email;
 use App\Entity\User;
 use App\Form\AgenceCreationType;
+use App\Form\GestionEmailsType;
 use App\Form\UserCreationType;
 use App\Repository\AgencesRepository;
+use App\Repository\EmailRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
@@ -113,6 +116,77 @@ class DashboardController extends Controller
             'form' => $form->createView(),
         ]);
 
+    }
+    /**
+     * @Route("/dashboard/admin/gestionemail", name="gestionemail")
+     * @param EmailRepository $repository
+     * @return Response
+     */
+    public function listeemail(EmailRepository $repository, UserRepository $repo)
+    {
+        $emails = $repository->findAll();
+        $users=$repo->findAll();
+        return $this->render('dashboard/indexEmail.html.twig', [
+            'emails' => $emails,
+            'users'=>$users
+        ]);
+    }
+    /**
+     * @Route("/dashboard/admin/createEmail", name="createEmail")
+     */
+    public function createEmail(Request $request)
+    {
+        $email = new Email();
+        $form = $this->createForm(GestionEmailsType::class, $email);
+        $form->handleRequest($request);
+        $data=$form->getData();
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($email);
+            $manager->flush();
+
+        }
+
+        return $this->render('dashboard/Email.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
+    }
+
+    /**
+     * @Route("/dashboard/admin/gestionemail/getuser/{type}",name="gestionemailuser")
+     * @param Request $request
+     * @param EmailRepository $emailRepository
+     * @param UserRepository $userRepository
+     */
+    public function EmailUser(Request $request, EmailRepository $emailRepository,  UserRepository $userRepository)
+    {
+        //$Nom = array();
+       // $Email=array();
+       // $Poste=array();
+        $respense = array();
+        $users = $userRepository->findAll();
+        $emails = $emailRepository->findAll();
+
+        foreach ($emails as $email) {
+            foreach ($users as $user){
+                if($user->getRole()==$request->attributes->get('type') && $email->getUser()==$request->attributes->get('type')){
+
+                  array_push($respense,$user);
+
+                }elseif ($user->getRole()==$request->attributes->get('type') && $email->getUser()==$request->attributes->get('type')){
+
+                    array_push($respense,$user);
+
+
+                }
+            }
+
+        }
+        return $this->json(['code' => 200, 'table' => $respense], 200);
     }
 
     /**

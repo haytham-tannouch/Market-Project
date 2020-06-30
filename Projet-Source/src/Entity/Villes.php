@@ -30,10 +30,6 @@ class Villes
      */
     private $pays;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Agences::class, mappedBy="Ville")
-     */
-    private $Ville;
 
     public function __construct()
     {
