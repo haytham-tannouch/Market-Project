@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\ProfilType;
 use App\Form\UserCreationType;
 use App\Repository\AgencesRepository;
+use App\Repository\SettingsRepository;
 use App\Repository\UserRepository;
 use App\Repository\VillesRepository;
 use Doctrine\Persistence\ObjectManager;
@@ -268,4 +269,55 @@ class DashboardController extends Controller
             //dump($randomString);die();
             return $this->json(['code'=>200,'RandPass'=>$randomString],200);
     }
+
+    /**
+     * @Route("/dashboard/settings", name="settings")
+     */
+    public function settings(SettingsRepository $settingsRepository)
+    {
+        $settings=$settingsRepository->find('1');
+      //  dump($settings);die();
+        return $this->render('dashboard/settings.html.twig',[
+           'settings'=>$settings
+        ]);
+
+    }
+
+    /**
+     * @Route("dashboard/settings/maintenance", name="maintenance")
+     * @param Request $request
+     * @param SettingsRepository $settingsRepository
+     * @param $event
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function maintenance(Request $request, SettingsRepository $settingsRepository)
+    {
+
+        $setting=$settingsRepository->find('1');
+       // dump($setting);die();
+        if($setting->getModeMaintenance()==true){
+            $setting->setModeMaintenance(false);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($setting);
+            $manager->flush();
+            return $this->json(['code'=>200,'ModeMaintenance'=>'false'],200);
+        }
+        elseif ($setting->getModeMaintenance()==false){
+            $setting->setModeMaintenance(true);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($setting);
+            $manager->flush();
+           return $this->json(['code'=>200,'ModeMaintenance'=>'true'],200);
+
+        }
+        return $this->json(['code'=>403,'message'=>'erro'],200);
+
+    }
+
+
+
+
+
+
 }

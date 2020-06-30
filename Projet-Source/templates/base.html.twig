@@ -32,6 +32,11 @@
 </head>
 <body class="menubar-left menubar-unfold menubar-light theme-primary">
 <!--============= start main area -->
+{% if settings.ModeMaintenance %}
+mode maintenance
+{% else %}
+
+
 
 <!-- APP NAVBAR ==========-->
 <nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">
@@ -196,6 +201,6 @@
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 {% block javascripts %}{% endblock %}
-
+{% endif %}
 </body>
 </html>

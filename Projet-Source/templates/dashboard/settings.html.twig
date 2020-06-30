@@ -1,0 +1,82 @@
+
+    {% extends 'base.html.twig' %}
+    {% block stylesheet %}
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('Infinity/libs/bower/switchery/dist/switchery.css/switchery.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('Infinity/libs/bower/lightbox2/dist/css/lightbox.min.css') }}">
+        <title>Infinity - Bootstrap Admin Template</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta name="description" content="Admin, Dashboard, Bootstrap" />
+        <link rel="shortcut icon" sizes="196x196" href="{{ asset('Infinity/assets/images/logo.png') }}">
+        <link rel="stylesheet" href="{{ asset('Infinity/libs/bower/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('Infinity/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('Infinity/libs/bower/animate.css/animate.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('Infinity/assets/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('Infinity/assets/css/core.css') }}">
+        <link rel="stylesheet" href="{{ asset('Infinity/assets/css/misc-pages.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
+    {% endblock %}
+
+    {% block body %}
+
+        <section class="app-content" sytle="margin-left:70%">
+
+        <div class="col-md-6">
+            <div class="widget">
+                <header class="widget-header">
+
+                    <h4 class="widget-title">Page de paramètres</h4>
+                </header><!-- .widget-header -->
+                <hr class="widget-separator">
+
+                <div class="widget-body ">
+
+                    {% for setting in settings %}
+                        <div class="form-group">
+                            <div class="checkbox checkbox-primary checkbox-inline">
+                                <input type="text" name="message" value="off" hidden>
+                                Mode maintenance
+                                <input type="checkbox" class="js-switch" id="cb{{ setting.id }}" data-switchery="true"  data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('maintenance') }}" {% if setting.ModeMaintenance %}checked{% endif %} />
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% endblock %}
+
+
+{% block javascripts %}
+
+    <script>
+        var elems = document.querySelectorAll('.js-switch');
+        for (var i = 0; i < elems.length; i++) {
+            var switchery = new Switchery(elems[i],{ size: 'small' ,'color':'#0abde3'});
+        }
+        function onchangeIsActive(this_) {
+            var url=$(this_).data('href');
+            axios.get(url).then(function (response) {
+                if (response.data.ModeMaintenance==="true"){
+                    swal(" Mode maintenance Activée!","","success");
+                    $(this_).prop("checked",true);
+                    //console.log(test);
+                }
+                else if(response.data.ModeMaintenance==="false"){
+                    swal(" Mode maintenance Désactivée!","",  "warning");
+                    $(this_).prop("checked",false);
+                }
+            })
+        }
+    </script>
+
+{% endblock %}
+
+
+
+
+

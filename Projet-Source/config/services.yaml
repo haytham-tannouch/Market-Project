@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    maintenance: true
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -35,12 +35,3 @@ services:
         tags:
             - { name: kernel.event_listener, event: security.authentication.failure, method: onAuthenticationFailure }
             - { name: kernel.event_listener, event: security.interactive_login, method: onAuthenticationSuccess }
-    maintenance_listener:
-        class: App\EventListener\MaintenanceListener
-        argument: ['%maintenance%']
-
-        tags:
-            - {name: kernel.event_listener, event: kernel.request ,method: methode}
-        notification:
-            class: MaintenanceListener
-            arguments: ["%kernel.environment%"]
