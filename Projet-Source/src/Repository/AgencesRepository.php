@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Agences;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,22 +20,23 @@ class AgencesRepository extends ServiceEntityRepository
         parent::__construct($registry, Agences::class);
     }
 
-    // /**
-    //  * @return Agences[] Returns an array of Agences objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Agences[] Returns an array of Agences objects
+      */
+
+    public function findByExampleField()
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this->getEntityManager()->createQueryBuilder();
+
+        $query->select("u.id")
+            ->from(User::class, 'u')
+            ->innerJoin(Agences::class,"a","WITH","a.Utilisateur=u.id")
+            ->orderBy('u.id', 'DESC');
+        $query = $query->getQuery();
+        $result=$query->getResult();
+        return $result;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Agences
@@ -47,4 +49,5 @@ class AgencesRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

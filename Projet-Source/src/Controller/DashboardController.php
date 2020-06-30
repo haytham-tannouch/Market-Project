@@ -211,8 +211,10 @@ class DashboardController extends Controller
     /**
      * @Route("/dashboard/admin/createAgence", name="createAgence")
      */
-    public function createAgence(Request $request,PaysRepository $paysRepository,VillesRepository $villesRepository)
+    public function createAgence(Request $request,PaysRepository $paysRepository,VillesRepository $villesRepository,AgencesRepository $agencesRepository,UserRepository $userRepository)
     {
+        //dump($agencesRepository->findByExampleField());die();
+
         $agence = new Agences();
         $form = $this->createForm(AgenceCreationType::class, $agence);
         $form->handleRequest($request);
@@ -237,9 +239,12 @@ class DashboardController extends Controller
         return $this->render('dashboard/creationAgence.html.twig', [
             'form' => $form->createView(),
             'pays'=>$paysRepository->findAll(),
-            'villes'=>$villesRepository->findAll()
+            'villes'=>$villesRepository->findAll(),
+            'agences'=>$agencesRepository->findAll(),
+            'users'=>$userRepository->findAll(),
         ]);
     }
+
 
     /**
      * @Route("/dashboard/admin/edit/{id}", name="editUser")
