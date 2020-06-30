@@ -28,3 +28,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # authentication event listener
+    app.security.authentication_event_listener:
+        class: App\EventListener\AuthenticationListener
+        arguments: ["@doctrine","@request_stack"]
+        tags:
+            - { name: kernel.event_listener, event: security.authentication.failure, method: onAuthenticationFailure }
+            - { name: kernel.event_listener, event: security.interactive_login, method: onAuthenticationSuccess }

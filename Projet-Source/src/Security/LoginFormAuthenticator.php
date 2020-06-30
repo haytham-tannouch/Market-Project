@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Security;
-
+use App\Entity\Login;
 use App\Entity\User;
+use App\Repository\LoginRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $csrfTokenManager;
     private $passwordEncoder;
     private $router;
+    private $LoginRepository;
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -86,6 +88,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+
         if(!($this->passwordEncoder->isPasswordValid($user, $credentials['password'])))
         {
             throw new CustomUserMessageAuthenticationException('Mot de passe incorrect ,Veuillez essayer à nouveau');

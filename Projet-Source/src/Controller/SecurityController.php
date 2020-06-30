@@ -6,11 +6,13 @@ use App\Entity\User;
 use App\Form\ForgottenpassType;
 use App\Form\ResetPassType;
 use App\Form\ValidationCodeType;
+use App\Repository\SettingsRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -52,11 +54,34 @@ class SecurityController extends Controller
     /**
      * @Route("/dashboard", name="app_afterlogin")
      * @param AuthenticationUtils $authenticationUtils
+     * @param SettingsRepository $settingsRepository
+     * @param $event
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function afterlogin(AuthenticationUtils $authenticationUtils)
+    public function afterlogin(AuthenticationUtils $authenticationUtils, SettingsRepository $settingsRepository)
     {
+        $setting=$settingsRepository->find('1');
+        if ($setting->getModeMaintenance()==true)
+        {
+          if( $this->isGranted('ROLE_ADMIN'))
+           {
+               return $this->redirectToRoute('settings');
+           }
+          else
+          {
+              //$template = $this->render('Settings/maintenance.html.twig');
+
+              // We send our response with a 503 response code (service unavailable)
+              //$event->setResponse(new Response('site down',Response::HTTP_SERVICE_UNAVAILABLE));
+            //  $event->stopPropagation();
+              return $this->render('Settings/maintenance.html.twig');
+          }
+        }
+
+
         $lasstlog=$this->getUser()->getLogedAt();
         //dump($this->getUser()->getLogedAt());die();
+
         if (isset($lasstlog)) {
             if ($this->isGranted('ROLE_ADMIN')) {
                 $this->getUser()->setLogedAt(new \DateTime());
