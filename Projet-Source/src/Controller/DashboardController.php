@@ -65,11 +65,12 @@ class DashboardController extends Controller
     {
         $users=$repository->findAll();
         $villes=$villesRepository->findAll();
+        $agences=$agencesRepository->findAll();
         //dump($villes);die();
         return $this->render('dashboard/agences.html.twig', [
             'users' =>$users ,
-            'agences'=>$agencesRepository->findAll(),
-            'villes'=>$villes,
+            'agences'=>$agences,
+            'villes'=>$villes
         ]);
     }
 

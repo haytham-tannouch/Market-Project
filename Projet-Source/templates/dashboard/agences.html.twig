@@ -33,7 +33,32 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for agence in agences %}
+                        <tr>
+                            <td> {{ agence.NomAgence }} </td>
+                            <td>{% for ville in villes %}
+                                     {% if agence.Ville == ville   %}
+                                         {{ ville.NomVille }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ agence.Telephone}}</td>
 
+                            <td>{{ agence.Email }}</td>
+
+                            <td>
+                                <a href="{{  path('profil', {'id': agence.Utilisateur.id }) }}">
+                                    {{ agence.Utilisateur.nom  }} {{ agence.Utilisateur.prenom  }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#">Editer</a>
+                                <input type="checkbox" class="js-switch" id="cb{{ agence.id }}" data-switchery="true" data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('isAGactive', {'id': agence.id }) }}" {% if agence.etat %}checked{% endif %} />
+                            </td>
+
+
+                        </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>

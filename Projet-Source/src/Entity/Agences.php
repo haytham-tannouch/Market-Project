@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Entity;
-use App\Entity\User;
+
 use App\Repository\AgencesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AgencesRepository::class)
@@ -22,10 +21,6 @@ class Agences
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex(
-     *     pattern="/^[a-z\D\.]{3,}$/i",
-     *     message="Le Nom {{ value }} est invalid veuillez entrer un nom valid",
-     * )
      */
     private $NomAgence;
 
@@ -47,19 +42,11 @@ class Agences
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Type(
-     *     type="numeric",
-     *     message="Le Numéro {{ value }} Est Invalide !",
-     * )
      */
     private $CodePostal;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Type(
-     *     type="numeric",
-     *     message="Le Numéro {{ value }} Est Invalide !",
-     * )
      */
     private $Telephone;
 
@@ -85,28 +72,16 @@ class Agences
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Type(
-     *     type="numeric",
-     *     message="Le Numéro {{ value }} Est Invalide !",
-     * )
      */
     private $NombreEmployes;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex(
-     *   pattern="/^[a-z\D\.]{3,}$/i",
-     *     message="Le Nom {{ value }} est invalid veuillez entrer un nom valid",
-     * )
      */
     private $NomDirecteur;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Type(
-     *     type="numeric",
-     *     message="Le Numéro {{ value }} Est Invalide !",
-     * )
      */
     private $TelephoneDirecteur;
 
@@ -116,7 +91,7 @@ class Agences
     private $EmailDirecteur;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="agences")
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $Utilisateur;
@@ -141,6 +116,7 @@ class Agences
 
         return $this;
     }
+
 
 
     public function __construct()
@@ -213,9 +189,10 @@ class Agences
         return $this->Pays;
     }
 
-    public function setPays(Pays $Pays): self
+    public function setPays(?Pays $Pays): self
     {
         $this->Pays = $Pays;
+
         return $this;
     }
 
@@ -359,6 +336,7 @@ class Agences
     public function setVille(?Villes $Ville): self
     {
         $this->Ville = $Ville;
+
         return $this;
     }
 }
