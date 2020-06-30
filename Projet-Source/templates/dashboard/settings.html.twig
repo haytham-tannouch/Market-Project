@@ -4,7 +4,6 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('Infinity/libs/bower/switchery/dist/switchery.css/switchery.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('Infinity/libs/bower/lightbox2/dist/css/lightbox.min.css') }}">
-        <title>Infinity - Bootstrap Admin Template</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
         <meta name="description" content="Admin, Dashboard, Bootstrap" />
@@ -15,6 +14,8 @@
         <link rel="stylesheet" href="{{ asset('Infinity/assets/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('Infinity/assets/css/core.css') }}">
         <link rel="stylesheet" href="{{ asset('Infinity/assets/css/misc-pages.css') }}">
+
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
     {% endblock %}
 
@@ -32,16 +33,16 @@
 
                 <div class="widget-body ">
 
-                    {% for setting in settings %}
+
                         <div class="form-group">
                             <div class="checkbox checkbox-primary checkbox-inline">
                                 <input type="text" name="message" value="off" hidden>
                                 Mode maintenance
-                                <input type="checkbox" class="js-switch" id="cb{{ setting.id }}" data-switchery="true"  data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('maintenance') }}" {% if setting.ModeMaintenance %}checked{% endif %} />
+                                <input type="checkbox" class="js-switch"  data-switchery="true"  data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('maintenance') }}" {% if setting.ModeMaintenance %}checked{% endif %} >
 
                             </div>
                         </div>
-                    {% endfor %}
+
                 </div>
             </div>
         </div>

@@ -35,7 +35,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
      *     pattern="/^[a-z\D\.]{3,}$/i",
      *     message="Le Prénom {{ value }} est invalid veuillez entrer un nom valid",
@@ -106,10 +106,6 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $activationToken;
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $LoggedAt;
 
 
 
@@ -372,17 +368,6 @@ class User implements UserInterface
     public function setActivationToken(?string $activationToken): self
     {
         $this->activationToken = $activationToken;
-
-        return $this;
-    }
-    public function getLoggedAt(): ?\DateTimeInterface
-    {
-        return $this->LoggedAt;
-    }
-
-    public function setLoggedAt(?\DateTimeInterface $LoggedAt): self
-    {
-        $this->LoggedAt = $LoggedAt;
 
         return $this;
     }
