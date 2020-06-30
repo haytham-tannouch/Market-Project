@@ -213,7 +213,7 @@ class DashboardController extends Controller
      */
     public function createAgence(Request $request,PaysRepository $paysRepository,VillesRepository $villesRepository,AgencesRepository $agencesRepository,UserRepository $userRepository)
     {
-        //dump($agencesRepository->findByExampleField());die();
+        dump($agencesRepository->findByExampleField());die();
 
         $agence = new Agences();
         $form = $this->createForm(AgenceCreationType::class, $agence);
@@ -397,6 +397,47 @@ class DashboardController extends Controller
         foreach ($villes as $ville){
             array_push($country,$ville->getNomVille());
     }
-        return $this->json(['code'=>200,'villes'=>$country],200);}
+        return $this->json(['code'=>200,'villes'=>$country],200);
+    }
+    /**
+     * @Route("/dashboard/admin/user/{id}/supp", name="suppUser")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function suppUser(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
+    {
+
+        $data=$request->attributes->all();
+        $user=$data['user'];
+
+        $agence=$agencesRepository->findOneByUser($user);
+
+        //dump($agence);die();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($user);
+            $manager->remove($agence);
+            $manager->flush();
+
+         return $this->json(['code'=>403,'message'=>'success'],200);
+
+    }
+    /**
+     * @Route("/dashboard/admin/user/{id}/archive", name="archiveUser")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function archiveUser(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
+    {
+            $data=$request->attributes->all();
+            $user=$data['user'];
+            //dump($user);die();
+            $user->setStatus(false);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+
+         return $this->json(['code'=>403,'message'=>'success'],200);
+    }
 
 }

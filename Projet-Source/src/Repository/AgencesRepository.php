@@ -38,16 +38,16 @@ class AgencesRepository extends ServiceEntityRepository
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?Agences
+
+    public function findOneByUser($value): ?Agences
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+            ->andWhere('a.Utilisateur = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
 
 }

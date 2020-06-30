@@ -35,7 +35,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      * @Assert\Regex(
      *     pattern="/^[a-z\D\.]{3,}$/i",
      *     message="Le Prénom {{ value }} est invalid veuillez entrer un nom valid",
@@ -45,7 +45,7 @@ class User implements UserInterface
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
      *     pattern="/^[a-z\D\.]{3,}$/i",
      *     message="Le Nom {{ value }} est invalid veuillez entrer un prénom valid",
@@ -54,7 +54,7 @@ class User implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Type(
      *     type="numeric",
      *     message="Le Numéro {{ value }} Est Invalide !",
@@ -63,12 +63,12 @@ class User implements UserInterface
     private $telephone;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $poste;
 
@@ -111,6 +111,11 @@ class User implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $logedAt;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $status;
 
 
     public function getId(): ?int
@@ -375,6 +380,18 @@ class User implements UserInterface
     public function setLogedAt(?\DateTimeInterface $logedAt): self
     {
         $this->logedAt = $logedAt;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
