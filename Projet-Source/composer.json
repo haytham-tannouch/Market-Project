@@ -25,7 +25,8 @@
         "symfony/web-link": "3.4.*",
         "symfony/yaml": "3.4.*",
       "ext-mysqli": "*",
-      "ext-mysql": "*"
+      "ext-mysql": "*",
+      "ext-cassandra": "*"
     },
     "require-dev": {
         "symfony/debug-pack": "*",

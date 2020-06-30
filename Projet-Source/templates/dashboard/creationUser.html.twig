@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <a href="{{ path('dashboard') }}"><button type="button" class="btn  mw-md btn-primary btn-sm">Retour</button></a>
+                        <a href="{{ path('dashboard_admin') }}"><button type="button" class="btn  mw-md btn-primary btn-sm">Retour</button></a>
                     </div>
                 </div><!-- .widget-body -->
             </div><!-- .widget -->
@@ -180,8 +180,7 @@
                         focusConfirm: false,
                         confirmButtonColor: '#0000',
                         confirmButtonText:
-                            '<button type="button" onclick="copyToClipboard()" class="btn btn-outline btn-dark"><i class="fa fa-file"></i>&nbsp;Copier</button>'                        cancelButtonText:
-                            'Retour',
+                            '<button type="button" onclick="copyToClipboard()" class="btn btn-outline btn-dark"><i class="fa fa-file"></i>&nbsp;Copier</button>',
                     })
                 }
             })

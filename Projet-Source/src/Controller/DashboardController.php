@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Agences;
 use App\Entity\User;
+use App\Form\AgenceCreationType;
 use App\Form\ProfilType;
 use App\Form\UserCreationType;
 use App\Repository\AgencesRepository;
+use App\Repository\PaysRepository;
 use App\Repository\SettingsRepository;
 use App\Repository\UserRepository;
 use App\Repository\VillesRepository;
@@ -14,6 +16,7 @@ use Doctrine\Persistence\ObjectManager;
 use Exception;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,27 +25,49 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class DashboardController extends Controller
 {
     /**
-     * @Route("/dashboard", name="dashboard")
+     * @Route("/dashboard/admin", name="dashboard_admin")
      * @param UserRepository $repository
      * @return Response
      */
-    public function index(UserRepository $repository)
+    public function indexAdmin(UserRepository $repository)
     {
         $users=$repository->findAll();
         return $this->render('dashboard/index.html.twig', [
             'users' =>$users ,
+            'admin'=>true
         ]);
     }
     /**
+     * @Route("/dashboard/user", name="dashboard_user")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function indexUser(UserRepository $repository)
+    {
+        $users=$repository->findAll();
+        $this->getUser()->setLogedAt(new \DateTime());
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($this->getUser());
+        $manager->flush();
+        return $this->render('dashboard/index.html.twig', [
+            'users' =>$users ,
+            'admin'=>false
+        ]);
+    }
+
+    /**
      * @Route("/agences", name="agences")
      * @param UserRepository $repository
+     * @param AgencesRepository $agencesRepository
+     * @param VillesRepository $villesRepository
      * @return Response
      */
     public function agenceListing(UserRepository $repository,AgencesRepository $agencesRepository , VillesRepository $villesRepository)
     {
         $users=$repository->findAll();
-        $agences=$agencesRepository->findAll();
         $villes=$villesRepository->findAll();
+        $agences=$agencesRepository->findAll();
+        //dump($villes);die();
         return $this->render('dashboard/agences.html.twig', [
             'users' =>$users ,
             'agences'=>$agences,
@@ -56,26 +81,79 @@ class DashboardController extends Controller
      * @param $repository
      * @return Response
      */
-    public function Profil(Request $request,UserRepository $repository,AgencesRepository $agencesRepository  )
+    public function Profil(Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
     {
         $form = $this->createForm(ProfilType::class);
         $form->handleRequest($request);
         $data=$request->attributes->all();
         $user=$repository->find($data['id']);
+        $agence=$agencesRepository->findOneBy(['Utilisateur' => $data['id']]);
+
         $agences=$agencesRepository->findAll();
         return $this->render('dashboard/Profil.html.twig', [
             'ProfilForm' => $form->createView(),
             'user'=>$user,
             'agences'=>$agences
+
+
         ]);
 
     }
 
+    /**
+     * @Route("/dashboard/user/{id}",name="user_profil")
+     */
+    public function userProfil(Request $request, UserPasswordEncoderInterface $encoder,User $user,\Swift_Mailer $mailer)
+    {
+        $users = $this->getDoctrine()->getRepository(User::class);
+        $data=$request->attributes->all();
+        $Olduser = $users->findOneBy(['id' => $data['id']]);
+        $oldPass=$Olduser->getPassword();
+
+        $modif=true;
+        if ($this->getUser()==$user){
+            $modif=false;
+        }
+        $form = $this->createForm(UserCreationType::class, $user,['disabled'=>$modif]);
+        $form->handleRequest($request);
+        $data=$form->getData();
+        $params = $request->request->all();
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump("oldpass".$oldPass);
+            $newpass=$params['user_creation']['password'];
+            if ($newpass!=$oldPass){
+                $hash = $encoder->encodePassword($user,$newpass);
+                $user->setPassword($hash);
+            }
+            else{
+                $user->setPassword($oldPass);
+            }
+            $role=$data->getRole();
+            if($role=="Administrateur"){
+                $user->addRole('ROLE_ADMIN');
+
+            }
+            elseif ($role=="Editeur"){
+                $user->addRole('ROLE_USER');
+            }
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            //return $this->redirectToRoute('dashboard');
+            }
+            return $this->render('dashboard/modifier.html.twig', [
+                'form' => $form->createView(),
+                'user'=>$user,
+                'oldpassword'=>$oldPass,
+            ]);
 
 
+
+    }
 
     /**
-     * @Route("/dashboard/createUser", name="createUser")
+     * @Route("/dashboard/admin/createUser", name="createUser")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @param \Swift_Mailer $mailer
@@ -133,9 +211,41 @@ class DashboardController extends Controller
         ]);
 
     }
+    /**
+     * @Route("/dashboard/admin/createAgence", name="createAgence")
+     */
+    public function createAgence(Request $request,PaysRepository $paysRepository,VillesRepository $villesRepository)
+    {
+        $agence = new Agences();
+        $form = $this->createForm(AgenceCreationType::class, $agence);
+        $form->handleRequest($request);
+
+        $data=$form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $params = $request->request->all();
+            $ville=$params['Ville'];
+            $pays=$params['Pays'];
+            //dump($params);die();
+            $p=$paysRepository->findOneByName($pays);
+            $v=$villesRepository->findOneByName($ville);
+            //dump($v);die();
+            $agence->setPays($p);
+            $agence->setVille($v);
+            $agence->setEtat(false);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($agence);
+            $manager->flush();
+            }
+
+        return $this->render('dashboard/creationAgence.html.twig', [
+            'form' => $form->createView(),
+            'pays'=>$paysRepository->findAll(),
+            'villes'=>$villesRepository->findAll()
+        ]);
+    }
 
     /**
-     * @Route("/dashboard/user/edit/{id}", name="editUser")
+     * @Route("/dashboard/admin/edit/{id}", name="editUser")
      */
     public function editUser(Request $request, UserPasswordEncoderInterface $encoder,User $user,\Swift_Mailer $mailer)
     {
@@ -149,7 +259,7 @@ class DashboardController extends Controller
         $data=$form->getData();
         $params = $request->request->all();
         if ($form->isSubmitted() && $form->isValid()) {
-            dump("oldpass".$oldPass);
+           // dump("oldpass".$oldPass);
             $newpass=$params['user_creation']['password'];
             if ($newpass!=$oldPass){
                 $hash = $encoder->encodePassword($user,$newpass);
@@ -160,11 +270,11 @@ class DashboardController extends Controller
             }
             $role=$data->getRole();
             if($role=="Administrateur"){
-                $user->setRoles('ROLE_ADMIN');
+                $user->addRole('ROLE_ADMIN');
 
             }
             elseif ($role=="Editeur"){
-                $user->setRoles('ROLE_USER');
+                $user->addRole('ROLE_USER');
             }
             /*if($message=="on"){
                 $msg = (new \Swift_Message('Creation Compte'))
@@ -188,20 +298,21 @@ class DashboardController extends Controller
         return $this->render('dashboard/modifier.html.twig', [
             'form' => $form->createView(),
             'user'=>$user,
-            'oldpassword'=>$oldPass
+            'oldpassword'=>$oldPass,
+            'firstlog'=>false
         ]);
 
     }
     /**
-     * @Route("/dashboard/user/{id}/isActive", name="isActive")
+     * @Route("/dashboard/admin/user/{id}/isActive", name="isActive")
      * @param UserRepository $repository
      * @return Response
      */
     public function isActive(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
     {
         $data=$request->attributes->all();
-       // dump($data);die();
         $user=$data['user'];
+
         if($user->getEtat()==true){
             $user->setEtat(false);
 
@@ -222,7 +333,7 @@ class DashboardController extends Controller
 
     }
     /**
-     * @Route("agences/{id}/isAGactive", name="isAGactive")
+     * @Route("dashboard/admin/agences/{id}/isAGactive", name="isAGactive")
      * @param AgencesRepository $repository
      * @return Response
      */
@@ -319,5 +430,22 @@ class DashboardController extends Controller
 
 
 
+
+
+    /**
+     * @Route("/paysDiv/{pays}",name="paysDiv")
+     * @param Request $request
+     * @param VillesRepository $villesRepository
+     * @param PaysRepository $paysRepository
+     */
+    public function paysDiv(Request $request,VillesRepository $villesRepository,PaysRepository $paysRepository)
+    {
+        $country=array();
+        $pays=$paysRepository->findByName($request->attributes->get('pays'));
+        $villes=$villesRepository->findByPays($pays);
+        foreach ($villes as $ville){
+            array_push($country,$ville->getNomVille());
+    }
+        return $this->json(['code'=>200,'villes'=>$country],200);}
 
 }

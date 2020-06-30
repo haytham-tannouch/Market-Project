@@ -3,20 +3,13 @@
 {% block title %}Hello !{% endblock %}
 
 {% block body %}
-
-
-<section class="app-content" sytle="margin-left:70%">
+<section class="app-content">
     {{ form_start(ProfilForm) }}
     <div class="col-md-6">
         <div class="widget">
             <header class="widget-header">
-                <h1 align="center" >{% for agence in agences %}
-                        {% if agence.Utilisateur.id == user.id   %}
-                           {{ agence.NomAgence }}
-                        {% endif %}
-                    {% endfor %} </h1>
-
-                <h4 class="widget-title">Voila les informations de cet utilisateur</h4>
+                <h3>{{ agence.NomAgence }}  </h3>
+                <h6 class="widget-title">Voila les informations du directeur</h6>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
 
@@ -62,10 +55,32 @@
                         <a href="{{ path('agences') }}"><button type="button" class="btn  mw-md btn-dark btn-sm">Lister les agences</button></a>
                     </div>
 
-                    {{ form_end(ProfilForm) }}
+
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="widget">
+            <header class="widget-header">
+                <h3>Contacter Le directeur </h3>
+                <h6 class="widget-title"> {{ app.user.nom }} {{app.user.prenom  }} </h6>
+            </header><!-- .widget-header -->
+            <hr class="widget-separator">
+
+            <div class="widget-body ">
+                <div class="form-group">
+                    <label for=" email"> Email:</label>
+                    {{ form_widget(ProfilForm.email, {'attr': {'value': user.email ,'id':'email','readonly':true}}) }}
+                </div>
+
+                <div class="form-group">
+                    <label for=" telephone"> Téléphone:</label>
+                    {{ form_widget(ProfilForm.telephone, {'attr': {'value': user.telephone ,'id':'telephone','readonly':true}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(ProfilForm) }}
 </section>
 {% endblock %}
 

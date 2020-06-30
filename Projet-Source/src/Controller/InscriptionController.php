@@ -15,8 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class InscriptionController extends AbstractController
 {
@@ -98,34 +100,5 @@ class InscriptionController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/activation", name="activation")
-     */
-    public function activation(Request $request):Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        // On recherche si un utilisateur avec ce token existe dans la base de données
-        $users = $this->getDoctrine()->getRepository(User::class);
-        $user = $users->findOneBy(['activationToken' => $request->query->get('token')]);
-        //dump($user);die();
-
-        // Si aucun utilisateur n'est associé à ce token
-        if(!$user){
-            // On renvoie une erreur 404
-            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
-        }
-
-        // On supprime le token
-        $user->setActivationToken(null);
-        $user->setEtat(true);
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        // On génère un message
-        $this->addFlash('message', 'Utilisateur activé avec succès');
-
-        // On retourne à l'accueil
-        return $this->redirectToRoute('app_login');
-    }
 
 }

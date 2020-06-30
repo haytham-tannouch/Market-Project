@@ -27,7 +27,6 @@ class UserCreationType extends AbstractType
             ->add('password',      PasswordType::class, array(
                 'attr' => array(
                     'class' => 'form-control',
-                    'required'=>isset($options['required'])?$options['required']:true
                 )))
             ->add('role',          ChoiceType::class, array(
                 'choices' => array(
@@ -64,11 +63,11 @@ class UserCreationType extends AbstractType
             ->add('Sauvegarder', SubmitType::class,array(
                 'attr'=>array(
                     'class'=>'btn btn-primary btn-md',
+                    'disabled'=>isset($options['disabled'])?$options['disabled']:true
                 )
             ))
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

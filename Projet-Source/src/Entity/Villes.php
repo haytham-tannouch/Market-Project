@@ -31,7 +31,7 @@ class Villes
     private $pays;
 
     /**
-     * @ORM\OneToMany(targetEntity=Agences::class, mappedBy="Ville")
+     * @ORM\OneToMany(targetEntity=Agences::class, mappedBy="Villes")
      */
     private $agences;
 
