@@ -473,13 +473,6 @@ class DashboardController extends Controller
             return $this->json(['code'=>403,'message'=>'erro'],200);
 
         }
-
-
-
-
-
-
-
         /**
          * @Route("/paysDiv/{pays}",name="paysDiv")
          * @param Request $request
@@ -516,8 +509,6 @@ class DashboardController extends Controller
                 //  $event->stopPropagation();
                 return $this->render('Settings/maintenance.html.twig');
             }
-    }
-        return $this->json(['code'=>200,'villes'=>$country],200);
     }
     /**
      * @Route("/dashboard/admin/user/{id}/supp", name="suppUser")
