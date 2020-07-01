@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Settings;
+use App\Entity\Timezones;
+use App\Entity\User;
 use DateTime;
 use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{DateType, FileType, IntegerType, SubmitType, TextType};
 use Symfony\Component\Form\FormBuilderInterface;
@@ -45,6 +48,14 @@ class SettingsType extends AbstractType
                     'class' => 'btn btn-primary',
 
                 )))
+            ->add('fuseauHoraire',EntityType::class,[
+                'class'=>Timezones::class,
+                'choice_label'=>'timezoneDetail',
+                'attr' => array(
+                    'class' => 'form-control',
+
+                )
+            ])
         ;
     }
 

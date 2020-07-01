@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TimezonesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,17 @@ class Timezones
      * @ORM\Column(type="string", length=255)
      */
     private $timezoneDetail;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Settings::class, mappedBy="fuseau_horaire")
+     */
+    private $settings;
+
+    public function __construct()
+    {
+        $this->settings = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -69,6 +82,37 @@ class Timezones
     public function setTimezoneDetail(string $timezoneDetail): self
     {
         $this->timezoneDetail = $timezoneDetail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Settings[]
+     */
+    public function getSettings(): Collection
+    {
+        return $this->settings;
+    }
+
+    public function addSetting(Settings $setting): self
+    {
+        if (!$this->settings->contains($setting)) {
+            $this->settings[] = $setting;
+            $setting->setFuseauHoraire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSetting(Settings $setting): self
+    {
+        if ($this->settings->contains($setting)) {
+            $this->settings->removeElement($setting);
+            // set the owning side to null (unless already changed)
+            if ($setting->getFuseauHoraire() === $this) {
+                $setting->setFuseauHoraire(null);
+            }
+        }
 
         return $this;
     }

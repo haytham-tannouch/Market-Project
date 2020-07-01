@@ -109,9 +109,7 @@ class DashboardController extends Controller
             $setting=$settingsRepository->find('1');
             if ($setting->getModeMaintenance()==true)
             {
-
                     return $this->render('Settings/maintenance.html.twig');
-
             }
 
 
@@ -127,8 +125,6 @@ class DashboardController extends Controller
                 'user'=>$user,
                 'agences'=>$agences,
                 'agence'=>$agence
-
-
             ]);
 
         }
@@ -264,7 +260,6 @@ class DashboardController extends Controller
      */
     public function createAgence(Request $request,PaysRepository $paysRepository,VillesRepository $villesRepository,AgencesRepository $agencesRepository,UserRepository $userRepository)
     {
-
         $agence = new Agences();
         $form = $this->createForm(AgenceCreationType::class, $agence);
         $form->handleRequest($request);

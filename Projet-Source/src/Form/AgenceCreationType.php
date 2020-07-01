@@ -85,13 +85,6 @@ class AgenceCreationType extends AbstractType
                     'class' => 'form-control'
                 )))
 
-
-
-            ->add('Utilisateur',EntityType::class,[
-                'class'=>User::class,
-                'choice_label'=>'email'
-            ])
-
             ->add('Sauvegarder', SubmitType::class,array(
                 'attr'=>array(
                     'class'=>'btn btn-primary btn-md',

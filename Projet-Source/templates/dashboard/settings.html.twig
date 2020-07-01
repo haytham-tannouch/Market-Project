@@ -57,6 +57,9 @@
                             {{ form_row(form.DureeInactivite,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
                         </div>
                         <div class="form-group">
+                            {{ form_row(form.fuseauHoraire,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
+                        </div>
+                        <div class="form-group">
                             {{ form_row(form.Sauvegarder,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
                         </div>
                     {{ form_end(form) }}

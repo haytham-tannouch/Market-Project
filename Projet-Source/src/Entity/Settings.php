@@ -53,9 +53,11 @@ class Settings
     private $DureeInactivite;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Timezones::class, inversedBy="settings")
      */
-    private $FuseauHoraire;
+    private $fuseau_horaire;
+
+
 
     public function getId(): ?int
     {
@@ -146,15 +148,16 @@ class Settings
         return $this;
     }
 
-    public function getFuseauHoraire(): ?string
+    public function getFuseauHoraire(): ?Timezones
     {
-        return $this->FuseauHoraire;
+        return $this->fuseau_horaire;
     }
 
-    public function setFuseauHoraire(string $FuseauHoraire): self
+    public function setFuseauHoraire(?Timezones $fuseau_horaire): self
     {
-        $this->FuseauHoraire = $FuseauHoraire;
+        $this->fuseau_horaire = $fuseau_horaire;
 
         return $this;
     }
+
 }
