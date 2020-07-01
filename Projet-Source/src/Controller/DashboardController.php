@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Agences;
+use App\Entity\Settings;
 use App\Entity\User;
 use App\Form\AgenceCreationType;
 use App\Form\ProfilType;
+use App\Form\SettingsType;
 use App\Form\UserCreationType;
 use App\Repository\AgencesRepository;
 use App\Repository\PaysRepository;
@@ -262,7 +264,6 @@ class DashboardController extends Controller
      */
     public function createAgence(Request $request,PaysRepository $paysRepository,VillesRepository $villesRepository,AgencesRepository $agencesRepository,UserRepository $userRepository)
     {
-        dump($agencesRepository->findByExampleField());die();
 
         $agence = new Agences();
         $form = $this->createForm(AgenceCreationType::class, $agence);
@@ -273,10 +274,14 @@ class DashboardController extends Controller
                 $params = $request->request->all();
                 $ville=$params['Ville'];
                 $pays=$params['Pays'];
-                //dump($params);die();
                 $p=$paysRepository->findOneByName($pays);
                 $v=$villesRepository->findOneByName($ville);
+                $u=$params['userAg'];
+                $Utilisateur=$userRepository->find($u);
+                //dump($userRepository->find($u));die();
+
                 //dump($v);die();
+                $agence->setUtilisateur($Utilisateur);
                 $agence->setPays($p);
                 $agence->setVille($v);
                 $agence->setEtat(false);
@@ -288,7 +293,9 @@ class DashboardController extends Controller
         return $this->render('dashboard/creationAgence.html.twig', [
             'form' => $form->createView(),
             'pays'=>$paysRepository->findAll(),
-            'villes'=>$villesRepository->findAll()
+            'villes'=>$villesRepository->findAll(),
+            'users'=>$userRepository->findByExampleField()
+
         ]);
     }
 
@@ -380,6 +387,7 @@ class DashboardController extends Controller
             else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
 
         }
+
         /**
          * @Route("dashboard/admin/agences/{id}/isAGactive", name="isAGactive")
          * @param AgencesRepository $repository
@@ -432,18 +440,32 @@ class DashboardController extends Controller
         /**
          * @Route("/dashboard/admin/settings", name="settings")
          */
-        public function settings(SettingsRepository $settingsRepository)
+        public function settings(Request $request,SettingsRepository $settingsRepository)
         {
-            $settings=$settingsRepository->find('1');
-          //  dump($settings);die();
+            //dump('test');die();
+            $settings = $this->getDoctrine()->getRepository(Settings::class);
+            $data=$request->attributes->all();
+            $setting = $settings->find('1');
+            $form = $this->createForm(SettingsType::class, $setting,['required'=>false]);
+            $form->handleRequest($request);
+            $data=$form->getData();
+            $params = $request->request->all();
+            if ($form->isSubmitted() && $form->isValid()){
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($setting);
+                $manager->flush();
+                //dump($setting);die();
+            }
+
             return $this->render('dashboard/settings.html.twig',[
-               'setting'=>$settings
+               'setting'=>$setting,
+                'form'=>$form->createView()
             ]);
 
         }
 
         /**
-         * @Route("dashboard/settings/maintenance", name="maintenance")
+         * @Route("dashboard/admin/settings/maintenance", name="maintenance")
          * @param Request $request
          * @param SettingsRepository $settingsRepository
          * @param $event
@@ -473,6 +495,37 @@ class DashboardController extends Controller
             return $this->json(['code'=>403,'message'=>'erro'],200);
 
         }
+    /**
+     * @Route("dashboard/admin/settings/isInscriptionActive", name="isInscriptionActive")
+     * @param Request $request
+     * @param SettingsRepository $settingsRepository
+     * @param $event
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function isInscriptionActive(Request $request, SettingsRepository $settingsRepository)
+    {
+
+        $setting=$settingsRepository->find('1');
+        // dump($setting);die();
+        if($setting->getInscription()==true){
+            $setting->setInscription(false);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($setting);
+            $manager->flush();
+            return $this->json(['code'=>200,'inscription'=>'false'],200);
+        }
+        elseif ($setting->getInscription()==false){
+            $setting->setInscription(true);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($setting);
+            $manager->flush();
+            return $this->json(['code'=>200,'inscription'=>'true'],200);
+
+        }
+        return $this->json(['code'=>403,'message'=>'erro'],200);
+
+    }
         /**
          * @Route("/paysDiv/{pays}",name="paysDiv")
          * @param Request $request

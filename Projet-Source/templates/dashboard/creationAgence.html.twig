@@ -96,14 +96,11 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Utilisateur</label>
-                        {{ form_widget(form.Utilisateur,  {'attr' : {'placeholder' : "Utilisateur",'class' : 'form-control'},"id":"user"}) }}
-                        {% if form_errors(form.Utilisateur) %}
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                <strong>Erreur !</strong><span>{{form_errors(form.Utilisateur)}} </span>
-
-                            </div>
-                        {% endif %}
+                        <select name="userAg" id="userAg" class="form-control">
+                            {% for user in users %}
+                                <option value="{{ user.id }}">{{ user.email }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
 
 

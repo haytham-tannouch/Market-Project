@@ -78,49 +78,48 @@ class SecurityController extends Controller
           }
         }
 
+        if ($this->getUser()) {
+            $lasstlog = $this->getUser()->getLogedAt();
 
-        $lasstlog=$this->getUser()->getLogedAt();
-        //dump($this->getUser()->getLogedAt());die();
+            //dump($this->getUser()->getLogedAt());die();
 
-        if (isset($lasstlog)) {
-            if ($this->isGranted('ROLE_ADMIN')) {
-                $this->getUser()->setLogedAt(new \DateTime());
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($this->getUser());
-                $manager->flush();
-                return $this->redirectToRoute('dashboard_admin');
+            if (isset($lasstlog)) {
+                if ($this->isGranted('ROLE_ADMIN')) {
+                    $this->getUser()->setLogedAt(new \DateTime());
+                    $manager = $this->getDoctrine()->getManager();
+                    $manager->persist($this->getUser());
+                    $manager->flush();
+                    return $this->redirectToRoute('dashboard_admin');
+                }
+                if ($this->isGranted('ROLE_USER')) {
+                    $this->getUser()->setLogedAt(new \DateTime());
+                    $manager = $this->getDoctrine()->getManager();
+                    $manager->persist($this->getUser());
+                    $manager->flush();
+                    return $this->redirectToRoute('dashboard_user');
+                }
+
+            } else {
+                if ($this->isGranted('ROLE_ADMIN')) {
+                    $this->getUser()->setLogedAt(new \DateTime());
+                    $manager = $this->getDoctrine()->getManager();
+                    $manager->persist($this->getUser());
+                    $manager->flush();
+                    return $this->redirectToRoute('dashboard_admin');
+                }
+                if ($this->isGranted('ROLE_USER')) {
+                    $this->getUser()->setLogedAt(new \DateTime());
+                    $manager = $this->getDoctrine()->getManager();
+                    $manager->persist($this->getUser());
+                    $manager->flush();
+
+                    return $this->redirectToRoute('user_profil', [
+                        'id' => $this->getUser()->getId()
+                    ]);
+                }
             }
-            if ($this->isGranted('ROLE_USER')) {
-                $this->getUser()->setLogedAt(new \DateTime());
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($this->getUser());
-                $manager->flush();
-                return $this->redirectToRoute('dashboard_user');
-            }
-
         }
-        else {
-            if ($this->isGranted('ROLE_ADMIN')) {
-                $this->getUser()->setLogedAt(new \DateTime());
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($this->getUser());
-                $manager->flush();
-                return $this->redirectToRoute('dashboard_admin');
-            }
-            if ($this->isGranted('ROLE_USER')) {
-                $this->getUser()->setLogedAt(new \DateTime());
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($this->getUser());
-                $manager->flush();
-
-                return $this->redirectToRoute('user_profil',[
-                    'id'=>$this->getUser()->getId()
-                ]);
-            }
-        }
-
-
-        //return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_login');
     }
     /**
      * @Route("/Remail", name="app_remail")

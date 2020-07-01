@@ -27,10 +27,10 @@ class UserRepository extends ServiceEntityRepository
     {
 
         $query = $this->getEntityManager()->createQueryBuilder();
-        $query->select("u.*")
+        $query->select("u.id,u.email")
             ->from(User::class, 'u')
             ->leftJoin(Agences::class,"a","WITH","a.Utilisateur=u.id")
-            ->where("a.id IS NULL")
+            ->where("a.Utilisateur IS NULL")
             ->orderBy('u.id', 'DESC');
         $query = $query->getQuery();
         $result=$query->getResult();

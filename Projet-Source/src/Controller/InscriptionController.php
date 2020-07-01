@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserCreationType;
+use App\Repository\SettingsRepository;
 use App\Security\UserAuthenticator;
 use http\Params;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,8 +26,11 @@ class InscriptionController extends AbstractController
     /**
      * @Route("/inscription", name="inscription")
      */
-    public function inscription(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator,\Swift_Mailer $mailer):Response
+    public function inscription(Request $request,SettingsRepository $settingsRepository, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator,\Swift_Mailer $mailer):Response
     {
+        if ($settingsRepository->find('1')->getInscription()==false){
+            return $this->render('/Settings/maintenance.html.twig');
+        }
         $user = new User();
         $form = $this->createFormBuilder($user)
             ->add('email', EmailType::class, array(

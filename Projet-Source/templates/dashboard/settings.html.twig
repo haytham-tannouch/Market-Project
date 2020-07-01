@@ -26,34 +26,46 @@
         <div class="col-md-6">
             <div class="widget">
                 <header class="widget-header">
-
-                    <h4 class="widget-title">Page de paramètres</h4>
+                    <strong class="widget-title" style="padding-right: 6cm;">Page de paramètres</strong>
+                    <strong>Mode maintenance&nbsp;&nbsp;</strong>
+                    <input  type="checkbox" id="modeMaint" class="js-switch"  data-switchery="true" {% if setting.ModeMaintenance %} checked {% endif %}  data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('maintenance') }}"  >
                 </header><!-- .widget-header -->
                 <hr class="widget-separator">
 
                 <div class="widget-body ">
-
-
-                        <div class="form-group">
-                            <div class="checkbox checkbox-primary checkbox-inline">
-                                <input type="text" name="message" value="off" hidden>
-                                Mode maintenance
-                                <input type="checkbox" class="js-switch"  data-switchery="true"  data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('maintenance') }}" {% if setting.ModeMaintenance %}checked{% endif %} >
-
-                            </div>
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        <br>
+                        <div class="checkbox checkbox-primary checkbox-inline">
+                            <strong>Inscription&nbsp;&nbsp;</strong>
+                            <input type="checkbox" id="inscription" class="js-switch form-control"  data-switchery="true" {% if not setting.ModeMaintenance %}disabled {% endif %} {% if setting.inscription %} checked {% endif %}  data-size="small" onchange="isInscriptionActive(this)" data-href="{{ path('isInscriptionActive') }}">
                         </div>
-
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.NomSite,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.Favicon,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.Logo,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.DureeSessions,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.DureeInactivite,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.Sauvegarder,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
+                        </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </section>
-
-
     {% endblock %}
-
-
 {% block javascripts %}
-
     <script>
         var elems = document.querySelectorAll('.js-switch');
         for (var i = 0; i < elems.length; i++) {
@@ -65,10 +77,32 @@
                 if (response.data.ModeMaintenance==="true"){
                     swal(" Mode maintenance Activée!","","success");
                     $(this_).prop("checked",true);
-                    //console.log(test);
+                    $('.form-control').prop("disabled",false);
+                    $('.btn').prop("disabled",false);
+                    $('#inscription').prop("disabled",false);
                 }
                 else if(response.data.ModeMaintenance==="false"){
                     swal(" Mode maintenance Désactivée!","",  "warning");
+                    $(this_).prop("checked",false);
+                    $('.form-control').prop("disabled",true);
+                    $('.btn').prop("disabled",true);
+                    $('#inscription').prop("disabled",true);
+
+
+                }
+            })
+        }
+    </script>
+    <script>
+        function isInscriptionActive(this_) {
+            var url=$(this_).data('href');
+            axios.get(url).then(function (response) {
+                if (response.data.inscription==="true"){
+                    swal(" Inscription Activée!","","success");
+                    $(this_).prop("checked",true);
+                }
+                else if(response.data.inscription==="false"){
+                    swal(" Inscription Désactivée!","",  "warning");
                     $(this_).prop("checked",false);
                 }
             })

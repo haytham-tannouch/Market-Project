@@ -22,6 +22,41 @@ class Settings
      */
     private $ModeMaintenance;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $NomSite;
+
+    /**
+     * @ORM\Column(type="string", length=255,nullable=true)
+     */
+    private $Favicon;
+
+    /**
+     * @ORM\Column(type="string", length=255,nullable=true)
+     */
+    private $Logo;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $Inscription;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $DureeSessions;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $DureeInactivite;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $FuseauHoraire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +70,90 @@ class Settings
     public function setModeMaintenance(bool $ModeMaintenance): self
     {
         $this->ModeMaintenance = $ModeMaintenance;
+
+        return $this;
+    }
+
+    public function getNomSite(): ?string
+    {
+        return $this->NomSite;
+    }
+
+    public function setNomSite(string $NomSite): self
+    {
+        $this->NomSite = $NomSite;
+
+        return $this;
+    }
+
+    public function getFavicon(): ?string
+    {
+        return $this->Favicon;
+    }
+
+    public function setFavicon(string $Favicon): self
+    {
+        $this->Favicon = $Favicon;
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->Logo;
+    }
+
+    public function setLogo(string $Logo): self
+    {
+        $this->Logo = $Logo;
+
+        return $this;
+    }
+
+    public function getInscription(): ?bool
+    {
+        return $this->Inscription;
+    }
+
+    public function setInscription(bool $Inscription): self
+    {
+        $this->Inscription = $Inscription;
+
+        return $this;
+    }
+
+    public function getDureeSessions(): ?int
+    {
+        return $this->DureeSessions;
+    }
+
+    public function setDureeSessions(int $DureeSessions): self
+    {
+        $this->DureeSessions = $DureeSessions;
+
+        return $this;
+    }
+
+    public function getDureeInactivite(): ?int
+    {
+        return $this->DureeInactivite;
+    }
+
+    public function setDureeInactivite(int $DureeInactivite): self
+    {
+        $this->DureeInactivite = $DureeInactivite;
+
+        return $this;
+    }
+
+    public function getFuseauHoraire(): ?string
+    {
+        return $this->FuseauHoraire;
+    }
+
+    public function setFuseauHoraire(string $FuseauHoraire): self
+    {
+        $this->FuseauHoraire = $FuseauHoraire;
 
         return $this;
     }
