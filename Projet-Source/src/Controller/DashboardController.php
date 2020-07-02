@@ -222,6 +222,7 @@ class DashboardController extends Controller
                 $hash = $encoder->encodePassword($user, $user->getPassword());
                 $user->setPassword($hash);
                 $user->setEtat(true);
+                $user->setStatus(true);
                 $role=$data->getRole();
                 if($role=="Administrateur"){
                     $user->addRole('ROLE_ADMIN');
@@ -303,11 +304,12 @@ class DashboardController extends Controller
         $data=$request->attributes->all();
 
 
-        $form = $this->createForm(AgenceCreationType::class, $agence,['required'=>false]);
+        $form = $this->createForm(AgenceCreationType::class, $agence);
         $form->handleRequest($request);
         $data=$form->getData();
         $params = $request->request->all();
         if ($form->isSubmitted() && $form->isValid()) {
+
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($agence);
             $manager->flush();
@@ -687,21 +689,27 @@ class DashboardController extends Controller
      * @param UserRepository $repository
      * @return Response
      */
-    public function suppUser(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
+    public function suppUser(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository,SentRepository $sentRepository)
     {
 
         $data=$request->attributes->all();
         $user=$data['user'];
+        $manager = $this->getDoctrine()->getManager();
+        $agence=$agencesRepository->findOneByUser($user);
+        $sents=$sentRepository->findByUser($user);
+        foreach($sents as $sent){
+            $manager->remove($sent);
+        }
+        if(isset($agence)){
+            $manager->remove($agence);
+            $manager->remove($user);
 
 
-        //dump($agence);die();
-            $manager = $this->getDoctrine()->getManager();
-            if($agence=$agencesRepository->findOneByUser($user))
-                {$manager->remove($agence);}
-                $manager->remove($user);
-
+        }else{
+            $manager->remove($user);
+            $manager->flush();
+        }
         $manager->flush();
-
          return $this->json(['code'=>403,'message'=>'success'],200);
 
     }

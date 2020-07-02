@@ -19,14 +19,14 @@ class SentRepository extends ServiceEntityRepository
         parent::__construct($registry, Sent::class);
     }
 
-    // /**
-    //  * @return Sent[] Returns an array of Sent objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Sent[] Returns an array of Sent objects
+     */
+
+    public function findByUser($value)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+            ->andWhere('s.idUser = :val')
             ->setParameter('val', $value)
             ->orderBy('s.id', 'ASC')
             ->setMaxResults(10)
@@ -34,7 +34,7 @@ class SentRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Sent

@@ -61,6 +61,7 @@ class InscriptionController extends AbstractController
             $user->setRole("Editeur");
             $user->addRole('ROLE_USER');
             $user->setEtat(false);
+            $user->setStatus(true);
             // On génère un token et on l'enregistre
             $user->setActivationToken(md5(uniqid()));
 

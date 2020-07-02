@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a23f9cc7-86a9-4d8c-8a61-ce0b9f06cec0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/Sent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ProfilType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/SentRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dashboard/modifierAgence.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/AccessDeniedHandler.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Email.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Email.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/AgenceCreationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/AgenceCreationType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/GestionEmailsType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/GestionEmailsType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/Email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/Email.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/agences.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/agences.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/creationUser.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/creationUser.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/indexEmail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/indexEmail.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/InscriptionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/InscriptionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/SentRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SentRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -328,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593681966910</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Emails 100%&#10;Agences : list+edit+add 100%">
+      <created>1593695563955</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1593695563955</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +367,8 @@
     <MESSAGE value="agence listing + add agence:issues: logo&#10;Settings=&gt;add Pays/ville/region + Services&#10;Maintenance 90%&#10;&#10;db Update" />
     <MESSAGE value="retouches" />
     <MESSAGE value="wail merge before creation new tables" />
-    <option name="LAST_COMMIT_MESSAGE" value="wail merge before creation new tables" />
+    <MESSAGE value="Emails 100%&#10;Agences : list+edit+add 100%" />
+    <option name="LAST_COMMIT_MESSAGE" value="Emails 100%&#10;Agences : list+edit+add 100%" />
   </component>
   <component name="WindowStateProjectService">
     <state x="515" y="220" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1593694550520">
@@ -383,11 +384,11 @@
     </state>
     <state x="552" y="220" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.834@0.0.1536.834" timestamp="1593610407176" />
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592737448065" />
-    <state x="468" y="0" key="CommitChangelistDialog2" timestamp="1593681965990">
+    <state x="468" y="0" key="CommitChangelistDialog2" timestamp="1593695562931">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="468" y="24" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1592843112657" />
-    <state x="468" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1593681965990" />
+    <state x="468" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1593695562931" />
     <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767686253" />
     <state x="147" y="68" key="DiffContextDialog" timestamp="1592920272507">
       <screen x="0" y="0" width="1536" height="834" />
@@ -403,10 +404,10 @@
     </state>
     <state x="424" y="310" width="740" height="251" key="MultipleFileMergeDialog/0.0.1536.834@0.0.1536.834" timestamp="1593023378635" />
     <state x="530" y="387" width="924" height="286" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592733944240" />
-    <state x="604" y="340" key="NewPhpFileDialog" timestamp="1593684529771">
+    <state x="604" y="340" key="NewPhpFileDialog" timestamp="1593701705624">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="604" y="340" key="NewPhpFileDialog/0.0.1536.834@0.0.1536.834" timestamp="1593684529771" />
+    <state x="604" y="340" key="NewPhpFileDialog/0.0.1536.834@0.0.1536.834" timestamp="1593701705624" />
     <state x="564" y="128" key="RollbackChangesDialog" timestamp="1593186232232">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -433,10 +434,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1536.834@0.0.1536.834" timestamp="1593684402947" />
-    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1593681552088">
+    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1593701560920">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.834@0.0.1536.834" timestamp="1593681552088" />
+    <state x="93" y="93" width="1350" height="648" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.834@0.0.1536.834" timestamp="1593701560920" />
     <state x="578" y="334" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593679626778">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
