@@ -95,6 +95,29 @@ class Agences
      * @ORM\JoinColumn(nullable=false)
      */
     private $Utilisateur;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Villes::class, inversedBy="agences")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Ville;
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+
 
     public function __construct()
     {

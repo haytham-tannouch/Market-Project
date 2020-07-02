@@ -25,7 +25,7 @@ class GestionEmailsType extends AbstractType
                 )))
             ->add('User',          ChoiceType::class, array(
                 'choices' => array(
-                    'Admin' => 'Administrateur',
+                    'Administrateur' => 'Administrateur',
                     'Editeur' => 'Editeur',
                 )))
 

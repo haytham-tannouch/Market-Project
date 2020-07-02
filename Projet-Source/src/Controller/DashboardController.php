@@ -3,13 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Agences;
+use App\Entity\Email;
 use App\Entity\Settings;
 use App\Entity\User;
 use App\Form\AgenceCreationType;
+use App\Form\GestionEmailsType;
 use App\Form\ProfilType;
 use App\Form\SettingsType;
 use App\Form\UserCreationType;
 use App\Repository\AgencesRepository;
+use App\Repository\EmailRepository;
 use App\Repository\PaysRepository;
 use App\Repository\SettingsRepository;
 use App\Repository\UserRepository;
@@ -329,67 +332,66 @@ class DashboardController extends Controller
         return $this->render('dashboard/Email.html.twig', [
             'form' => $form->createView(),
         ]);
-
-        /**
-         * @Route("/dashboard/admin/edit/{id}", name="editUser")
-         */
-        public function editUser(Request $request, UserPasswordEncoderInterface $encoder,User $user,\Swift_Mailer $mailer)
-        {
-            $users = $this->getDoctrine()->getRepository(User::class);
-            $data=$request->attributes->all();
-            $Olduser = $users->findOneBy(['id' => $data['id']]);
-            $oldPass=$Olduser->getPassword();
-
-            $form = $this->createForm(UserCreationType::class, $user,['required'=>false]);
-            $form->handleRequest($request);
-            $data=$form->getData();
-            $params = $request->request->all();
-            if ($form->isSubmitted() && $form->isValid()) {
-               // dump("oldpass".$oldPass);
-                $newpass=$params['user_creation']['password'];
-                if ($newpass!=$oldPass){
-                    $hash = $encoder->encodePassword($user,$newpass);
-                    $user->setPassword($hash);
-                }
-                else{
-                    $user->setPassword($oldPass);
-                }
-                $role=$data->getRole();
-                if($role=="Administrateur"){
-                    $user->addRole('ROLE_ADMIN');
-
-                }
-                elseif ($role=="Editeur"){
-                    $user->addRole('ROLE_USER');
-                }
-                /*if($message=="on"){
-                    $msg = (new \Swift_Message('Creation Compte'))
-                        ->setFrom('votre@adresse.fr')
-                        ->setTo($user->getEmail())
-                        ->setBody(
-                            "Bonjour,<br><br>Bonjour Un compte est créé pour vous, merci de se connecter en cliquant sur le lien suivant : <a href='127.0.0.1:8000'>Se Connecter</a><br>
-                                        Vos Cordonnées D'authentification: <br><label for='email'></label><b id='email'>".$user->getEmail()."</b><br><label for='password'><b>".$params['user_creation']['password']."</b></label>",
-                            'text/html'
-                        )
-                    ;
-                    // On envoie l'e-mail
-                    $mailer->send($msg);
-                }*/
-
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($user);
-                $manager->flush();
-                //return $this->redirectToRoute('dashboard');
-            }
-            return $this->render('dashboard/modifier.html.twig', [
-                'form' => $form->createView(),
-                'user'=>$user,
-                'oldpassword'=>$oldPass,
-                'firstlog'=>false
-            ]);
-
     }
 
+    /**
+     * @Route("/dashboard/admin/edit/{id}", name="editUser")
+     */
+    public function editUser(Request $request, UserPasswordEncoderInterface $encoder,User $user,\Swift_Mailer $mailer)
+    {
+        $users = $this->getDoctrine()->getRepository(User::class);
+        $data=$request->attributes->all();
+        $Olduser = $users->findOneBy(['id' => $data['id']]);
+        $oldPass=$Olduser->getPassword();
+
+        $form = $this->createForm(UserCreationType::class, $user,['required'=>false]);
+        $form->handleRequest($request);
+        $data=$form->getData();
+        $params = $request->request->all();
+        if ($form->isSubmitted() && $form->isValid()) {
+           // dump("oldpass".$oldPass);
+            $newpass=$params['user_creation']['password'];
+            if ($newpass!=$oldPass){
+                $hash = $encoder->encodePassword($user,$newpass);
+                $user->setPassword($hash);
+            }
+            else{
+                $user->setPassword($oldPass);
+            }
+            $role=$data->getRole();
+            if($role=="Administrateur"){
+                $user->addRole('ROLE_ADMIN');
+
+            }
+            elseif ($role=="Editeur"){
+                $user->addRole('ROLE_USER');
+            }
+            /*if($message=="on"){
+                $msg = (new \Swift_Message('Creation Compte'))
+                    ->setFrom('votre@adresse.fr')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        "Bonjour,<br><br>Bonjour Un compte est créé pour vous, merci de se connecter en cliquant sur le lien suivant : <a href='127.0.0.1:8000'>Se Connecter</a><br>
+                                    Vos Cordonnées D'authentification: <br><label for='email'></label><b id='email'>".$user->getEmail()."</b><br><label for='password'><b>".$params['user_creation']['password']."</b></label>",
+                        'text/html'
+                    )
+                ;
+                // On envoie l'e-mail
+                $mailer->send($msg);
+            }*/
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            //return $this->redirectToRoute('dashboard');
+        }
+        return $this->render('dashboard/modifier.html.twig', [
+            'form' => $form->createView(),
+            'user'=>$user,
+            'oldpassword'=>$oldPass,
+            'firstlog'=>false
+        ]);
+    }
     /**
      * @Route("/dashboard/admin/gestionemail/getuser/{type}",name="gestionemailuser")
      * @param Request $request
@@ -403,62 +405,49 @@ class DashboardController extends Controller
         $emails = $emailRepository->findAll();
 
         foreach ($emails as $email) {
-            foreach ($users as $user){
-                if($user->getRole()==$request->attributes->get('type') && $email->getUser()==$request->attributes->get('type')){
+            foreach ($users as $user) {
+                if ($user->getRole() == $request->attributes->get('type') && $email->getUser() == $request->attributes->get('type')) {
 
-                  array_push($respense,$user);
+                    array_push($respense, $user);
 
-                }elseif ($user->getRole()==$request->attributes->get('type') && $email->getUser()==$request->attributes->get('type')){
+                } elseif ($user->getRole() == $request->attributes->get('type') && $email->getUser() == $request->attributes->get('type')) {
 
-                    array_push($respense,$user);
-
-
+                    array_push($respense, $user);
                 }
             }
-
         }
         return $this->json(['code' => 200, 'table' => $respense], 200);
     }
 
     /**
-     * @Route("/dashboard/user/{id}/isActive", name="isActive")
+     * @Route("/dashboard/admin/user/{id}/isActive", name="isActive")
      * @param UserRepository $repository
      * @return Response
      */
-    public function isActive(User $user,Request $request,UserRepository $repository)
+    public function isActive(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
     {
         $data=$request->attributes->all();
         $user=$data['user'];
+
+        if($user->getEtat()==true){
+            $user->setEtat(false);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            return $this->json(['code'=>200,'etat'=>'false','userid'=>$user->getId()],200);
         }
-        /**
-         * @Route("/dashboard/admin/user/{id}/isActive", name="isActive")
-         * @param UserRepository $repository
-         * @return Response
-         */
-        public function isActive(User $user,Request $request,UserRepository $repository,AgencesRepository $agencesRepository)
-        {
-            $data=$request->attributes->all();
-            $user=$data['user'];
+        elseif ($user->getEtat()==false){
+            $user->setEtat(true);
 
-            if($user->getEtat()==true){
-                $user->setEtat(false);
-
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($user);
-                $manager->flush();
-                return $this->json(['code'=>200,'etat'=>'false','userid'=>$user->getId()],200);
-            }
-            elseif ($user->getEtat()==false){
-                $user->setEtat(true);
-
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($user);
-                $manager->flush();
-                return $this->json(['code'=>200,'etat'=>'true','userid'=>$user->getId()],200);
-            }
-            else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
-
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            return $this->json(['code'=>200,'etat'=>'true','userid'=>$user->getId()],200);
         }
+        else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
+
+    }
 
         /**
          * @Route("dashboard/admin/agences/{id}/isAGactive", name="isAGactive")
