@@ -569,13 +569,14 @@ class DashboardController extends Controller
         $data=$request->attributes->all();
         $user=$data['user'];
 
-        $agence=$agencesRepository->findOneByUser($user);
 
         //dump($agence);die();
             $manager = $this->getDoctrine()->getManager();
-            $manager->remove($user);
-            $manager->remove($agence);
-            $manager->flush();
+            if($agence=$agencesRepository->findOneByUser($user))
+                {$manager->remove($agence);}
+                $manager->remove($user);
+
+        $manager->flush();
 
          return $this->json(['code'=>403,'message'=>'success'],200);
 

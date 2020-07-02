@@ -92,8 +92,10 @@
                                 }, (error) => {
                                     console.log(error);
                                 });
-                             swal("Suppression !", "Utilisateur Supprimé", "warning");
-                            break;
+                             swal("Suppression !", "Utilisateur Supprimé", "warning").then(function(){
+                                 location.reload();
+                             });
+                             break;
 
                         case "archiver":
                             axios.post('/dashboard/admin/user/'+id+'/archive', {
@@ -103,7 +105,9 @@
                                 }, (error) => {
                                     console.log(error);
                                 });
-                            swal("Archive!", "Utilisateur Archivé", "success");
+                            swal("Archive!", "Utilisateur Archivé", "success").then(function(){
+                                location.reload();
+                            });
                             break;
                 }
             });

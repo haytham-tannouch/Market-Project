@@ -78,20 +78,22 @@
             var url=$(this_).data('href');
             axios.get(url).then(function (response) {
                 if (response.data.ModeMaintenance==="true"){
-                    swal(" Mode maintenance Activée!","","success");
+                    swal(" Mode maintenance Activée!","","success").then(function(){
+                        location.reload();
+                    });
                     $(this_).prop("checked",true);
                     $('.form-control').prop("disabled",false);
                     $('.btn').prop("disabled",false);
                     $('#inscription').prop("disabled",false);
                 }
                 else if(response.data.ModeMaintenance==="false"){
-                    swal(" Mode maintenance Désactivée!","",  "warning");
+                    swal(" Mode maintenance Désactivée!","",  "warning").then(function(){
+                        location.reload();
+                    });
                     $(this_).prop("checked",false);
                     $('.form-control').prop("disabled",true);
                     $('.btn').prop("disabled",true);
                     $('#inscription').prop("disabled",true);
-
-
                 }
             })
         }
