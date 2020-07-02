@@ -52,7 +52,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="#">Editer</a>
+                                <a href="{{ path('editAgence',{'id':agence.id}) }}">Editer</a>
                                 <input type="checkbox" class="js-switch" id="cb{{ agence.id }}" data-switchery="true" data-size="small" onchange="onchangeIsActive(this)" data-href="{{ path('isAGactive', {'id': agence.id }) }}" {% if agence.etat %}checked{% endif %} />
                             </td>
 

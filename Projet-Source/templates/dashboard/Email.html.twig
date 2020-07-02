@@ -5,11 +5,35 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Infinity/libs/bower/lightbox2/dist/css/lightbox.min.css') }}">
 {% endblock %}
 {% block body %}
-    {{ form(form) }}
-
-{% endblock %}
+<section class="app-content">
+    {{ form_start(form) }}
+    <div class="col-md-6">
+        <div class="widget">
+            <header class="widget-header">
+                <strong class="widget-title">Nouveau Email</strong>
+            </header><!-- .widget-header -->
+            <hr class="widget-separator">
+            <div class="widget-body">
+                <div class="form-group">
+                    {{ form_row(form.Type) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Main) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.User) }}
+                </div>
+                <div>
+                    {{ form_row(form.Sauvegarder) }}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+    {{ form_end(form) }}
+    {% endblock %}
 {% block javascripts %}
-
     <script>
         var elems = document.querySelectorAll('.js-switch');
         for (var i = 0; i < elems.length; i++) {

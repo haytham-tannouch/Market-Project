@@ -6,6 +6,7 @@ use App\Entity\Email;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +20,7 @@ class GestionEmailsType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 )))
-            ->add('Main',TextType::class, array(
+            ->add('Main',TextareaType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 )))
@@ -27,11 +28,15 @@ class GestionEmailsType extends AbstractType
                 'choices' => array(
                     'Administrateur' => 'Administrateur',
                     'Editeur' => 'Editeur',
+
+                ),
+                'attr'=>array(
+                    'class' => 'form-control'
                 )))
 
             ->add('Sauvegarder', SubmitType::class,array(
                 'attr'=>array(
-                    'class'=>'btn btn-primary btn-md',
+                    'class'=>'btn btn-primary',
                 )
             ))
         ;

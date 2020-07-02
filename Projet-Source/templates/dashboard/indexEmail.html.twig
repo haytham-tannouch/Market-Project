@@ -39,7 +39,7 @@
                                 <a href="#">Editer</a>
                             </td>
                             <td>
-                                <button  type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop" onclick="onClickListe(this)" data-href="{{ path('gestionemailuser', {'type': email.user }) }}">
+                                <button id="{{ email.id }}"  type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop" onclick="onClickListe(this)" data-href="{{ path('gestionemailuser', {'type': email.user }) }}">
                                     Envoyer
                                 </button>
                                 <!-- Modal -->
@@ -52,28 +52,29 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
-                                                <table id="responsive-datatable" data-plugin="DataTable" data-options="{
-									responsive: true,
-									keys: true
-								}" class="table table-striped display" >
-                                                    <thead>
-                                                    <tr >
-                                                        <th><input type="checkbox" id="checkPartent" onclick="ckeckAll()"></th>
-                                                        <th>Nom</th>
-                                                        <th>Email</th>
-                                                        <th>Poste</th>
-
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody id="model_table">
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Envoyer</button>
-                                            </div>
+                                            <form action="{{ path('sendEmail') }}" method="post">
+                                                <div class="modal-body">
+                                                    <table id="responsive-datatable" data-plugin="DataTable" data-options="{
+                                        responsive: true,
+                                        keys: true
+                                    }" class="table table-striped display" >
+                                                        <thead>
+                                                        <tr >
+                                                            <th><input type="checkbox" id="checkPartent" onclick="ckeckAll()"></th>
+                                                            <th>Nom</th>
+                                                            <th>Email</th>
+                                                            <th>Poste</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="model_table">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" onsubmit="sendEmail()">Envoyer</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +95,7 @@
             axios.get(url).then(function (response) {
                 document.getElementById("model_table").innerHTML='';
                 for (var v of response.data.table) {
-                    document.getElementById("model_table").innerHTML+="<tr><td><input type=\"checkbox\" id='"+v.id+"' class=\"checkbox\"></td><td>"+v.prenom+" "+v.nom+"</td><td>"+v.email+"</td><td>"+v.poste+"</td></tr>";
+                    document.getElementById("model_table").innerHTML+="<tr><td><input name='"+v.id+"' value='"+$(this_).prop("id")+"' type=\"checkbox\" id='"+v.id+"' class=\"checkbox\"></td><td>"+v.prenom+" "+v.nom+"</td><td>"+v.email+"</td><td>"+v.poste+"</td></tr>";
                 }
             })
         }
@@ -122,6 +123,14 @@
                     }
                 });
             });
+        }
+    </script>
+    <script>
+        function sendEmail() {
+            var elems = document.querySelectorAll('.checkbox');
+            for (v of elems){
+                alert(v.checked);
+            }
         }
     </script>
     <script>

@@ -53,7 +53,7 @@ class AgenceCreationType extends AbstractType
                     'class' => 'form-control'
                 )))
 
-            ->add('Logo',FileType::class, array(
+            ->add('Logo',TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 )))

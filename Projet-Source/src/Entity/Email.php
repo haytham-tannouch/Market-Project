@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmailRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,12 @@ class Email
      * @ORM\Column(type="string", length=255)
      */
     private $User;
+
+
+    public function __construct()
+    {
+        $this->sents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -72,4 +80,5 @@ class Email
 
         return $this;
     }
+
 }

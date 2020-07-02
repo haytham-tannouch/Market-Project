@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Agences;
 use App\Entity\Email;
+use App\Entity\Sent;
 use App\Entity\Settings;
 use App\Entity\User;
 use App\Form\AgenceCreationType;
@@ -14,6 +15,7 @@ use App\Form\UserCreationType;
 use App\Repository\AgencesRepository;
 use App\Repository\EmailRepository;
 use App\Repository\PaysRepository;
+use App\Repository\SentRepository;
 use App\Repository\SettingsRepository;
 use App\Repository\UserRepository;
 use App\Repository\VillesRepository;
@@ -115,7 +117,6 @@ class DashboardController extends Controller
                     return $this->render('Settings/maintenance.html.twig');
             }
 
-
             $form = $this->createForm(ProfilType::class);
             $form->handleRequest($request);
             $data=$request->attributes->all();
@@ -195,8 +196,6 @@ class DashboardController extends Controller
 
                 ]);
 
-
-
         }
 
         /**
@@ -245,8 +244,6 @@ class DashboardController extends Controller
                     // On envoie l'e-mail
                     $mailer->send($msg);
                 }
-
-
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($user);
                 $manager->flush();
@@ -254,9 +251,9 @@ class DashboardController extends Controller
             }
 
             return $this->render('dashboard/creationUser.html.twig', [
-                'form' => $form->createView()
-            ]);
+                'form' => $form->createView(),
 
+            ]);
     }
     /**
      * @Route("/dashboard/admin/createAgence", name="createAgence")
@@ -296,6 +293,34 @@ class DashboardController extends Controller
 
         ]);
     }
+
+    /**
+     * @Route("/dashboard/admin/editAgence/{id}", name="editAgence")
+     */
+    public function editAgence(Request $request,PaysRepository $paysRepository,VillesRepository $villesRepository, UserPasswordEncoderInterface $encoder,Agences $agence,\Swift_Mailer $mailer)
+    {
+        $agences = $this->getDoctrine()->getRepository(Agences::class);
+        $data=$request->attributes->all();
+
+
+        $form = $this->createForm(AgenceCreationType::class, $agence,['required'=>false]);
+        $form->handleRequest($request);
+        $data=$form->getData();
+        $params = $request->request->all();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($agence);
+            $manager->flush();
+            //return $this->redirectToRoute('dashboard');
+        }
+        return $this->render('dashboard/modifierAgence.html.twig', [
+            'form' => $form->createView(),
+            'agence'=>$agence,
+            'pays'=>$paysRepository->findAll(),
+            'villes'=>$villesRepository->findAll(),
+            'user'=>$agence->getUtilisateur()
+        ]);
+    }
     /**
      * @Route("/dashboard/admin/gestionemail", name="gestionemail")
      * @param EmailRepository $repository
@@ -313,27 +338,59 @@ class DashboardController extends Controller
     /**
      * @Route("/dashboard/admin/createEmail", name="createEmail")
      */
-    public function createEmail(Request $request)
+    public function createEmail(Request $request,EmailRepository $emailRepository)
     {
         $email = new Email();
         $form = $this->createForm(GestionEmailsType::class, $email);
         $form->handleRequest($request);
         $data=$form->getData();
 
-
-
         if ($form->isSubmitted() && $form->isValid()) {
+            //dump($data);die();
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($email);
             $manager->flush();
 
         }
-
         return $this->render('dashboard/Email.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
+    /**
+     * @Route("/dashboard/admin/gestionemail/sendEmail",name="sendEmail")
+     * @param Request $request
+     */
+    public function sendEmail(Request $request,UserRepository $userRepository,EmailRepository $emailRepository,\Swift_Mailer $mailer)
+    {
+        $req=$request->request->keys();
+        $id=$req[0];
+        $emails=$request->request->all();
+        $params=$request->request->keys();
+        $idEmail=$emailRepository->find($emails[$id]);
+        foreach($params as $param){
+            $sent=new Sent();
+            $user=$userRepository->find($param);
+            $manager = $this->getDoctrine()->getManager();
+            $sent->setDateEnvoie(new \DateTime());
+            $sent->setIdEmail($idEmail);
+            $sent->setIdUser($user);
+            $manager->persist($sent);
+            $manager->flush();
+
+            $msg = (new \Swift_Message($idEmail->getType()))
+                ->setFrom('votre@adresse.fr')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $idEmail->getMain(),
+                    'text/html'
+                )
+            ;
+            // On envoie l'e-mail
+            $mailer->send($msg);
+         }
+        return $this->redirectToRoute('gestionemail');
+    }
     /**
      * @Route("/dashboard/admin/edit/{id}", name="editUser")
      */
@@ -400,7 +457,7 @@ class DashboardController extends Controller
      */
     public function EmailUser(Request $request, EmailRepository $emailRepository,  UserRepository $userRepository)
     {
-        $respense = array();
+        $response = array();
         $users = $userRepository->findAll();
         $emails = $emailRepository->findAll();
 
@@ -408,15 +465,16 @@ class DashboardController extends Controller
             foreach ($users as $user) {
                 if ($user->getRole() == $request->attributes->get('type') && $email->getUser() == $request->attributes->get('type')) {
 
-                    array_push($respense, $user);
+                    array_push($response, $user);
 
                 } elseif ($user->getRole() == $request->attributes->get('type') && $email->getUser() == $request->attributes->get('type')) {
 
-                    array_push($respense, $user);
+                    array_push($response, $user);
                 }
             }
         }
-        return $this->json(['code' => 200, 'table' => $respense], 200);
+        //dump($response);die();
+        return $this->json(['code' => 200, 'table' => $response], 200);
     }
 
     /**
