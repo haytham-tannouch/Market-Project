@@ -234,7 +234,7 @@ class DashboardController extends Controller
                 $user->setInscription(new \DateTime());
                 if($message=="on"){
                     $msg = (new \Swift_Message('Creation Compte'))
-                        ->setFrom('votre@adresse.fr')
+                        ->setFrom('noreply@preprod.io')
                         ->setTo($user->getEmail())
                         ->setBody(
                             "Bonjour,<br><br>Bonjour Un compte est créé pour vous, merci de se connecter en cliquant sur le lien suivant : <a href='127.0.0.1:8000'>Se Connecter</a><br>
@@ -248,7 +248,7 @@ class DashboardController extends Controller
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($user);
                 $manager->flush();
-                //return $this->redirectToRoute('dashboard');
+                return $this->redirectToRoute('app_afterlogin');
             }
 
             return $this->render('dashboard/creationUser.html.twig', [
