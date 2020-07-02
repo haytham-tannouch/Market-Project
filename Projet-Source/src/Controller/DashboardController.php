@@ -164,9 +164,6 @@ class DashboardController extends Controller
      */
     public function EmailUser(Request $request, EmailRepository $emailRepository,  UserRepository $userRepository)
     {
-        //$Nom = array();
-       // $Email=array();
-       // $Poste=array();
         $respense = array();
         $users = $userRepository->findAll();
         $emails = $emailRepository->findAll();
