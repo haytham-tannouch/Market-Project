@@ -13,7 +13,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-
            provider:  connexion_provider
            anonymous: true
            form_login:
@@ -36,9 +35,6 @@ security:
                # where to redirect after logout
                target: app_login
 
-
-           access_denied_handler: App\Security\AccessDeniedHandler
-
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
@@ -51,7 +47,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
-      - { path: '^/dashboard/admin', roles: ROLE_ADMIN }
-      #- { path: ^ */login, roles: [IS_AUTHENTICATED_ANONIMOUSLY] }
-      #- { path: ^/user, roles: ROLE_USER }
+      - { path: ^/dashboard, roles: ROLE_ADMIN }
+     # - { path: ^/login, roles: [IS_AUTHENTICATED_ANONIMOUSLY] }
+      - { path: ^/user, roles: ROLE_USER }
 

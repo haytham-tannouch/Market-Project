@@ -21,12 +21,11 @@ class UserCreationType extends AbstractType
         $builder
             ->add('email',         EmailType::class, array(
                 'attr' => array(
-                    'class' => 'form-control',
-
+                    'class' => 'form-control'
                 )))
             ->add('password',      PasswordType::class, array(
                 'attr' => array(
-                    'class' => 'form-control',
+                    'class' => 'form-control'
                 )))
             ->add('role',          ChoiceType::class, array(
                 'choices' => array(
@@ -63,11 +62,11 @@ class UserCreationType extends AbstractType
             ->add('Sauvegarder', SubmitType::class,array(
                 'attr'=>array(
                     'class'=>'btn btn-primary btn-md',
-                    'disabled'=>isset($options['disabled'])?$options['disabled']:true
                 )
             ))
         ;
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

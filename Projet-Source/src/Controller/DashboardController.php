@@ -293,6 +293,42 @@ class DashboardController extends Controller
 
         ]);
     }
+    /**
+     * @Route("/dashboard/admin/gestionemail", name="gestionemail")
+     * @param EmailRepository $repository
+     * @return Response
+     */
+    public function listeemail(EmailRepository $repository, UserRepository $repo)
+    {
+        $emails = $repository->findAll();
+        $users=$repo->findAll();
+        return $this->render('dashboard/indexEmail.html.twig', [
+            'emails' => $emails,
+            'users'=>$users
+        ]);
+    }
+    /**
+     * @Route("/dashboard/admin/createEmail", name="createEmail")
+     */
+    public function createEmail(Request $request)
+    {
+        $email = new Email();
+        $form = $this->createForm(GestionEmailsType::class, $email);
+        $form->handleRequest($request);
+        $data=$form->getData();
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($email);
+            $manager->flush();
+
+        }
+
+        return $this->render('dashboard/Email.html.twig', [
+            'form' => $form->createView(),
+        ]);
 
         /**
          * @Route("/dashboard/admin/edit/{id}", name="editUser")
@@ -352,6 +388,47 @@ class DashboardController extends Controller
                 'firstlog'=>false
             ]);
 
+    }
+
+    /**
+     * @Route("/dashboard/admin/gestionemail/getuser/{type}",name="gestionemailuser")
+     * @param Request $request
+     * @param EmailRepository $emailRepository
+     * @param UserRepository $userRepository
+     */
+    public function EmailUser(Request $request, EmailRepository $emailRepository,  UserRepository $userRepository)
+    {
+        $respense = array();
+        $users = $userRepository->findAll();
+        $emails = $emailRepository->findAll();
+
+        foreach ($emails as $email) {
+            foreach ($users as $user){
+                if($user->getRole()==$request->attributes->get('type') && $email->getUser()==$request->attributes->get('type')){
+
+                  array_push($respense,$user);
+
+                }elseif ($user->getRole()==$request->attributes->get('type') && $email->getUser()==$request->attributes->get('type')){
+
+                    array_push($respense,$user);
+
+
+                }
+            }
+
+        }
+        return $this->json(['code' => 200, 'table' => $respense], 200);
+    }
+
+    /**
+     * @Route("/dashboard/user/{id}/isActive", name="isActive")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function isActive(User $user,Request $request,UserRepository $repository)
+    {
+        $data=$request->attributes->all();
+        $user=$data['user'];
         }
         /**
          * @Route("/dashboard/admin/user/{id}/isActive", name="isActive")
