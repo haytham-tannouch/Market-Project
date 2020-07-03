@@ -62,6 +62,8 @@
                         <div class="form-group">
                             {{ form_row(form.Sauvegarder,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
                         </div>
+                    <img  src="{{ asset('web/uploads/logo/'~setting.Logo.logo)}}" alt="no image" height="200" width="200">
+                    <img  src="{{ asset('web/uploads/logo/'~setting.Favicon)}}" alt="no image" height="200" width="200">
                     {{ form_end(form) }}
                 </div>
             </div>

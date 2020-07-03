@@ -23,6 +23,7 @@ use Doctrine\Persistence\ObjectManager;
 use Exception;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -150,8 +151,6 @@ class DashboardController extends Controller
                     return $this->render('Settings/maintenance.html.twig');
                 }
             }
-
-
             $users = $this->getDoctrine()->getRepository(User::class);
             $data=$request->attributes->all();
             $Olduser = $users->findOneBy(['id' => $data['id']]);
@@ -197,7 +196,6 @@ class DashboardController extends Controller
                 ]);
 
         }
-
         /**
          * @Route("/dashboard/admin/createUser", name="createUser")
          * @param Request $request
@@ -264,9 +262,24 @@ class DashboardController extends Controller
         $agence = new Agences();
         $form = $this->createForm(AgenceCreationType::class, $agence);
         $form->handleRequest($request);
-
             $data=$form->getData();
             if ($form->isSubmitted() && $form->isValid()) {
+                $imageFile = $form->get('logo')->getData();
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = md5(uniqid()).'.'.$imageFile->getExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    dump("error");die();
+                }
+                $agence->setLogo($newFilename);
                 $params = $request->request->all();
                 $ville=$params['Ville'];
                 $pays=$params['Pays'];
@@ -309,7 +322,22 @@ class DashboardController extends Controller
         $data=$form->getData();
         $params = $request->request->all();
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('logo')->getData();
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            // this is needed to safely include the file name as part of the URL
+            //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+            $newFilename = md5(uniqid()).'.'.$imageFile->getExtension();
 
+            // Move the file to the directory where brochures are stored
+            try {
+                $imageFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                dump("error");die();
+            }
+            $agence->setLogo($newFilename);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($agence);
             $manager->flush();
@@ -564,14 +592,38 @@ class DashboardController extends Controller
         public function settings(Request $request,SettingsRepository $settingsRepository)
         {
             //dump('test');die();
-            $settings = $this->getDoctrine()->getRepository(Settings::class);
             $data=$request->attributes->all();
-            $setting = $settings->find('1');
-            $form = $this->createForm(SettingsType::class, $setting,['required'=>false]);
+            $setting = $settingsRepository->find('1');
+            $form = $this->createForm(SettingsType::class, $setting);
             $form->handleRequest($request);
             $data=$form->getData();
             $params = $request->request->all();
             if ($form->isSubmitted() && $form->isValid()){
+                    $logoFile = $form->get('Logo')->getData();
+                    $faviconFile = $form->get('Favicon')->getData();
+                    $originallogo = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $originalfavicon = pathinfo($faviconFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                    $newLogo = md5(uniqid()).'.'.$logoFile->getExtension();
+                    $newFavicon = md5(uniqid()).'.'.$faviconFile->getExtension();
+
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $logoFile->move(
+                            $this->getParameter('images_directory'),
+                            $newLogo
+                        );
+                        $faviconFile->move(
+                            $this->getParameter('images_directory'),
+                            $newFavicon
+                        );
+                    } catch (FileException $e) {
+                        dump("error");die();
+                    }
+                $setting->setLogo($newLogo);
+                $setting->setFavicon($newFavicon);
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($setting);
                 $manager->flush();

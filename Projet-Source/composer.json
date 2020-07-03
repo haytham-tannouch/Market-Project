@@ -26,7 +26,8 @@
         "symfony/yaml": "3.4.*",
       "ext-mysqli": "*",
       "ext-mysql": "*",
-      "ext-cassandra": "*"
+      "ext-cassandra": "*",
+      "ext-intl": "*"con
     },
     "require-dev": {
         "symfony/debug-pack": "*",

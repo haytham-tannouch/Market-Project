@@ -53,10 +53,15 @@ class AgenceCreationType extends AbstractType
                     'class' => 'form-control'
                 )))
 
-            ->add('Logo',TextType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                )))
+            ->add('logo',FileType::class, [
+                'label' => 'Logo (image)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                    ])
+                ],
+            ])
 
             ->add('DateCreation',DateType::class ,[
                 'widget' => 'single_text',

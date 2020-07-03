@@ -23,16 +23,8 @@ class SettingsType extends AbstractType
                     'class' => 'form-control',
 
                 )))
-            ->add('Favicon',TextType::class, array(
-                'attr' => array(
-                    'class' => 'form-control',
-
-                  )))
-            ->add('Logo',TextType::class, array(
-                'attr' => array(
-                    'class' => 'form-control',
-
-                )))
+            ->add('Favicon',FileType::class)
+            ->add('Logo',FileType::class)
             ->add('DureeSessions',IntegerType::class, array(
                 'attr' => array(
                     'class' => 'form-control',
@@ -58,7 +50,6 @@ class SettingsType extends AbstractType
             ])
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

@@ -3,6 +3,7 @@
 {% block title %}Ajouter un Nouvel utilisateur!{% endblock %}
 {% block body %}
     <section class="app-content">
+
         {{ form_start(form) }}
         <div class="col-md-6">
             <div class="widget">
@@ -11,27 +12,31 @@
                 </header><!-- .widget-header -->
                 <hr class="widget-separator">
                 <div class="widget-body">
-                    <div class="form-group">
-                        <label for="email">Nom d'Agence</label>
-                        {{ form_widget(form.NomAgence,  {'attr' : {'placeholder' : "Nom"},"id":"nomag"}) }}
-                        {% if form_errors(form.NomAgence) %}
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                <strong>Erreur !</strong><span>{{form_errors(form.NomAgence)}} </span>
-
-                            </div>
-                        {% endif %}
+                    <div class="col-lg-5" style="border: 1px darkgrey ridge;border-radius: 15px;">
+                        <img  src="{{ asset('web/uploads/logo/'~agence.logo)}}" alt="no image" height="200" width="200">
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Email</label>
-                        {{ form_widget(form.Email, {'attr' :  {'placeholder' : "Nom"},"id":"nomag"}) }}
-                        {% if form_errors(form.Email) %}
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                <strong>Erreur !</strong><span>{{form_errors(form.Email)}} </span>
-
-                            </div>
-                        {% endif %}
+                    <div class="col-lg-7">
+                        <div class="form-group ">
+                            <label for="email">Nom d'Agence</label>
+                            {{ form_widget(form.NomAgence,  {'attr' : {'placeholder' : "Nom"},"id":"nomag"}) }}
+                            {% if form_errors(form.NomAgence) %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <strong>Erreur !</strong><span>{{form_errors(form.NomAgence)}} </span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Email</label>
+                            {{ form_widget(form.Email, {'attr' :  {'placeholder' : "Nom"},"id":"nomag"}) }}
+                            {% if form_errors(form.Email) %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <strong>Erreur !</strong><span>{{form_errors(form.Email)}} </span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <br><br><br>
                     </div>
                     <div class="form-group">
                         <label for="email">Pays</label>
@@ -156,8 +161,8 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Logo</label>
-                        {{ form_widget(form.Logo, {'attr' : {'placeholder' : "NombreEmployes"}}) }}
-                        {{ form_errors(form.Logo) }}
+                        {{ form_widget(form.logo, {'attr' : {'placeholder' : ""}}) }}
+                        {{ form_errors(form.logo) }}
                     </div>
                     <div class="form-group">
                         {{ form_widget(form.Sauvegarder) }}
