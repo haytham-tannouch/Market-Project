@@ -246,7 +246,7 @@ class SecurityController extends Controller
                    </script>";
             }
         }
-        return $this->render('security/ValidationCode.html.twig', [
+        return $this->render('security/validationCode.html.twig', [
             'ConfirmForm' => $form->createView()
         ]);
     }
