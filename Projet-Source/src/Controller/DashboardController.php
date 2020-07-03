@@ -323,21 +323,27 @@ class DashboardController extends Controller
         $params = $request->request->all();
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('logo')->getData();
-            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            //$originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
             // this is needed to safely include the file name as part of the URL
             //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = md5(uniqid()).'.'.$imageFile->getExtension();
+            if (isset($imageFile)){
+                $newFilename = md5(uniqid()).'.'.$imageFile->getExtension();
+            }
 
             // Move the file to the directory where brochures are stored
             try {
-                $imageFile->move(
-                    $this->getParameter('images_directory'),
-                    $newFilename
-                );
+                if (isset($imageFile)){
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                }
             } catch (FileException $e) {
                 dump("error");die();
             }
-            $agence->setLogo($newFilename);
+            if (isset($imageFile)){
+                $agence->setLogo($newFilename);
+            }
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($agence);
             $manager->flush();
