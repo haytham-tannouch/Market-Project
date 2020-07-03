@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a23f9cc7-86a9-4d8c-8a61-ce0b9f06cec0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/02997f645fec4326703a5f8b0661915f.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/275e12d40793939afcda9f38ed595c98.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/6b298cf0f58576933e75b8380326df0b.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/6d9cf1a62799798b9fed7509c61d6413.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/763e340299de8a61304e3be16656b20e.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/870690b3f5c204b931fb435ae44118ea.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/96af9876274ea89125bb63c3e19c25a4.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/bac176784e2c3156b6f9a2472c0d05dc.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/c514a192377568992413bdd9f6d13c8d.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/c574c55be34acfb61c0f3e159246d5e4.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/d189bc29f56e2e2109994d6958e9abf4.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/d70e66798da7dc576475c796850abdc7.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/web/uploads/logo/e5cc6b719c08bd10f451229ca7c1e219.tmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/SettingsType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/SettingsType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/settings.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/settings.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +142,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/Infinity/libs/bower/switchery/dist" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -196,7 +179,7 @@
       <workItem from="1593365528215" duration="1015000" />
       <workItem from="1593504787495" duration="51687000" />
       <workItem from="1593678075712" duration="1565000" />
-      <workItem from="1593765612848" duration="17794000" />
+      <workItem from="1593765612848" duration="18103000" />
     </task>
     <task id="LOCAL-00001" summary="update composer">
       <created>1592733723452</created>
@@ -373,7 +356,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593783899986</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="reste lenvois des emails">
+      <created>1593787867522</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1593787867522</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,7 +404,8 @@
     <MESSAGE value="wail merge before creation new tables" />
     <MESSAGE value="Emails 100%&#10;Agences : list+edit+add 100%" />
     <MESSAGE value="gestion images : logo agence done &#10;error:settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="gestion images : logo agence done &#10;error:settings" />
+    <MESSAGE value="reste lenvois des emails" />
+    <option name="LAST_COMMIT_MESSAGE" value="reste lenvois des emails" />
   </component>
   <component name="WindowStateProjectService">
     <state x="515" y="220" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1593769444157">
@@ -430,11 +421,11 @@
     </state>
     <state x="552" y="220" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.834@0.0.1536.834" timestamp="1593784067114" />
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592737448065" />
-    <state x="468" y="0" key="CommitChangelistDialog2" timestamp="1593783898782">
+    <state x="468" y="0" key="CommitChangelistDialog2" timestamp="1593787866530">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="468" y="24" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1592843112657" />
-    <state x="468" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1593783898782" />
+    <state x="468" y="0" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1593787866530" />
     <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767686253" />
     <state x="147" y="68" width="1228" height="696" key="DiffContextDialog" timestamp="1593777405946">
       <screen x="0" y="0" width="1536" height="834" />
@@ -466,11 +457,11 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.834@0.0.1536.834" timestamp="1593771493456" />
-    <state x="442" y="202" key="Vcs.Push.Dialog.v2" timestamp="1593783903443">
+    <state x="442" y="202" key="Vcs.Push.Dialog.v2" timestamp="1593787870075">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592843074754" />
-    <state x="442" y="202" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1593783903443" />
+    <state x="442" y="202" key="Vcs.Push.Dialog.v2/0.0.1536.834@0.0.1536.834" timestamp="1593787870075" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592767817127" />
     <state x="475" y="151" key="VcsDiffUtil.ChangesDialog" timestamp="1592919414211">
       <screen x="0" y="0" width="1536" height="834" />
