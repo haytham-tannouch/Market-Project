@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{DateType, FileType, IntegerType, SubmitType, TextType};
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class SettingsType extends AbstractType
 {
@@ -23,8 +24,22 @@ class SettingsType extends AbstractType
                     'class' => 'form-control',
 
                 )))
-            ->add('Favicon',FileType::class)
-            ->add('Logo',FileType::class)
+            ->add('Logo',FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                    ])
+                ],
+            ])
+            ->add('Favicon',FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                    ])
+                ],
+            ])
             ->add('DureeSessions',IntegerType::class, array(
                 'attr' => array(
                     'class' => 'form-control',

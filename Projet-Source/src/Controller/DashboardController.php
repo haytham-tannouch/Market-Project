@@ -565,8 +565,6 @@ class DashboardController extends Controller
             else{ return $this->json(['code'=>403,'message'=>'erro'],200);}
 
         }
-
-
         /**
          * @Route("/genegerPass", name="genPass")
          */
@@ -599,31 +597,44 @@ class DashboardController extends Controller
             $data=$form->getData();
             $params = $request->request->all();
             if ($form->isSubmitted() && $form->isValid()){
+
                     $logoFile = $form->get('Logo')->getData();
                     $faviconFile = $form->get('Favicon')->getData();
-                    $originallogo = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $originalfavicon = pathinfo($faviconFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    //$originallogo = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    //$originalfavicon = pathinfo($faviconFile->getClientOriginalName(), PATHINFO_FILENAME);
                     // this is needed to safely include the file name as part of the URL
                     //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                    $newLogo = md5(uniqid()).'.'.$logoFile->getExtension();
-                    $newFavicon = md5(uniqid()).'.'.$faviconFile->getExtension();
+                    if (isset($logoFile)){
+                        $newLogo = md5(uniqid()).'.'.$logoFile->getExtension();
+                    }
+                    if (isset($faviconFile)){
+                        $newFavicon = md5(uniqid()).'.'.$faviconFile->getExtension();
+                    }
 
 
                     // Move the file to the directory where brochures are stored
                     try {
-                        $logoFile->move(
-                            $this->getParameter('images_directory'),
-                            $newLogo
-                        );
-                        $faviconFile->move(
-                            $this->getParameter('images_directory'),
-                            $newFavicon
-                        );
+                        if (isset($logoFile)){
+                            $logoFile->move(
+                                $this->getParameter('images_directory'),
+                                $newLogo
+                            );
+                        }
+                        if (isset($faviconFile)){
+                            $faviconFile->move(
+                                $this->getParameter('images_directory'),
+                                $newFavicon
+                            );
+                        }
                     } catch (FileException $e) {
                         dump("error");die();
                     }
-                $setting->setLogo($newLogo);
-                $setting->setFavicon($newFavicon);
+                if (isset($logoFile)){
+                    $setting->setLogo($newLogo);
+                }
+                if (isset($faviconFile)){
+                    $setting->setFavicon($newFavicon);
+                }
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($setting);
                 $manager->flush();

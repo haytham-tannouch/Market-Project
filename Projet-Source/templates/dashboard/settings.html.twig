@@ -62,12 +62,24 @@
                         <div class="form-group">
                             {{ form_row(form.Sauvegarder,{'attr' : {'disabled' : not setting.ModeMaintenance }}) }}
                         </div>
-                    <img  src="{{ asset('web/uploads/logo/'~setting.Logo.logo)}}" alt="no image" height="200" width="200">
-                    <img  src="{{ asset('web/uploads/logo/'~setting.Favicon)}}" alt="no image" height="200" width="200">
                     {{ form_end(form) }}
                 </div>
             </div>
         </div>
+            <div class="col-md-6">
+                <div class="widget">
+                    <header class="widget-header">
+                        <strong class="widget-title">Logo</strong><strong class="widget-title" style="padding-left: 12cm;">Favicon</strong>
+                    </header><!-- .widget-header -->
+                    <hr class="widget-separator">
+                    <div class="widget-body">
+                        <img  style="border: 1px darkgrey ridge;border-radius: 15px;" id="logo" src="{{ asset('web/uploads/logo/'~setting.Logo)}}" alt="no image" height="200" width="200">
+                        <div class="avatar avatar-xl avatar-circle">
+                            <img  style="border: 1px darkgrey ridge;border-radius: 15px;margin-left:7.7cm; " id="logo" src="{{ asset('web/uploads/logo/'~setting.Favicon)}}" alt="no image" height="200" width="200">
+                        </div>
+                    </div>
+                </div>
+            </div>
     </section>
     {% endblock %}
 {% block javascripts %}
