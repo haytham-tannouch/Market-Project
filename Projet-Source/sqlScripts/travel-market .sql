@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 03 juil. 2020 à 14:54
+-- Généré le :  ven. 03 juil. 2020 à 17:05
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.4.0
 
@@ -76,9 +76,9 @@ INSERT INTO `agences` (`id`, `pays_id`, `utilisateur_id`, `nom_agence`, `adresse
 (10, 1, 27, 'Salma Agency', 'Oujda Maroc', '60000', '0612346578', 'salma@agency.com', '123456', '96af9876274ea89125bb63c3e19c25a4.tmp', '2020-07-02', '8', 'Laayouni salma', '0613246578', 'salma@gmail.com', 1, 1),
 (11, 2, 26, 'Badr Agency', 'Paris,France', '100000', '1213246578', 'badr@agency.com', '123654', '02997f645fec4326703a5f8b0661915f.tmp', '2020-06-30', '6', 'Tannouch Badr', '0612346578', 'badr@gmail.com', 2, 1),
 (12, 1, 28, 'Yazid Agency', 'Berkane,Maroc', '60300', '0612346578', 'yazid@agency', '123456', 'e5cc6b719c08bd10f451229ca7c1e219.tmp', '2020-06-30', '10', 'Amara Yazid', '06123465798', 'yazid@gmail.com', 3, 1),
-(16, 1, 25, '-5eff0a0a3e69a.tmp', '-5eff0a0a3e69a.tmp', '123456', '06123465', '-5eff0a0a3e69a@gma.tmp', '1324', '8abc1aa81721bb8827da8981711ec994.tmp', '2018-02-03', '5', 'tstttt', '0613245687', 'tstttt@gmail.com', 1, 0),
+(16, 1, 25, '-5eff0a0a3e69a.tmp', '-5eff0a0a3e69a.tmp', '123456', '06123465', '-5eff0a0a3e69a@gma.tmp', '1324', '8abc1aa81721bb8827da8981711ec994.tmp', '2018-02-03', '5', 'tstttt', '0613245687', 'tstttt@gmail.com', 1, 1),
 (17, 1, 24, 'testImage', 'maroc', '12346578', '0612345678', 'test@image.com', '654321', '6b298cf0f58576933e75b8380326df0b.tmp', '2020-07-01', '5', 'test', '0612346578', 'tes@gmaiimage.com', 1, 0),
-(18, 1, 9, 'test images test test', 'web/uploads/logo/172c2dada6fba3a2b58414de85f9dffc.tmp', '12345', '1234567891', 'test@gmail.com', '12345', 'c73d2aa95b878a7b18834fb72de34ef7.tmp', '2020-06-30', '3', 'meriem', '123456', 'mero@g.cm', 1, 0);
+(18, 1, 9, 'test images test test', 'web/uploads/logo/172c2dada6fba3a2b58414de85f9dffc.tmp', '12345', '1234567891', 'test@gmail.com', '12345', 'c73d2aa95b878a7b18834fb72de34ef7.tmp', '2020-06-30', '3', 'merieml', '123456', 'mero@g.cm', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `timestamp` datetime DEFAULT NULL,
   `success` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `login`
@@ -212,7 +212,11 @@ INSERT INTO `login` (`id`, `username`, `ip`, `timestamp`, `success`) VALUES
 (18, 'yazid@gmail.com', '127.0.0.1', '2020-07-02 14:50:40', 1),
 (19, 'meriem@gmail.com', '127.0.0.1', '2020-07-02 14:58:03', 1),
 (20, 'meriem@gmail.com', '127.0.0.1', '2020-07-02 16:42:05', 1),
-(21, 'meriem@gmail.com', '127.0.0.1', '2020-07-03 08:42:10', 1);
+(21, 'meriem@gmail.com', '127.0.0.1', '2020-07-03 08:42:10', 1),
+(22, NULL, '127.0.0.1', '2020-07-03 16:42:43', 1),
+(23, 'miloud@gmail.com', '127.0.0.1', '2020-07-03 16:43:49', 1),
+(24, NULL, '127.0.0.1', '2020-07-03 16:44:25', 1),
+(25, 'meriem@gmail.com', '127.0.0.1', '2020-07-03 16:44:41', 1);
 
 -- --------------------------------------------------------
 
@@ -266,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `sent` (
   PRIMARY KEY (`id`),
   KEY `IDX_BAC42AA9F8E92D5C` (`id_email_id`),
   KEY `IDX_BAC42AA979F37AE5` (`id_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `sent`
@@ -276,7 +280,10 @@ INSERT INTO `sent` (`id`, `id_email_id`, `id_user_id`, `date_envoie`) VALUES
 (2, 1, 9, '2020-07-02 11:11:01'),
 (7, 1, 9, '2020-07-02 11:36:46'),
 (14, 4, 27, '2020-07-02 15:53:25'),
-(15, 4, 26, '2020-07-02 15:53:25');
+(15, 4, 26, '2020-07-02 15:53:25'),
+(16, 4, 26, '2020-07-03 16:48:54'),
+(17, 4, 27, '2020-07-03 16:48:54'),
+(18, 4, 28, '2020-07-03 16:48:54');
 
 -- --------------------------------------------------------
 
@@ -942,18 +949,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `loged_at` datetime DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `nom`, `prenom`, `telephone`, `date_naissance`, `poste`, `etat`, `roles`, `inscription`, `role`, `forgotten_pass_token`, `forgotten_pass_expiration`, `activation_token`, `loged_at`, `status`) VALUES
-(9, 'meriem@gmail.com', 'BVCdhQnST5y17DTS9XA4gx9phk8=', 'Laayouni', 'Meriem', '0612346578', '2020-06-12', 'test', 1, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', '2020-06-26', 'Administrateur', NULL, NULL, NULL, '2020-07-03 08:42:11', 1),
+(9, 'meriem@gmail.com', 'BVCdhQnST5y17DTS9XA4gx9phk8=', 'Laayouni', 'Meriem', '0612346578', '2020-06-12', 'test', 1, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', '2020-06-26', 'Administrateur', NULL, NULL, NULL, '2020-07-03 16:44:41', 1),
 (24, 'haytham@gmail.com', 'jfu/BvRvZMl6SAMHJhya2fT3FjI=', 'Tannouch', 'Haytham', '0612346578', '2020-06-29', 'Devloppeur', 1, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', '2020-07-02', 'Administrateur', NULL, NULL, NULL, NULL, 1),
 (25, 'wail@gmail.com', 'UNfpDZUJwd4A9afJAAyqz9cHMk4=', 'Amara', 'Wail', '0612346578', '2020-06-30', 'Devloppeur', 1, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', '2020-07-02', 'Administrateur', NULL, NULL, NULL, NULL, 1),
-(26, 'badr@gmail.com', 'u/QhoHMECI38AylTaFnWGLhGuvs=', 'Tannouch', 'Badr', '0612346578', '2020-06-29', 'Directeur d\'Agence', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', '2020-07-02', 'Editeur', NULL, NULL, NULL, NULL, 1),
-(27, 'salma@gmail.com', 's7HyE5YwDOaGJ+Fv+HKpbw+6rF0=', 'Laayouni', 'Salma', '0612346578', '2020-06-29', 'Directeur d\'Agence', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', '2020-07-02', 'Editeur', NULL, NULL, NULL, NULL, 1),
+(26, 'badr@gmail.com', 'u/QhoHMECI38AylTaFnWGLhGuvs=', 'Tannouch', 'Badr', '0612346578', '2020-06-29', 'Directeur d\'Agence', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', '2020-07-02', 'Editeur', NULL, NULL, NULL, NULL, 0),
+(27, 'salma@gmail.com', 's7HyE5YwDOaGJ+Fv+HKpbw+6rF0=', 'Laayouni', 'Salma', '0612346578', '1996-02-01', 'Directeur d\'Agence', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', '2020-07-02', 'Editeur', NULL, NULL, NULL, NULL, 1),
 (28, 'Yazid@gmail.com', 'yKZDMo/0QRM5LXzo4njZ1Z7FC2g=', 'Amara', 'Yazid', '0613246578', '2020-06-30', 'Directeur d\'Agence', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', '2020-07-02', 'Editeur', NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
