@@ -57,7 +57,8 @@ class UserCreationType extends AbstractType
                          ])
             ->add('poste',TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>true
                 )))
             ->add('Sauvegarder', SubmitType::class,array(
                 'attr'=>array(
