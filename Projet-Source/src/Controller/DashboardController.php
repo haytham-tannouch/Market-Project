@@ -246,7 +246,7 @@ class DashboardController extends Controller
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($user);
                 $manager->flush();
-                return $this->redirectToRoute('app_afterlogin');
+               // return $this->redirectToRoute('app_afterlogin');
             }
 
             return $this->render('dashboard/creationUser.html.twig', [
