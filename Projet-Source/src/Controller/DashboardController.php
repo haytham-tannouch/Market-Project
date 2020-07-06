@@ -425,7 +425,7 @@ class DashboardController extends Controller
             // On envoie l'e-mail
             $mailer->send($msg);
          }
-        return $this->redirectToRoute('gestionemail');
+       return $this->redirectToRoute('gestionemail');
     }
     /**
      * @Route("/dashboard/admin/edit/{id}", name="editUser")
