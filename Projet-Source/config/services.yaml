@@ -6,7 +6,12 @@
 parameters:
     images_directory: '%kernel.project_dir%/public/web/uploads/logo'
 
-services:
+services: 
+    email_service.class:
+        class: App\Utilities\EmailServiceClass
+        public: true
+        arguments:
+            $mailerService: '@mailer'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
