@@ -364,6 +364,7 @@ class DashboardController extends Controller
      */
     public function listeemail(EmailRepository $repository, UserRepository $repo)
     {
+        // print_r($this->get('email_service.class')->sendEmail("Subject", "ayoub@wave.ma", "Mail Content 2"));
         $emails = $repository->findAll();
         $users=$repo->findAll();
         return $this->render('dashboard/indexEmail.html.twig', [
